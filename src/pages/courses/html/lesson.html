@@ -41,7 +41,7 @@
         }
 
         /* ==========================================================================
-           TOP HEADER (PRESERVED FROM courses.html)
+           TOP HEADER (FROM courses.html)
            ========================================================================== */
         .codify-main-header {
             position: fixed; top: 0; left: 0; width: 100%;
@@ -133,7 +133,7 @@
         .mobile-search-trigger:hover { background: rgba(0, 170, 255, 0.2); }
 
         /* ==========================================================================
-           BREADCRUMB BAR (EXACT FROM 1.2-key-features.html)
+           BREADCRUMB BAR (FROM 1.2-key-features.html)
            ========================================================================== */
         .codify-breadcrumb-bar {
             position: fixed;
@@ -189,7 +189,7 @@
         .current-crumb { color: #00aaff; font-weight: 700; }
 
         /* ==========================================================================
-           EXACT SIDEBAR DESIGN & ANIMATION (MATCHING PYTHON PAGES)
+           EXACT SIDEBAR DESIGN & ANIMATION (100% IDENTICAL TO 1.2 PYTHON)
            ========================================================================== */
         .page-wrapper {
             display: flex;
@@ -200,47 +200,65 @@
 
         .sidebar-nav {
             width: 320px;
+            min-width: 320px;
             background: rgba(10, 15, 28, 0.75);
             backdrop-filter: blur(15px);
             border-right: 1px solid rgba(0, 170, 255, 0.15);
-            overflow-y: auto;
+            padding: 15px 20px 40px 20px;
             height: calc(100vh - 102px);
             position: sticky;
             top: 102px;
-            flex-shrink: 0;
-            padding: 0 20px 40px 20px;
+            overflow-y: auto;
             box-sizing: border-box;
             transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 100;
         }
 
+        .sidebar-nav::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-thumb {
+            background: rgba(0, 170, 255, 0.3);
+            border-radius: 10px;
+        }
+
         .sidebar-header {
-            padding: 20px 0 15px 0;
+            padding: 5px 0 20px 0;
         }
 
         .sidebar-title {
-            margin: 0;
             font-size: 1.4rem;
             font-weight: 700;
             color: #00aaff;
             text-shadow: 0 0 10px rgba(0, 170, 255, 0.4);
+            margin: 0;
+            padding-left: 4px;
         }
 
-        .tree-root { list-style: none; padding: 0; margin: 0; }
-        .tree-branch { margin-bottom: 12px; }
+        .tree-root { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+        }
+
+        .tree-branch { 
+            margin-bottom: 12px; 
+        }
         
         .tree-node {
             display: flex;
             align-items: center;
             gap: 10px;
             padding: 10px 12px;
-            cursor: pointer;
-            user-select: none;
             background: rgba(13, 27, 42, 0.4);
             border: 1px solid rgba(0, 170, 255, 0.1);
             border-radius: 12px;
+            cursor: pointer;
+            user-select: none;
             transition: all 0.3s ease;
         }
+
         .tree-node:hover {
             background: rgba(13, 27, 42, 0.8);
             border-color: rgba(0, 170, 255, 0.5);
@@ -255,6 +273,7 @@
             flex-shrink: 0;
         }
         
+        /* 90 DEGREE ROTATION ON EXPANDED */
         .tree-branch.expanded .tree-arrow {
             transform: rotate(90deg);
             color: #00aaff;
@@ -266,15 +285,23 @@
             color: #e0e6ed;
         }
 
-        /* Animated Accordion Leaves */
+        /* Subtopics Container (Grid Accordion Animation) */
+        .tree-leaves-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .tree-branch.expanded .tree-leaves-wrapper {
+            grid-template-rows: 1fr;
+        }
+
         .tree-leaves {
             list-style: none;
             padding-left: 20px;
-            margin: 5px 0 0 10px;
+            margin: 5px 0 0 18px;
             border-left: 1px dashed rgba(0, 170, 255, 0.2);
-            max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .tree-leaves li {
@@ -283,11 +310,10 @@
 
         .tree-leaves li a {
             display: block;
-            padding: 8px 14px;
-            color: #94a3b8;
+            padding: 6px 12px;
+            color: #cfd8dc;
             text-decoration: none;
-            font-size: 0.92rem;
-            font-weight: 600;
+            font-size: 0.95rem;
             border-radius: 8px;
             transition: all 0.2s ease;
         }
@@ -295,15 +321,16 @@
         .tree-leaves li a:hover {
             color: #00aaff;
             background: rgba(0, 170, 255, 0.08);
-            padding-left: 18px;
+            padding-left: 16px;
         }
 
-        /* EXACT PYTHON ACTIVE CAPSULE */
+        /* EXACT PYTHON ACTIVE SUBTOPIC PILL */
         .tree-leaves li a.active-leaf {
-            background: linear-gradient(90deg, #0077ff, #00aaff) !important;
             color: #ffffff !important;
-            font-weight: 700 !important;
-            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.35) !important;
+            background: linear-gradient(90deg, rgba(0, 119, 255, 0.4), rgba(0, 170, 255, 0.2)) !important;
+            border-left: 3px solid #00aaff !important;
+            font-weight: bold !important;
+            box-shadow: inset 0 0 12px rgba(0, 170, 255, 0.15) !important;
         }
 
         /* ==========================================================================
@@ -369,7 +396,7 @@
         }
 
         /* Markdown Elements Typography */
-        #markdownOutputContainer h1 { display: none; } /* Handled by .topic-title */
+        #markdownOutputContainer h1 { display: none; }
         
         #markdownOutputContainer h2 {
             font-size: 1.75rem;
@@ -639,7 +666,7 @@
                 height: calc(100vh - 102px);
                 z-index: 1600;
                 transform: translateX(-100%);
-                background: #080d19;
+                background: rgba(10, 15, 28, 0.98);
             }
             .sidebar-nav.mobile-active {
                 transform: translateX(0);
@@ -754,14 +781,14 @@
     </header>
 
     <div class="page-wrapper">
-        <!-- EXACT PYTHON-STYLE SIDEBAR TREE -->
+        <!-- EXACT PYTHON-STYLE SIDEBAR TREE (CLOSED BY DEFAULT) -->
         <aside class="sidebar-nav" id="sidebarNav">
             <div class="sidebar-header">
                 <h2 class="sidebar-title">HTML Curriculum</h2>
             </div>
 
             <ul class="tree-root">
-                <!-- Chapter 1 -->
+                <!-- Chapter 1 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -769,15 +796,17 @@
                         </span>
                         <span class="chapter-title">1. Introduction to Web &amp; HTML</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" data-title="1.1 How the Web Works">1.1 How the Web Works</a></li>
-                        <li><a href="lesson.html?file=chapter-1/1.2-what-is-html.md" data-title="1.2 What is HTML?">1.2 What is HTML?</a></li>
-                        <li><a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" data-title="1.3 Environment Setup">1.3 Setting Up Your Environment</a></li>
-                        <li><a href="lesson.html?file=chapter-1/1.4-your-first-webpage.md" data-title="1.4 Your First Webpage">1.4 Your First Webpage</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" data-title="1.1 How the Web Works">1.1 How the Web Works</a></li>
+                            <li><a href="lesson.html?file=chapter-1/1.2-what-is-html.md" data-title="1.2 What is HTML?">1.2 What is HTML?</a></li>
+                            <li><a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" data-title="1.3 Environment Setup">1.3 Setting Up Your Environment</a></li>
+                            <li><a href="lesson.html?file=chapter-1/1.4-your-first-webpage.md" data-title="1.4 Your First Webpage">1.4 Your First Webpage</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <!-- Chapter 2 -->
+                <!-- Chapter 2 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -785,15 +814,17 @@
                         </span>
                         <span class="chapter-title">2. Document Anatomy</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-2/2.1-tags-elements.md" data-title="2.1 Tags &amp; Attributes">2.1 Tags, Elements &amp; Attributes</a></li>
-                        <li><a href="lesson.html?file=chapter-2/2.2-boilerplate.md" data-title="2.2 The Boilerplate">2.2 The Boilerplate</a></li>
-                        <li><a href="lesson.html?file=chapter-2/2.3-metadata.md" data-title="2.3 Metadata Essentials">2.3 Metadata Essentials</a></li>
-                        <li><a href="lesson.html?file=chapter-2/2.4-formatting.md" data-title="2.4 Code Formatting">2.4 Code Formatting &amp; Comments</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-2/2.1-tags-elements.md" data-title="2.1 Tags &amp; Attributes">2.1 Tags, Elements &amp; Attributes</a></li>
+                            <li><a href="lesson.html?file=chapter-2/2.2-boilerplate.md" data-title="2.2 The Boilerplate">2.2 The Boilerplate</a></li>
+                            <li><a href="lesson.html?file=chapter-2/2.3-metadata.md" data-title="2.3 Metadata Essentials">2.3 Metadata Essentials</a></li>
+                            <li><a href="lesson.html?file=chapter-2/2.4-formatting.md" data-title="2.4 Code Formatting">2.4 Code Formatting &amp; Comments</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <!-- Chapter 3 -->
+                <!-- Chapter 3 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -801,15 +832,17 @@
                         </span>
                         <span class="chapter-title">3. Text &amp; Headings</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-3/3.1-headings.md" data-title="3.1 Headings Hierarchy">3.1 Headings Hierarchy</a></li>
-                        <li><a href="lesson.html?file=chapter-3/3.2-paragraphs.md" data-title="3.2 Paragraphs &amp; Breaks">3.2 Paragraphs and Line Breaks</a></li>
-                        <li><a href="lesson.html?file=chapter-3/3.3-text-formatting.md" data-title="3.3 Text Formatting">3.3 Text Formatting</a></li>
-                        <li><a href="lesson.html?file=chapter-3/3.4-preformatted-code.md" data-title="3.4 Preformatted &amp; Code">3.4 Preformatted Text &amp; Code</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-3/3.1-headings.md" data-title="3.1 Headings Hierarchy">3.1 Headings Hierarchy</a></li>
+                            <li><a href="lesson.html?file=chapter-3/3.2-paragraphs.md" data-title="3.2 Paragraphs &amp; Breaks">3.2 Paragraphs and Line Breaks</a></li>
+                            <li><a href="lesson.html?file=chapter-3/3.3-text-formatting.md" data-title="3.3 Text Formatting">3.3 Text Formatting</a></li>
+                            <li><a href="lesson.html?file=chapter-3/3.4-preformatted-code.md" data-title="3.4 Preformatted &amp; Code">3.4 Preformatted Text &amp; Code</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <!-- Chapter 4 -->
+                <!-- Chapter 4 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -817,15 +850,17 @@
                         </span>
                         <span class="chapter-title">4. Hyperlinks &amp; Navigation</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-4/4.1-anchor-element.md" data-title="4.1 Anchor Element">4.1 The Anchor Element</a></li>
-                        <li><a href="lesson.html?file=chapter-4/4.2-absolute-relative-urls.md" data-title="4.2 URLs">4.2 Absolute vs. Relative URLs</a></li>
-                        <li><a href="lesson.html?file=chapter-4/4.3-link-behaviors.md" data-title="4.3 Link Behaviors">4.3 Link Behaviors</a></li>
-                        <li><a href="lesson.html?file=chapter-4/4.4-page-jumps.md" data-title="4.4 Page Jumps &amp; Email">4.4 Page Jumps &amp; Email Links</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-4/4.1-anchor-element.md" data-title="4.1 Anchor Element">4.1 The Anchor Element</a></li>
+                            <li><a href="lesson.html?file=chapter-4/4.2-absolute-relative-urls.md" data-title="4.2 URLs">4.2 Absolute vs. Relative URLs</a></li>
+                            <li><a href="lesson.html?file=chapter-4/4.3-link-behaviors.md" data-title="4.3 Link Behaviors">4.3 Link Behaviors</a></li>
+                            <li><a href="lesson.html?file=chapter-4/4.4-page-jumps.md" data-title="4.4 Page Jumps &amp; Email">4.4 Page Jumps &amp; Email Links</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <!-- Chapter 5 -->
+                <!-- Chapter 5 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -833,15 +868,17 @@
                         </span>
                         <span class="chapter-title">5. Media &amp; Assets</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-5/5.1-images.md" data-title="5.1 Displaying Images">5.1 Displaying Images</a></li>
-                        <li><a href="lesson.html?file=chapter-5/5.2-image-types.md" data-title="5.2 Best Practices">5.2 Image Types &amp; Best Practices</a></li>
-                        <li><a href="lesson.html?file=chapter-5/5.3-audio.md" data-title="5.3 Audio Elements">5.3 Audio Elements</a></li>
-                        <li><a href="lesson.html?file=chapter-5/5.4-video.md" data-title="5.4 Video Elements">5.4 Video Elements</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-5/5.1-images.md" data-title="5.1 Displaying Images">5.1 Displaying Images</a></li>
+                            <li><a href="lesson.html?file=chapter-5/5.2-image-types.md" data-title="5.2 Best Practices">5.2 Image Types &amp; Best Practices</a></li>
+                            <li><a href="lesson.html?file=chapter-5/5.3-audio.md" data-title="5.3 Audio Elements">5.3 Audio Elements</a></li>
+                            <li><a href="lesson.html?file=chapter-5/5.4-video.md" data-title="5.4 Video Elements">5.4 Video Elements</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <!-- Chapter 6 -->
+                <!-- Chapter 6 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -849,15 +886,17 @@
                         </span>
                         <span class="chapter-title">6. Lists &amp; Data Organization</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-6/6.1-unordered-lists.md" data-title="6.1 Unordered Lists">6.1 Unordered Lists</a></li>
-                        <li><a href="lesson.html?file=chapter-6/6.2-ordered-lists.md" data-title="6.2 Ordered Lists">6.2 Ordered Lists</a></li>
-                        <li><a href="lesson.html?file=chapter-6/6.3-description-lists.md" data-title="6.3 Description Lists">6.3 Description Lists</a></li>
-                        <li><a href="lesson.html?file=chapter-6/6.4-nesting-lists.md" data-title="6.4 Nesting Lists">6.4 Nesting Lists</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-6/6.1-unordered-lists.md" data-title="6.1 Unordered Lists">6.1 Unordered Lists</a></li>
+                            <li><a href="lesson.html?file=chapter-6/6.2-ordered-lists.md" data-title="6.2 Ordered Lists">6.2 Ordered Lists</a></li>
+                            <li><a href="lesson.html?file=chapter-6/6.3-description-lists.md" data-title="6.3 Description Lists">6.3 Description Lists</a></li>
+                            <li><a href="lesson.html?file=chapter-6/6.4-nesting-lists.md" data-title="6.4 Nesting Lists">6.4 Nesting Lists</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <!-- Chapter 7 -->
+                <!-- Chapter 7 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -865,15 +904,17 @@
                         </span>
                         <span class="chapter-title">7. HTML Tables</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-7/7.1-table-basics.md" data-title="7.1 Table Basics">7.1 Table Basics</a></li>
-                        <li><a href="lesson.html?file=chapter-7/7.2-table-sections.md" data-title="7.2 Table Sections">7.2 Semantic Table Sections</a></li>
-                        <li><a href="lesson.html?file=chapter-7/7.3-merging-cells.md" data-title="7.3 Merging Cells">7.3 Merging Cells (Colspan/Rowspan)</a></li>
-                        <li><a href="lesson.html?file=chapter-7/7.4-accessibility.md" data-title="7.4 Accessibility">7.4 Accessibility in Tables</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-7/7.1-table-basics.md" data-title="7.1 Table Basics">7.1 Table Basics</a></li>
+                            <li><a href="lesson.html?file=chapter-7/7.2-table-sections.md" data-title="7.2 Table Sections">7.2 Semantic Table Sections</a></li>
+                            <li><a href="lesson.html?file=chapter-7/7.3-merging-cells.md" data-title="7.3 Merging Cells">7.3 Merging Cells (Colspan/Rowspan)</a></li>
+                            <li><a href="lesson.html?file=chapter-7/7.4-accessibility.md" data-title="7.4 Accessibility">7.4 Accessibility in Tables</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <!-- Chapter 8 -->
+                <!-- Chapter 8 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -881,16 +922,18 @@
                         </span>
                         <span class="chapter-title">8. Forms &amp; User Input</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-8/8.1-form-container.md" data-title="8.1 Form Container">8.1 The Form Container</a></li>
-                        <li><a href="lesson.html?file=chapter-8/8.2-basic-inputs.md" data-title="8.2 Basic Inputs">8.2 Basic Inputs</a></li>
-                        <li><a href="lesson.html?file=chapter-8/8.3-accessible-forms.md" data-title="8.3 Accessible Design">8.3 Accessible Form Design</a></li>
-                        <li><a href="lesson.html?file=chapter-8/8.4-advanced-inputs.md" data-title="8.4 Advanced Inputs">8.4 Advanced Inputs</a></li>
-                        <li><a href="lesson.html?file=chapter-8/8.5-native-validation.md" data-title="8.5 Native Validation">8.5 Native Form Validation</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-8/8.1-form-container.md" data-title="8.1 Form Container">8.1 The Form Container</a></li>
+                            <li><a href="lesson.html?file=chapter-8/8.2-basic-inputs.md" data-title="8.2 Basic Inputs">8.2 Basic Inputs</a></li>
+                            <li><a href="lesson.html?file=chapter-8/8.3-accessible-forms.md" data-title="8.3 Accessible Design">8.3 Accessible Form Design</a></li>
+                            <li><a href="lesson.html?file=chapter-8/8.4-advanced-inputs.md" data-title="8.4 Advanced Inputs">8.4 Advanced Inputs</a></li>
+                            <li><a href="lesson.html?file=chapter-8/8.5-native-validation.md" data-title="8.5 Native Validation">8.5 Native Form Validation</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <!-- Chapter 9 -->
+                <!-- Chapter 9 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -898,15 +941,17 @@
                         </span>
                         <span class="chapter-title">9. Modern Semantic HTML5</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-9/9.1-why-semantics.md" data-title="9.1 Why Semantics Matter">9.1 Why Semantics Matter</a></li>
-                        <li><a href="lesson.html?file=chapter-9/9.2-layout-elements.md" data-title="9.2 Layout Elements">9.2 Page Layout Elements</a></li>
-                        <li><a href="lesson.html?file=chapter-9/9.3-content-chunking.md" data-title="9.3 Content Chunking">9.3 Content Chunking</a></li>
-                        <li><a href="lesson.html?file=chapter-9/9.4-figures.md" data-title="9.4 Figures &amp; Captions">9.4 Figures and Captions</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-9/9.1-why-semantics.md" data-title="9.1 Why Semantics Matter">9.1 Why Semantics Matter</a></li>
+                            <li><a href="lesson.html?file=chapter-9/9.2-layout-elements.md" data-title="9.2 Layout Elements">9.2 Page Layout Elements</a></li>
+                            <li><a href="lesson.html?file=chapter-9/9.3-content-chunking.md" data-title="9.3 Content Chunking">9.3 Content Chunking</a></li>
+                            <li><a href="lesson.html?file=chapter-9/9.4-figures.md" data-title="9.4 Figures &amp; Captions">9.4 Figures and Captions</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <!-- Chapter 10 -->
+                <!-- Chapter 10 (Closed by default) -->
                 <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
@@ -914,12 +959,14 @@
                         </span>
                         <span class="chapter-title">10. Next Steps &amp; Projects</span>
                     </div>
-                    <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-10/10.1-connecting-css.md" data-title="10.1 Connecting to CSS">10.1 Connecting to CSS</a></li>
-                        <li><a href="lesson.html?file=chapter-10/10.2-connecting-js.md" data-title="10.2 Connecting to JS">10.2 Connecting to JavaScript</a></li>
-                        <li><a href="lesson.html?file=chapter-10/10.3-validation.md" data-title="10.3 Debugging">10.3 Validation &amp; Debugging</a></li>
-                        <li><a href="lesson.html?file=chapter-10/10.4-capstone.md" data-title="10.4 Capstone Project">10.4 Capstone Project</a></li>
-                    </ul>
+                    <div class="tree-leaves-wrapper">
+                        <ul class="tree-leaves">
+                            <li><a href="lesson.html?file=chapter-10/10.1-connecting-css.md" data-title="10.1 Connecting to CSS">10.1 Connecting to CSS</a></li>
+                            <li><a href="lesson.html?file=chapter-10/10.2-connecting-js.md" data-title="10.2 Connecting to JS">10.2 Connecting to JavaScript</a></li>
+                            <li><a href="lesson.html?file=chapter-10/10.3-validation.md" data-title="10.3 Debugging">10.3 Validation &amp; Debugging</a></li>
+                            <li><a href="lesson.html?file=chapter-10/10.4-capstone.md" data-title="10.4 Capstone Project">10.4 Capstone Project</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </aside>
@@ -1052,7 +1099,6 @@
 
         // 2. POST-PROCESSING DOM (Transforms raw Markdown to Cyber-Neon styling)
         function applyCyberStyles(container) {
-            // Apply Table wrappers
             container.querySelectorAll('table').forEach(table => {
                 if (!table.parentElement.classList.contains('table-container')) {
                     const wrapper = document.createElement('div');
@@ -1063,7 +1109,6 @@
                 }
             });
 
-            // Apply Blockquotes to Cyber Alerts
             container.querySelectorAll('blockquote').forEach(bq => {
                 const alertDiv = document.createElement('div');
                 alertDiv.className = 'cyber-alert info';
@@ -1074,7 +1119,6 @@
                 bq.parentNode.replaceChild(alertDiv, bq);
             });
 
-            // Apply Code Windows
             container.querySelectorAll('pre').forEach(pre => {
                 const codeElem = pre.querySelector('code');
                 const rawCode = codeElem ? codeElem.innerHTML : pre.innerHTML;
@@ -1098,27 +1142,12 @@
             });
         }
 
-        // 3. TREE ACCORDION ANIMATION (Matches Python smooth CSS slide-down)
-        function toggleBranch(branch, forceOpen = false) {
-            const leaves = branch.querySelector('.tree-leaves');
-            if (!leaves) return;
-
-            const isExpanded = branch.classList.contains('expanded');
-
-            if (forceOpen || !isExpanded) {
-                branch.classList.add('expanded');
-                leaves.style.maxHeight = `${leaves.scrollHeight}px`;
-            } else {
-                branch.classList.remove('expanded');
-                leaves.style.maxHeight = '0px';
-            }
-        }
-
+        // 3. TREE ACCORDION ANIMATION TOGGLE
         function initSidebarAccordion() {
             document.querySelectorAll('.tree-node').forEach(node => {
                 node.addEventListener('click', () => {
                     const branch = node.parentElement;
-                    toggleBranch(branch);
+                    branch.classList.toggle('expanded');
                 });
             });
         }
@@ -1157,8 +1186,9 @@
                         link.classList.add('active-leaf');
                         activeIdx = idx;
 
+                        // Only expand the active topic's parent branch
                         const parentBranch = link.closest('.tree-branch');
-                        if (parentBranch) toggleBranch(parentBranch, true);
+                        if (parentBranch) parentBranch.classList.add('expanded');
 
                         const title = link.getAttribute('data-title') || link.textContent;
                         document.getElementById('breadcrumbCurrent').textContent = title;
