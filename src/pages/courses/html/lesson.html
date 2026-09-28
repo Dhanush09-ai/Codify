@@ -19,7 +19,7 @@
 
     <style>
         /* ==========================================================================
-           CRITICAL OVERFLOW & LAYOUT CORE (MATCHING courses.html)
+           CORE RESET & VIEWPORT
            ========================================================================== */
         html, body {
             max-width: 100vw !important;
@@ -40,7 +40,9 @@
             min-height: 100vh;
         }
 
-        /* Top Header (courses.html) */
+        /* ==========================================================================
+           HEADER (EXACT courses.html)
+           ========================================================================== */
         .codify-main-header {
             position: fixed; top: 0; left: 0; width: 100%;
             background: rgba(10, 15, 28, 0.98); backdrop-filter: blur(12px);
@@ -52,10 +54,8 @@
             justify-content: space-between !important;
             align-items: center !important;
             padding: 10px 32px !important;
-            max-width: none !important;
             width: 100% !important;
             box-sizing: border-box !important;
-            margin: 0 !important;
         }
 
         .codify-logo {
@@ -84,9 +84,6 @@
             background: rgba(0, 170, 255, 0.1); border-color: #00aaff;
             box-shadow: 0 0 10px rgba(0, 170, 255, 0.3); color: #fff;
         }
-
-        .auth-icon { display: none; width: 18px; height: 18px; }
-        .auth-text { display: inline-block; }
 
         .nav-profile-dp {
             width: 38px; height: 38px; border-radius: 50%; border: 2px solid #00aaff;
@@ -160,11 +157,11 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 4px;
-            border-radius: 4px;
-            transition: background 0.2s;
+            padding: 6px;
+            border-radius: 6px;
+            transition: background 0.2s ease, transform 0.2s ease;
         }
-        .breadcrumb-sidebar-trigger:hover { background: rgba(0, 170, 255, 0.1); }
+        .breadcrumb-sidebar-trigger:hover { background: rgba(0, 170, 255, 0.15); transform: scale(1.05); }
 
         .breadcrumb-vertical-divider {
             width: 1px;
@@ -191,7 +188,7 @@
         .current-crumb { color: #00aaff; font-weight: 700; }
 
         /* ==========================================================================
-           PAGE WORKSPACE & SIDEBAR TREE (FROM 1.2-key-features.html)
+           PAGE WORKSPACE & ANIMATED SIDEBAR (FROM 1.2-key-features.html)
            ========================================================================== */
         .page-wrapper {
             display: flex;
@@ -202,7 +199,7 @@
 
         .sidebar-nav {
             width: 320px;
-            background: rgba(10, 15, 28, 0.95);
+            background: rgba(10, 15, 28, 0.98);
             border-right: 1px solid rgba(0, 170, 255, 0.15);
             overflow-y: auto;
             height: calc(100vh - 102px);
@@ -210,6 +207,8 @@
             top: 102px;
             flex-shrink: 0;
             padding-bottom: 40px;
+            box-sizing: border-box;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .sidebar-header {
@@ -222,34 +221,51 @@
             font-size: 1.15rem;
             font-weight: 800;
             color: #ffffff;
+            letter-spacing: 0.2px;
         }
 
         .tree-root { list-style: none; padding: 0; margin: 0; }
         .tree-branch { border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+        
         .tree-node {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             padding: 14px 20px;
             cursor: pointer;
             user-select: none;
             color: #e0e6ed;
             font-weight: 700;
             font-size: 0.95rem;
-            transition: background 0.2s;
+            transition: background 0.25s ease, color 0.25s ease;
         }
         .tree-node:hover { background: rgba(0, 170, 255, 0.08); color: #00aaff; }
-        .tree-arrow { display: flex; align-items: center; transition: transform 0.25s ease; }
-        .tree-branch.expanded .tree-arrow { transform: rotate(90deg); color: #00aaff; }
+        
+        /* Smooth Rotate Arrow Animation */
+        .tree-arrow {
+            display: flex;
+            align-items: center;
+            color: #64748b;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+        }
+        .tree-branch.expanded .tree-arrow {
+            transform: rotate(90deg);
+            color: #00aaff;
+        }
 
+        /* Animated Accordion Leaves */
         .tree-leaves {
             list-style: none;
             padding: 0;
             margin: 0;
-            display: none;
-            background: rgba(5, 10, 20, 0.4);
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(5, 10, 20, 0.5);
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .tree-branch.expanded .tree-leaves { display: block; }
+        .tree-branch.expanded .tree-leaves {
+            max-height: 500px;
+        }
 
         .tree-leaves li a {
             display: block;
@@ -257,9 +273,12 @@
             color: #94a3b8;
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 600;
             transition: all 0.2s ease;
+            position: relative;
         }
-        .tree-leaves li a:hover, .tree-leaves li a.active-leaf {
+        .tree-leaves li a:hover, 
+        .tree-leaves li a.active-leaf {
             color: #00aaff;
             background: rgba(0, 170, 255, 0.08);
             border-left: 3px solid #00aaff;
@@ -272,10 +291,11 @@
             box-sizing: border-box;
             max-width: 1100px;
             margin: 0 auto;
+            width: 100%;
         }
 
         /* ==========================================================================
-           SOLUTION B MARKDOWN STYLING ENGINE
+           MARKDOWN TYPOGRAPHY, TABLES & ALERTS
            ========================================================================== */
         #markdownOutputContainer h1 {
             font-size: 2.3rem; font-weight: 800; color: #ffffff;
@@ -303,31 +323,72 @@
             color: #66ccff; padding: 2px 7px; border-radius: 6px; font-family: monospace; font-size: 0.9em;
         }
 
-        /* Cyber Alert */
+        /* CYBER ALERT BOXES */
         .cyber-alert {
-            background: rgba(13, 27, 42, 0.7); border-radius: 14px; padding: 18px 22px;
-            margin: 28px 0; display: flex; align-items: flex-start; gap: 16px;
-            border: 1px solid rgba(0, 170, 255, 0.2); border-left: 4px solid #00aaff;
-            backdrop-filter: blur(10px);
+            background: rgba(13, 27, 42, 0.75);
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin: 28px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-left: 4px solid #00aaff;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
-        .cyber-alert .alert-icon { font-size: 1.4rem; flex-shrink: 0; }
-        .cyber-alert .alert-text { color: #cbd5e1; font-size: 1rem; line-height: 1.6; }
+        .cyber-alert .alert-icon { font-size: 1.4rem; flex-shrink: 0; line-height: 1.2; }
+        .cyber-alert .alert-text { color: #cbd5e1; font-size: 1rem; line-height: 1.6; flex: 1; }
+        .cyber-alert .alert-text p { margin: 0 0 8px 0; }
+        .cyber-alert .alert-text p:last-child { margin-bottom: 0; }
         .cyber-alert ol, .cyber-alert ul { margin: 8px 0 0 24px !important; padding: 0 !important; color: #cbd5e1 !important; }
         .cyber-alert ol li { list-style-type: decimal !important; margin-bottom: 6px; }
 
-        /* Modern Table */
+        /* MODERN DATA TABLES */
         .table-container {
-            width: 100%; overflow-x: auto; margin: 30px 0; border-radius: 14px;
-            border: 1px solid rgba(0, 170, 255, 0.25); background: rgba(13, 27, 42, 0.65);
+            width: 100%;
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 170, 255, 0.25);
+            background: rgba(13, 27, 42, 0.65);
             backdrop-filter: blur(14px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
         }
-        .modern-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; color: #e0e6ed; }
-        .modern-table th, .modern-table td { padding: 16px 20px; border-bottom: 1px solid rgba(0, 170, 255, 0.12); }
-        .modern-table th { background: rgba(0, 170, 255, 0.12); color: #00aaff; font-weight: 800; text-transform: uppercase; font-size: 0.82rem; }
+        .modern-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+            color: #e0e6ed;
+            min-width: 550px;
+        }
+        .modern-table th, .modern-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.12);
+        }
+        .modern-table th {
+            background: rgba(0, 170, 255, 0.12);
+            color: #00aaff;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.82rem;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(0, 170, 255, 0.25);
+        }
         .modern-table tr:hover { background: rgba(0, 170, 255, 0.04); }
         .modern-table tr:last-child td { border-bottom: none; }
+        .modern-table code {
+            background: rgba(10, 15, 28, 0.85);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            color: #66ccff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.88rem;
+        }
 
-        /* Mac Code Window */
+        /* MAC CODE WINDOWS */
         .mac-code-window {
             background: #090d16; border: 1px solid rgba(0, 170, 255, 0.25); border-radius: 14px;
             margin: 28px 0; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -343,7 +404,7 @@
         .mac-body pre { margin: 0; }
         .mac-body code { font-family: monospace; font-size: 0.95rem; color: #56d364; background: transparent !important; }
 
-        /* Completion Card */
+        /* COMPLETION CARD */
         .lesson-complete-card {
             background: rgba(13, 27, 42, 0.6); border: 1px solid rgba(0, 170, 255, 0.25);
             border-radius: 16px; padding: 24px; display: flex; align-items: center;
@@ -467,14 +528,17 @@
         @media (max-width: 900px) {
             .sidebar-nav {
                 position: fixed;
-                left: -320px;
+                left: 0;
                 top: 102px;
                 height: calc(100vh - 102px);
                 z-index: 1400;
-                transition: left 0.3s ease;
+                transform: translateX(-100%);
                 background: #0a0f1c;
             }
-            .sidebar-nav.mobile-active { left: 0; box-shadow: 10px 0 30px rgba(0,0,0,0.8); }
+            .sidebar-nav.mobile-active {
+                transform: translateX(0);
+                box-shadow: 10px 0 30px rgba(0,0,0,0.8);
+            }
             .content-workspace { padding: 30px 20px; }
         }
     </style>
@@ -583,7 +647,7 @@
     </header>
 
     <div class="page-wrapper">
-        <!-- COLLAPSIBLE TREE SIDEBAR (10 CHAPTERS MAPPED) -->
+        <!-- COLLAPSIBLE TREE SIDEBAR WITH TRANSITION ANIMATIONS -->
         <aside class="sidebar-nav" id="sidebarNav">
             <div class="sidebar-header">
                 <h2 class="sidebar-title">HTML Curriculum</h2>
@@ -775,7 +839,7 @@
         </main>
     </div>
 
-    <!-- EXACT FOOTER (FROM courses.html) -->
+    <!-- EXACT FOOTER (courses.html) -->
     <footer class="codify-footer">
         <div>
             Built with precision for future developers • Developed by
@@ -806,7 +870,7 @@
         </div>
     </footer>
 
-    <!-- ENGINEER MODAL (FROM courses.html) -->
+    <!-- ENGINEER MODAL (courses.html) -->
     <div class="modal-overlay" id="engineerModal" aria-hidden="true">
         <div class="modal-card">
             <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
@@ -826,7 +890,7 @@
         </div>
     </div>
 
-    <!-- SEARCH HUD MODAL (FROM courses.html) -->
+    <!-- SEARCH HUD MODAL (courses.html) -->
     <div class="search-overlay-modal" id="searchOverlayModal" aria-hidden="true">
         <div class="search-modal-card">
             <div class="search-modal-header">
@@ -848,7 +912,12 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        // 1. MARKED.JS CUSTOM RENDERERS (SOLUTION B)
+        // 1. CONFIGURE MARKED.JS WITH EXPLICIT GFM AND CUSTOM RENDERERS
+        marked.setOptions({
+            gfm: true,
+            breaks: true
+        });
+
         const renderer = new marked.Renderer();
 
         renderer.table = function(header, body) {
@@ -890,7 +959,7 @@
 
         marked.use({ renderer });
 
-        // 2. DYNAMIC MARKDOWN LOADER
+        // 2. FETCH & RENDER MARKDOWN
         async function loadMarkdownLesson() {
             const params = new URLSearchParams(window.location.search);
             const defaultFile = '/src/pages/courses/html/chapter-1/1.1-how-the-web-works.md';
@@ -901,19 +970,26 @@
                 const response = await fetch(filePath);
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const text = await response.text();
+                
                 document.getElementById('markdownOutputContainer').innerHTML = marked.parse(text);
 
-                // Update active sidebar link & breadcrumbs
+                // Auto-sync active leaf in sidebar and update breadcrumb text
                 document.querySelectorAll('.tree-leaves a').forEach(link => {
-                    if (link.getAttribute('href').includes(filePath)) {
+                    const href = link.getAttribute('href');
+                    if (href && href.includes(filePath)) {
                         link.classList.add('active-leaf');
-                        const leafTitle = link.getAttribute('data-title');
-                        if (leafTitle) document.getElementById('breadcrumbCurrent').textContent = leafTitle;
+                        // Expand parent chapter folder automatically
+                        const parentBranch = link.closest('.tree-branch');
+                        if (parentBranch) parentBranch.classList.add('expanded');
+                        
+                        const title = link.getAttribute('data-title');
+                        if (title) document.getElementById('breadcrumbCurrent').textContent = title;
                     } else {
                         link.classList.remove('active-leaf');
                     }
                 });
             } catch (err) {
+                console.error(err);
                 document.getElementById('markdownOutputContainer').innerHTML = `
                     <h2 style="color: #ff5252;">Module Load Error</h2>
                     <p style="color: #94a3b8;">Could not retrieve markdown file: <code>${filePath}</code></p>
@@ -921,7 +997,7 @@
             }
         }
 
-        // 3. TREE SIDEBAR EXPAND/COLLAPSE HANDLER
+        // 3. TREE SIDEBAR ACCORDION ANIMATION
         document.querySelectorAll('.tree-node').forEach(node => {
             node.addEventListener('click', () => {
                 const branch = node.parentElement;
@@ -929,22 +1005,32 @@
             });
         });
 
-        // Mobile Sidebar Toggle
+        // Mobile Sidebar Slide-in Trigger
         const mobileToggle = document.getElementById('sidebarToggleMobile');
         const sidebar = document.getElementById('sidebarNav');
+        const backdrop = document.getElementById('navBackdrop');
+
         if (mobileToggle && sidebar) {
             mobileToggle.addEventListener('click', () => {
                 sidebar.classList.toggle('mobile-active');
+                if (backdrop) backdrop.classList.toggle('active');
             });
         }
 
-        // 4. ENGINEER TEAM MODAL (EXACT FROM courses.html)
+        if (backdrop) {
+            backdrop.addEventListener('click', () => {
+                sidebar.classList.remove('mobile-active');
+                backdrop.classList.remove('active');
+            });
+        }
+
+        // 4. ENGINEER TEAM MODAL CONTROLLER
         const teamDatabase = {
-            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Mohammed is responsible for the core architecture of Codify, focusing on front-end performance, database design, and overall system scalability.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
-            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'Dhanush specializes in interactive UI design and seamless API integrations, ensuring students have a smooth learning experience.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
-            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Feroz manages secure user authentication, database row-level security, and the backend tracking logic for course progress.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
-            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Basha focuses on creating structured, easy-to-understand interactive course material and maintaining the site styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
-            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Prasad rigorously tests platform features, catches bugs, and optimizes performance metrics to keep Codify running at 100%.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
+            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
+            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
+            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Authentication and security.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
+            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Curriculum layout and styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
+            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Performance testing and QA.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
         };
 
         const engModal = document.getElementById('engineerModal');
@@ -967,13 +1053,13 @@
             document.body.style.overflow = '';
         });
 
-        // 5. SUPABASE AUTH & TOPIC COMPLETION
+        // 5. PROGRESS & AUTH LOGIC
         const COURSE_ID = 'html-101';
         let currentUser = null;
         let isCompleted = false;
 
         async function initLesson() {
-            loadMarkdownLesson();
+            await loadMarkdownLesson();
 
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) return;
