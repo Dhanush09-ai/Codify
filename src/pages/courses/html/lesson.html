@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/src/css/style.css">
     <title>HTML Lesson | Codify</title>
 
-    <!-- Stable Marked.js parser -->
+    <!-- Locked, stable Marked.js parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
 
     <style>
@@ -41,7 +41,7 @@
         }
 
         /* ==========================================================================
-           TOP HEADER (UNMODIFIED FROM courses.html)
+           TOP HEADER (PRESERVED FROM courses.html)
            ========================================================================== */
         .codify-main-header {
             position: fixed; top: 0; left: 0; width: 100%;
@@ -189,7 +189,7 @@
         .current-crumb { color: #00aaff; font-weight: 700; }
 
         /* ==========================================================================
-           EXACT SIDEBAR DESIGN (MATCHING PYTHON SCREENSHOT)
+           EXACT SIDEBAR DESIGN & ANIMATION (MATCHING PYTHON PAGES)
            ========================================================================== */
         .page-wrapper {
             display: flex;
@@ -199,55 +199,59 @@
         }
 
         .sidebar-nav {
-            width: 300px;
-            background: #080d19;
+            width: 320px;
+            background: rgba(10, 15, 28, 0.75);
+            backdrop-filter: blur(15px);
             border-right: 1px solid rgba(0, 170, 255, 0.15);
             overflow-y: auto;
             height: calc(100vh - 102px);
             position: sticky;
             top: 102px;
             flex-shrink: 0;
-            padding: 15px 12px 50px 12px;
+            padding: 0 20px 40px 20px;
             box-sizing: border-box;
             transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 100;
         }
 
         .sidebar-header {
-            padding: 12px 14px 18px 14px;
+            padding: 20px 0 15px 0;
         }
 
         .sidebar-title {
             margin: 0;
-            font-size: 1.25rem;
-            font-weight: 800;
+            font-size: 1.4rem;
+            font-weight: 700;
             color: #00aaff;
-            letter-spacing: 0.2px;
+            text-shadow: 0 0 10px rgba(0, 170, 255, 0.4);
         }
 
         .tree-root { list-style: none; padding: 0; margin: 0; }
-        .tree-branch { margin-bottom: 8px; }
+        .tree-branch { margin-bottom: 12px; }
         
         .tree-node {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 14px;
+            padding: 10px 12px;
             cursor: pointer;
             user-select: none;
-            color: #e0e6ed;
-            font-weight: 700;
-            font-size: 0.95rem;
-            border-radius: 8px;
-            transition: background 0.2s ease, color 0.2s ease;
+            background: rgba(13, 27, 42, 0.4);
+            border: 1px solid rgba(0, 170, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
-        .tree-node:hover { background: rgba(0, 170, 255, 0.08); color: #00aaff; }
+        .tree-node:hover {
+            background: rgba(13, 27, 42, 0.8);
+            border-color: rgba(0, 170, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
+        }
         
         .tree-arrow {
             display: flex;
             align-items: center;
-            color: #64748b;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s ease;
+            color: #66ccff;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
             flex-shrink: 0;
         }
         
@@ -256,216 +260,300 @@
             color: #00aaff;
         }
 
+        .chapter-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e0e6ed;
+        }
+
+        /* Animated Accordion Leaves */
         .tree-leaves {
             list-style: none;
-            padding: 4px 0 6px 12px;
-            margin: 0;
+            padding-left: 20px;
+            margin: 5px 0 0 10px;
+            border-left: 1px dashed rgba(0, 170, 255, 0.2);
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .tree-leaves li {
-            margin: 3px 0;
+            margin: 6px 0;
         }
 
         .tree-leaves li a {
             display: block;
-            padding: 8px 16px;
+            padding: 8px 14px;
             color: #94a3b8;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             font-weight: 600;
             border-radius: 8px;
             transition: all 0.2s ease;
         }
         
         .tree-leaves li a:hover {
-            color: #e0e6ed;
+            color: #00aaff;
             background: rgba(0, 170, 255, 0.08);
+            padding-left: 18px;
         }
 
-        /* EXACT PYTHON ACTIVE PILL */
+        /* EXACT PYTHON ACTIVE CAPSULE */
         .tree-leaves li a.active-leaf {
             background: linear-gradient(90deg, #0077ff, #00aaff) !important;
             color: #ffffff !important;
             font-weight: 700 !important;
-            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.3) !important;
+            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.35) !important;
         }
 
         /* ==========================================================================
-           CONTENT WORKSPACE & PYTHON-STYLE TITLE & TOPIC NAV
+           CONTENT WORKSPACE & PYTHON TYPOGRAPHY
            ========================================================================== */
         .content-workspace {
             flex: 1;
             padding: 40px 60px 80px 60px;
             box-sizing: border-box;
-            max-width: 1050px;
+            max-width: 1100px;
             margin: 0 auto;
             width: 100%;
         }
 
         .content-header-group {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
         }
 
-        /* Neon Glow Heading */
+        /* Topic Title Matching Python style */
         .topic-title {
             font-size: 2.8rem;
-            font-weight: 900;
+            font-weight: 800;
             line-height: 1.25;
             letter-spacing: -0.5px;
-            margin: 10px 0 25px 0;
-            background: linear-gradient(90deg, #38bdf8, #0077ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 25px rgba(0, 170, 255, 0.35));
+            margin: 15px 0 25px 0;
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.7);
             text-align: center;
         }
 
         /* Nav row with Previous and Next Topic buttons */
         .content-nav-row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 16px;
-            margin: 25px 0 35px 0;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top-nav-row {
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .bottom-nav-row {
+            margin-top: 4rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 170, 255, 0.15);
         }
 
         .nav-btn {
-            padding: 10px 22px;
-            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px !important;
+            border-radius: 12px !important;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 0.9rem !important;
+            letter-spacing: 0.05em;
         }
 
-        /* Markdown Typography overrides */
-        #markdownOutputContainer h1 { display: none; } /* Replaced by .topic-title above */
+        /* Markdown Elements Typography */
+        #markdownOutputContainer h1 { display: none; } /* Handled by .topic-title */
         
         #markdownOutputContainer h2 {
-            font-size: 1.55rem; font-weight: 800; color: #00aaff;
-            margin: 36px 0 16px 0; letter-spacing: -0.3px;
+            font-size: 1.75rem;
+            color: #00aaff;
+            margin: 2.5rem 0 1.2rem 0;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
         }
+
         #markdownOutputContainer h3 {
-            font-size: 1.22rem; font-weight: 700; color: #38bdf8;
-            margin: 26px 0 12px 0;
+            font-size: 1.35rem;
+            color: #66ccff;
+            margin: 2rem 0 1rem 0;
+            font-weight: 700;
         }
+
         #markdownOutputContainer p {
-            font-size: 1.05rem; line-height: 1.8; color: #cfd8dc;
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: #cbccce;
             margin-bottom: 20px;
         }
+
         #markdownOutputContainer ul, #markdownOutputContainer ol {
-            font-size: 1.05rem; line-height: 1.8; color: #cfd8dc;
-            margin: 16px 0 24px 28px;
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: #cbccce;
+            margin: 16px 0 24px 30px;
         }
-        #markdownOutputContainer li { margin-bottom: 8px; }
+
+        #markdownOutputContainer li {
+            margin-bottom: 10px;
+        }
+
         #markdownOutputContainer hr {
-            border: none; border-top: 1px solid rgba(0, 170, 255, 0.2); margin: 36px 0;
+            border: none;
+            border-top: 1px solid rgba(0, 170, 255, 0.2);
+            margin: 40px 0;
         }
+
         #markdownOutputContainer code:not(pre code) {
-            background: rgba(13, 27, 42, 0.85); border: 1px solid rgba(0, 170, 255, 0.35);
-            color: #66ccff; padding: 2px 7px; border-radius: 6px; font-family: monospace; font-size: 0.9em;
+            font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+            font-size: 0.88em;
+            background-color: #0d1117;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 170, 255, 0.4);
+            color: #66ccff;
         }
 
         /* CYBER ALERT BOXES */
         .cyber-alert {
-            background: rgba(13, 27, 42, 0.75);
-            border-radius: 14px;
-            padding: 18px 22px;
-            margin: 28px 0;
             display: flex;
-            align-items: flex-start;
             gap: 16px;
-            border: 1px solid rgba(0, 170, 255, 0.2);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 24px 0;
+            box-sizing: border-box;
+            background: rgba(0, 170, 255, 0.05);
+            border: 1px solid rgba(0, 170, 255, 0.25);
+            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        .cyber-alert.info {
             border-left: 4px solid #00aaff;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
         .cyber-alert .alert-icon { font-size: 1.4rem; flex-shrink: 0; line-height: 1.2; }
-        .cyber-alert .alert-text { color: #cbd5e1; font-size: 1rem; line-height: 1.6; flex: 1; }
+        .cyber-alert .alert-text { color: #cfd8dc; font-size: 1rem; line-height: 1.6; flex: 1; }
         .cyber-alert .alert-text p { margin: 0 0 8px 0; }
         .cyber-alert .alert-text p:last-child { margin-bottom: 0; }
-        .cyber-alert ol, .cyber-alert ul { margin: 8px 0 0 24px !important; padding: 0 !important; color: #cbd5e1 !important; }
+        .cyber-alert ol, .cyber-alert ul { margin: 8px 0 0 20px !important; padding: 0 !important; color: #cfd8dc !important; }
         .cyber-alert ol li { list-style-type: decimal !important; margin-bottom: 6px; }
 
         /* MODERN DATA TABLES */
         .table-container {
             width: 100%;
             overflow-x: auto;
-            margin: 30px 0;
-            border-radius: 14px;
-            border: 1px solid rgba(0, 170, 255, 0.25);
-            background: rgba(13, 27, 42, 0.65);
-            backdrop-filter: blur(14px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        .table-container table {
+        .modern-table {
             width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.95rem;
-            color: #e0e6ed;
-            min-width: 550px;
+            border-collapse: separate;
+            border-spacing: 0;
+            background-color: #0d1220;
+            border: 1px solid rgba(0, 170, 255, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
         }
-        .table-container th, .table-container td {
-            padding: 16px 20px;
-            border-bottom: 1px solid rgba(0, 170, 255, 0.12);
-        }
-        .table-container th {
-            background: rgba(0, 170, 255, 0.12);
+        .modern-table th {
+            background-color: rgba(0, 170, 255, 0.1);
             color: #00aaff;
             font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.82rem;
+            text-align: left;
+            padding: 16px 20px;
+            font-size: 1.02rem;
             letter-spacing: 0.5px;
-            border-bottom: 2px solid rgba(0, 170, 255, 0.25);
+            border-bottom: 2px solid rgba(0, 170, 255, 0.3);
         }
-        .table-container tr:hover { background: rgba(0, 170, 255, 0.04); }
-        .table-container tr:last-child td { border-bottom: none; }
-        .table-container code {
-            background: rgba(10, 15, 28, 0.85);
-            border: 1px solid rgba(0, 170, 255, 0.3);
+        .modern-table td {
+            padding: 15px 20px;
+            color: #cfd8dc;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            line-height: 1.5;
+        }
+        .modern-table tr:hover { background-color: rgba(0, 170, 255, 0.05); }
+        .modern-table tr:hover td { color: #fff; }
+        .modern-table tr:last-child td { border-bottom: none; }
+        .modern-table code {
+            background: rgba(0, 170, 255, 0.1);
             color: #66ccff;
             padding: 2px 6px;
             border-radius: 4px;
             font-family: monospace;
-            font-size: 0.88rem;
         }
 
         /* MAC CODE WINDOWS */
         .mac-code-window {
-            background: #090d16; border: 1px solid rgba(0, 170, 255, 0.25); border-radius: 14px;
-            margin: 28px 0; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background-color: #0d1117;
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 10px;
+            margin: 2rem 0;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            font-family: 'Consolas', 'Fira Code', monospace;
         }
         .mac-header {
-            background: rgba(10, 15, 28, 0.95); padding: 10px 18px; display: flex;
-            justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+            background-color: #161b22;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #30363d;
         }
-        .mac-traffic-lights { display: flex; gap: 7px; }
-        .mac-dot { width: 11px; height: 11px; border-radius: 50%; }
-        .mac-red { background: #ff5f56; } .mac-yellow { background: #ffbd2e; } .mac-green { background: #27c93f; }
-        .mac-body { padding: 20px; overflow-x: auto; }
+        .mac-traffic-lights { display: flex; gap: 8px; }
+        .mac-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .mac-red { background-color: #ff5f56; } .mac-yellow { background-color: #ffbd2e; } .mac-green { background-color: #27c93f; }
+        .mac-body { padding: 20px; overflow-x: auto; color: #56d364; font-size: 0.95rem; line-height: 1.6; }
         .mac-body pre { margin: 0; }
-        .mac-body code { font-family: monospace; font-size: 0.95rem; color: #56d364; background: transparent !important; }
+        .mac-body code { font-family: monospace; background: transparent !important; border: none !important; }
 
         /* COMPLETION CARD */
         .lesson-complete-card {
-            background: rgba(13, 27, 42, 0.6); border: 1px solid rgba(0, 170, 255, 0.25);
-            border-radius: 16px; padding: 24px; display: flex; align-items: center;
-            justify-content: space-between; gap: 20px; margin: 45px 0; backdrop-filter: blur(12px);
+            background: rgba(13, 27, 42, 0.6);
+            border: 1px solid rgba(0, 170, 255, 0.25);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 50px;
+            backdrop-filter: blur(12px);
         }
         .complete-text h3 { margin: 0 0 4px 0; color: #ffffff; font-size: 1.1rem; }
         .complete-text p { margin: 0; color: #94a3b8; font-size: 0.9rem; }
         .mark-btn {
-            background: rgba(10, 15, 28, 0.8); border: 1px solid #00aaff; color: #00aaff;
-            padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer;
-            display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;
+            background: rgba(10, 15, 28, 0.8);
+            border: 1px solid #00aaff;
+            color: #00aaff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-family: inherit;
         }
-        .mark-btn.is-completed { background: #10b981; border-color: #10b981; color: #ffffff; box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
+        .mark-btn.is-completed {
+            background: #10b981;
+            border-color: #10b981;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+        }
 
         /* ==========================================================================
-           FOOTER & POPOVER
+           FOOTER (EXACT courses.html)
            ========================================================================== */
         .codify-footer {
             margin-top: auto; border-top: 1px solid rgba(0, 170, 255, 0.15); padding: 24px 20px;
@@ -543,7 +631,23 @@
         .search-results-status { padding: 20px !important; text-align: center !important; color: #94a3b8 !important; }
         .search-results-list { list-style: none !important; display: flex !important; flex-direction: column !important; gap: 8px !important; margin: 0 !important; padding: 0 !important; }
 
-        
+        @media (max-width: 900px) {
+            .sidebar-nav {
+                position: fixed;
+                left: 0;
+                top: 102px;
+                height: calc(100vh - 102px);
+                z-index: 1600;
+                transform: translateX(-100%);
+                background: #080d19;
+            }
+            .sidebar-nav.mobile-active {
+                transform: translateX(0);
+                box-shadow: 10px 0 35px rgba(0,0,0,0.85);
+            }
+            .content-workspace { padding: 25px 18px; }
+            .topic-title { font-size: 2rem; }
+        }
     </style>
 </head>
 
@@ -563,6 +667,12 @@
             </div>
 
             <nav class="codify-center-nav" id="centerNav" aria-label="Main navigation menu">
+                <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
 
                 <ul class="codify-nav-links" id="navLinks">
                     <li><a href="/index.html">Home</a></li>
@@ -662,7 +772,7 @@
                     <ul class="tree-leaves">
                         <li><a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" data-title="1.1 How the Web Works">1.1 How the Web Works</a></li>
                         <li><a href="lesson.html?file=chapter-1/1.2-what-is-html.md" data-title="1.2 What is HTML?">1.2 What is HTML?</a></li>
-                        <li><a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" data-title="1.3 Setting Up Your Environment">1.3 Setting Up Your Environment</a></li>
+                        <li><a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" data-title="1.3 Environment Setup">1.3 Setting Up Your Environment</a></li>
                         <li><a href="lesson.html?file=chapter-1/1.4-your-first-webpage.md" data-title="1.4 Your First Webpage">1.4 Your First Webpage</a></li>
                     </ul>
                 </li>
@@ -816,46 +926,48 @@
 
         <!-- MARKDOWN LESSON WORKSPACE -->
         <main class="content-workspace">
-            <!-- Header Group matching Python topic style -->
-            <header class="content-header-group">
-                <h1 class="topic-title" id="pageMainHeading">1.1 How the Web Works</h1>
-                <div class="content-nav-row">
-                    <a href="html-index.html" class="codify-btn-outline nav-btn" id="prevTopicBtnTop">
-                        ❮ Previous Topic
+            <article class="content-body">
+                <!-- Header Group Matching Python Pages -->
+                <header class="content-header-group">
+                    <h1 class="topic-title" id="pageMainHeading">1.1 How the Web Works</h1>
+                    <div class="content-nav-row top-nav-row">
+                        <a href="html-index.html" class="codify-btn-outline nav-btn" id="prevTopicBtnTop">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6" /></svg> Previous Topic
+                        </a>
+                        <a href="lesson.html?file=chapter-1/1.2-what-is-html.md" class="codify-btn-outline nav-btn" id="nextTopicBtnTop">
+                            Next Topic <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6" /></svg>
+                        </a>
+                    </div>
+                </header>
+
+                <div id="markdownOutputContainer">
+                    <p style="color: #00aaff; text-align: center;">Rendering lesson module stream...</p>
+                </div>
+
+                <!-- Lesson Completion Matrix Card -->
+                <div class="lesson-complete-card">
+                    <div class="complete-text">
+                        <h3>Finished this topic?</h3>
+                        <p>Marking this topic as finished updates your course completion matrix.</p>
+                    </div>
+                    <button id="markCompleteBtn" class="mark-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span id="completeBtnText">Mark as Completed</span>
+                    </button>
+                </div>
+
+                <!-- Bottom Navigation Row -->
+                <div class="content-nav-row bottom-nav-row">
+                    <a href="html-index.html" class="codify-btn-outline nav-btn" id="prevTopicBtnBtm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6" /></svg> Previous Topic
                     </a>
-                    <a href="lesson.html?file=chapter-1/1.2-what-is-html.md" class="codify-btn-outline nav-btn" id="nextTopicBtnTop">
-                        Next Topic ❯
+                    <a href="lesson.html?file=chapter-1/1.2-what-is-html.md" class="codify-btn-outline nav-btn" id="nextTopicBtnBtm">
+                        Next Topic <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6" /></svg>
                     </a>
                 </div>
-            </header>
-
-            <article class="content-body" id="markdownOutputContainer">
-                <p style="color: #00aaff; text-align: center;">Rendering lesson module stream...</p>
             </article>
-
-            <!-- Bottom Navigation Bar (Python Lesson Style) -->
-            <div class="content-nav-row" style="margin-top: 40px;">
-                <a href="html-index.html" class="codify-btn-outline nav-btn" id="prevTopicBtnBtm">
-                    ❮ Previous Topic
-                </a>
-                <a href="lesson.html?file=chapter-1/1.2-what-is-html.md" class="codify-btn-outline nav-btn" id="nextTopicBtnBtm">
-                    Next Topic ❯
-                </a>
-            </div>
-
-            <!-- TOPIC COMPLETION MATRIX CARD -->
-            <div class="lesson-complete-card">
-                <div class="complete-text">
-                    <h3>Finished this topic?</h3>
-                    <p>Marking this topic as finished updates your course completion matrix.</p>
-                </div>
-                <button id="markCompleteBtn" class="mark-btn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                    <span id="completeBtnText">Mark as Completed</span>
-                </button>
-            </div>
         </main>
     </div>
 
@@ -932,23 +1044,26 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        // 1. MARKED CONFIGURATION
+        // 1. SAFE PARSER CONFIGURATION
         marked.setOptions({
             gfm: true,
             breaks: true
         });
 
-        // 2. DOM POST-PROCESSING
+        // 2. POST-PROCESSING DOM (Transforms raw Markdown to Cyber-Neon styling)
         function applyCyberStyles(container) {
+            // Apply Table wrappers
             container.querySelectorAll('table').forEach(table => {
                 if (!table.parentElement.classList.contains('table-container')) {
                     const wrapper = document.createElement('div');
                     wrapper.className = 'table-container';
+                    table.className = 'modern-table';
                     table.parentNode.insertBefore(wrapper, table);
                     wrapper.appendChild(table);
                 }
             });
 
+            // Apply Blockquotes to Cyber Alerts
             container.querySelectorAll('blockquote').forEach(bq => {
                 const alertDiv = document.createElement('div');
                 alertDiv.className = 'cyber-alert info';
@@ -959,6 +1074,7 @@
                 bq.parentNode.replaceChild(alertDiv, bq);
             });
 
+            // Apply Code Windows
             container.querySelectorAll('pre').forEach(pre => {
                 const codeElem = pre.querySelector('code');
                 const rawCode = codeElem ? codeElem.innerHTML : pre.innerHTML;
@@ -982,7 +1098,7 @@
             });
         }
 
-        // 3. SMOOTH ACCORDION CONTROLLER (ACCORDION CALCULATED HEIGHT)
+        // 3. TREE ACCORDION ANIMATION (Matches Python smooth CSS slide-down)
         function toggleBranch(branch, forceOpen = false) {
             const leaves = branch.querySelector('.tree-leaves');
             if (!leaves) return;
@@ -1007,7 +1123,7 @@
             });
         }
 
-        // 4. FETCH LESSON AND AUTO-SYNC PREV/NEXT & ACTIVE LEAF
+        // 4. FETCH AND SYNC ACTIVE LEAF & PREV/NEXT
         async function loadMarkdownLesson() {
             const params = new URLSearchParams(window.location.search);
             let mdParam = params.get('file') || 'chapter-1/1.1-how-the-web-works.md';
@@ -1052,7 +1168,7 @@
                     }
                 });
 
-                // Update Prev / Next Buttons dynamically
+                // Update Prev / Next buttons
                 const prevUrl = activeIdx > 0 ? allLinks[activeIdx - 1].getAttribute('href') : 'html-index.html';
                 const nextUrl = activeIdx >= 0 && activeIdx < allLinks.length - 1 ? allLinks[activeIdx + 1].getAttribute('href') : 'html-index.html';
 
