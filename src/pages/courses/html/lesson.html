@@ -73,26 +73,27 @@
         // FETCH AND PARSE MARKDOWN FILE
         // ==========================================================================
         async function loadMarkdownLesson() {
-            const urlParams = new URLSearchParams(window.location.search);
-            // Example link format: /src/pages/courses/html/lesson.html?file=1.1-how-the-web-works.md
-            const mdFileName = urlParams.get('file') || '1.1-how-the-web-works.md';
+            const params = new URLSearchParams(window.location.search);
             
-            // Resolve relative path to your course chapter folder
-            const filePath = `./chapter-1/${mdFileName}`;
+            // Default file path starting cleanly from the server root
+            const defaultFile = '/src/pages/courses/html/chapter-1/1.1-how-the-web-works.md';
+            const mdFile = params.get('file') || defaultFile;
+
+            // Ensure the path starts with '/' to fetch correctly from the root server
+            const filePath = mdFile.startsWith('/') ? mdFile : `/${mdFile}`;
 
             try {
                 const response = await fetch(filePath);
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 
                 const markdownText = await response.text();
-                
-                // Parse markdown and inject into the page
                 document.getElementById('markdownOutputContainer').innerHTML = marked.parse(markdownText);
             } catch (err) {
                 console.error("Markdown load failure:", err);
                 document.getElementById('markdownOutputContainer').innerHTML = `
-                    <h2 style="color: #f85149;">Module Load Error</h2>
-                    <p style="color: #94a3b8;">Could not fetch lesson file: <code>${mdFileName}</code></p>
+                    <h2 style="color: #ff5252;">Module Load Error</h2>
+                    <p style="color: #94a3b8;">Could not fetch lesson file: <code>${filePath}</code></p>
+                    <p style="color: #64748b; font-size: 0.85rem; margin-top: 10px;">Make sure your local development server is running from the root <b>Codify</b> folder and the file exists.</p>
                 `;
             }
         }
