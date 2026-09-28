@@ -696,11 +696,11 @@
                         <span class="chapter-title">1. Introduction to Web &amp; HTML</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-1/1.1-how-the-web-works.md" class="active-leaf" data-title="1.1 How the Web Works">1.1 How the Web Works</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-1/1.2-what-is-html.md" data-title="1.2 What is HTML?">1.2 What is HTML?</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-1/1.3-setting-up-environment.md" data-title="1.3 Environment Setup">1.3 Setting Up Your Environment</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-1/1.4-your-first-webpage.md" data-title="1.4 Your First Webpage">1.4 Your First Webpage</a></li>
-                    </ul>
+    <li><a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" class="active-leaf" data-title="1.1 How the Web Works">1.1 How the Web Works</a></li>
+    <li><a href="lesson.html?file=chapter-1/1.2-what-is-html.md" data-title="1.2 What is HTML?">1.2 What is HTML?</a></li>
+    <li><a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" data-title="1.3 Environment Setup">1.3 Setting Up Your Environment</a></li>
+    <li><a href="lesson.html?file=chapter-1/1.4-your-first-webpage.md" data-title="1.4 Your First Webpage">1.4 Your First Webpage</a></li>
+</ul>
                 </li>
 
                 <!-- Chapter 2 -->
@@ -1014,42 +1014,53 @@
 
         // 2. FETCH & RENDER MARKDOWN
         async function loadMarkdownLesson() {
-            const params = new URLSearchParams(window.location.search);
-            const defaultFile = '/src/pages/courses/html/chapter-1/1.1-how-the-web-works.md';
-            const mdFile = params.get('file') || defaultFile;
-            const filePath = mdFile.startsWith('/') ? mdFile : `/${mdFile}`;
+    const params = new URLSearchParams(window.location.search);
+    let mdFile = params.get('file') || 'chapter-1/1.1-how-the-web-works.md';
 
-            try {
-                const response = await fetch(filePath);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                const text = await response.text();
+    // Strip leading absolute prefixes if passed in URL
+    // e.g., '/src/pages/courses/html/chapter-1/...' -> 'chapter-1/...'
+    const prefix = '/src/pages/courses/html/';
+    if (mdFile.startsWith(prefix)) {
+        mdFile = mdFile.slice(prefix.length);
+    } else if (mdFile.startsWith('/')) {
+        mdFile = mdFile.replace(/^\/+/, '');
+    }
+
+    // Resolve path relative to lesson.html
+    const targetUrl = new URL(mdFile, window.location.href).href;
+
+    try {
+        const response = await fetch(targetUrl);
+        if (!response.ok) throw new Error(`HTTP error ${response.status} fetching ${targetUrl}`);
+        
+        const text = await response.text();
+        document.getElementById('markdownOutputContainer').innerHTML = marked.parse(text);
+
+        // Update active leaf in sidebar & breadcrumbs
+        document.querySelectorAll('.tree-leaves a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href.includes(mdFile) || targetUrl.includes(href.split('file=')[1] || ''))) {
+                link.classList.add('active-leaf');
+                const parentBranch = link.closest('.tree-branch');
+                if (parentBranch) parentBranch.classList.add('expanded');
                 
-                document.getElementById('markdownOutputContainer').innerHTML = marked.parse(text);
-
-                // Auto-sync active leaf in sidebar and update breadcrumb text
-                document.querySelectorAll('.tree-leaves a').forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href && href.includes(filePath)) {
-                        link.classList.add('active-leaf');
-                        // Expand parent chapter folder automatically
-                        const parentBranch = link.closest('.tree-branch');
-                        if (parentBranch) parentBranch.classList.add('expanded');
-                        
-                        const title = link.getAttribute('data-title');
-                        if (title) document.getElementById('breadcrumbCurrent').textContent = title;
-                    } else {
-                        link.classList.remove('active-leaf');
-                    }
-                });
-            } catch (err) {
-                console.error(err);
-                document.getElementById('markdownOutputContainer').innerHTML = `
-                    <h2 style="color: #ff5252;">Module Load Error</h2>
-                    <p style="color: #94a3b8;">Could not retrieve markdown file: <code>${filePath}</code></p>
-                `;
+                const title = link.getAttribute('data-title');
+                if (title) document.getElementById('breadcrumbCurrent').textContent = title;
+            } else {
+                link.classList.remove('active-leaf');
             }
-        }
-
+        });
+    } catch (err) {
+        console.error("Markdown load failure:", err);
+        document.getElementById('markdownOutputContainer').innerHTML = `
+            <h2 style="color: #ff5252;">Module Load Error</h2>
+            <p style="color: #94a3b8;">Could not retrieve markdown file from: <code>${targetUrl}</code></p>
+            <p style="color: #64748b; font-size: 0.85rem; margin-top: 10px;">
+                Verify that <code>1.1-how-the-web-works.md</code> has been committed and pushed to GitHub in <code>src/pages/courses/html/chapter-1/</code>.
+            </p>
+        `;
+    }
+}
         // 3. TREE SIDEBAR ACCORDION ANIMATION
         document.querySelectorAll('.tree-node').forEach(node => {
             node.addEventListener('click', () => {
