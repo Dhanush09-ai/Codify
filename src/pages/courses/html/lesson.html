@@ -1017,29 +1017,33 @@
     const params = new URLSearchParams(window.location.search);
     let mdFile = params.get('file') || 'chapter-1/1.1-how-the-web-works.md';
 
-    // Strip leading absolute prefixes if passed in URL
-    // e.g., '/src/pages/courses/html/chapter-1/...' -> 'chapter-1/...'
-    const prefix = '/src/pages/courses/html/';
-    if (mdFile.startsWith(prefix)) {
-        mdFile = mdFile.slice(prefix.length);
+    // Normalize path to ensure no double slashes
+    if (mdFile.startsWith('/src/pages/courses/html/')) {
+        mdFile = mdFile.replace('/src/pages/courses/html/', '');
     } else if (mdFile.startsWith('/')) {
         mdFile = mdFile.replace(/^\/+/, '');
     }
 
-    // Resolve path relative to lesson.html
-    const targetUrl = new URL(mdFile, window.location.href).href;
+    // 1. Try local fetch first
+    const localUrl = new URL(mdFile, window.location.href).href;
 
     try {
-        const response = await fetch(targetUrl);
-        if (!response.ok) throw new Error(`HTTP error ${response.status} fetching ${targetUrl}`);
-        
+        let response = await fetch(localUrl);
+
+        // 2. If Vercel gives 404, fallback to GitHub Raw CDN automatically
+        if (!response.ok) {
+            const rawGithubUrl = `https://raw.githubusercontent.com/Mohammed-Owais-dev/Codify/main/src/pages/courses/html/${mdFile}`;
+            response = await fetch(rawGithubUrl);
+            if (!response.ok) throw new Error(`Failed to load from both local and remote: ${rawGithubUrl}`);
+        }
+
         const text = await response.text();
         document.getElementById('markdownOutputContainer').innerHTML = marked.parse(text);
 
-        // Update active leaf in sidebar & breadcrumbs
+        // Sync sidebar active state & breadcrumbs
         document.querySelectorAll('.tree-leaves a').forEach(link => {
             const href = link.getAttribute('href');
-            if (href && (href.includes(mdFile) || targetUrl.includes(href.split('file=')[1] || ''))) {
+            if (href && (href.includes(mdFile) || localUrl.includes(href.split('file=')[1] || ''))) {
                 link.classList.add('active-leaf');
                 const parentBranch = link.closest('.tree-branch');
                 if (parentBranch) parentBranch.classList.add('expanded');
@@ -1054,9 +1058,9 @@
         console.error("Markdown load failure:", err);
         document.getElementById('markdownOutputContainer').innerHTML = `
             <h2 style="color: #ff5252;">Module Load Error</h2>
-            <p style="color: #94a3b8;">Could not retrieve markdown file from: <code>${targetUrl}</code></p>
+            <p style="color: #94a3b8;">Could not retrieve markdown file: <code>${mdFile}</code></p>
             <p style="color: #64748b; font-size: 0.85rem; margin-top: 10px;">
-                Verify that <code>1.1-how-the-web-works.md</code> has been committed and pushed to GitHub in <code>src/pages/courses/html/chapter-1/</code>.
+                Check if the file is pushed to <code>src/pages/courses/html/${mdFile}</code> on GitHub.
             </p>
         `;
     }
