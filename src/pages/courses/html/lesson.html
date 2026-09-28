@@ -902,56 +902,36 @@
             </div>
         </div>
     </div>
-
-    <script src="/src/js/script.js"></script>
+<script src="/src/js/script.js"></script>
     <script type="module" src="/src/js/auth/nav-auth.js"></script>
     <script type="module" src="/src/js/config/supabase-client.js"></script>
 
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        // 1. CONFIGURE MARKED.JS FOR ALL MARKED VERSIONS
+        // 1. CONFIGURE MARKED.JS SAFELY (NO getDefaults CRASHES)
         marked.setOptions({
             gfm: true,
             breaks: true
         });
 
+        // 2. BULLETPROOF RENDERER HOOKS
         const renderer = {
-            table(tokenOrHeader, maybeBody) {
-                if (typeof tokenOrHeader === 'object' && tokenOrHeader !== null) {
-                    const defaultHtml = marked.getDefaults().renderer.table.call(this, tokenOrHeader);
-                    return `<div class="table-container">${defaultHtml}</div>`;
-                }
-
-                return `
-                    <div class="table-container">
-                        <table>
-                            <thead>${tokenOrHeader}</thead>
-                            <tbody>${maybeBody}</tbody>
-                        </table>
-                    </div>
-                `;
-            },
-
-            blockquote(tokenOrQuote) {
-                const text = (typeof tokenOrQuote === 'object' && tokenOrQuote !== null) 
-                    ? tokenOrQuote.text 
-                    : tokenOrQuote;
+            // Render cyber-alert for blockquotes
+            blockquote(quote) {
+                const content = typeof quote === 'object' && quote !== null ? (quote.text || quote.raw) : quote;
                 return `
                     <div class="cyber-alert info">
                         <div class="alert-icon">💡</div>
-                        <div class="alert-text">${text}</div>
+                        <div class="alert-text">${content}</div>
                     </div>
                 `;
             },
 
-            code(tokenOrCode, infostring) {
-                const code = (typeof tokenOrCode === 'object' && tokenOrCode !== null) 
-                    ? tokenOrCode.text 
-                    : tokenOrCode;
-                const lang = (typeof tokenOrCode === 'object' && tokenOrCode !== null) 
-                    ? (tokenOrCode.lang || 'code') 
-                    : (infostring || 'code');
+            // Render Mac-style code window
+            code(code, infostring) {
+                const rawCode = typeof code === 'object' && code !== null ? code.text : code;
+                const lang = (typeof code === 'object' && code !== null ? code.lang : infostring) || 'code';
                 return `
                     <div class="mac-code-window">
                         <div class="mac-header">
@@ -962,7 +942,7 @@
                             </div>
                             <span style="font-family: monospace; font-size: 0.75rem; color: #64748b; text-transform: uppercase;">${lang}</span>
                         </div>
-                        <div class="mac-body"><pre><code>${code}</code></pre></div>
+                        <div class="mac-body"><pre><code>${rawCode}</code></pre></div>
                     </div>
                 `;
             }
@@ -970,7 +950,7 @@
 
         marked.use({ renderer });
 
-        // 2. FETCH & RENDER MARKDOWN WITH ABSOLUTE ORIGIN RESOLUTION
+        // 3. FETCH & PARSE WITH SAFE TABLE WRAPPING
         async function loadMarkdownLesson() {
             const params = new URLSearchParams(window.location.search);
             let mdParam = params.get('file') || '1.1-how-the-web-works.md';
@@ -984,18 +964,25 @@
             const fullTargetUrl = `${window.location.origin}/src/pages/courses/html/${targetPath}`;
 
             try {
-                const response = await fetch(fullTargetUrl, {
-                    headers: { 'Accept': 'text/plain, text/markdown, */*' },
-                    cache: 'no-cache'
-                });
+                const response = await fetch(fullTargetUrl, { cache: 'no-cache' });
 
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status} returned from ${fullTargetUrl}`);
+                    throw new Error(`HTTP ${response.status} - File not accessible`);
                 }
                 
                 const text = await response.text();
-                document.getElementById('markdownOutputContainer').innerHTML = marked.parse(text);
+                
+                // Parse standard markdown safely without table overrides crashing
+                let parsedHtml = marked.parse(text);
 
+                // Seamlessly wrap every generated <table> inside <div class="table-container">
+                parsedHtml = parsedHtml
+                    .replace(/<table>/g, '<div class="table-container"><table>')
+                    .replace(/<\/table>/g, '</table></div>');
+
+                document.getElementById('markdownOutputContainer').innerHTML = parsedHtml;
+
+                // Sync active sidebar item and breadcrumb title
                 document.querySelectorAll('.tree-leaves a').forEach(link => {
                     const href = link.getAttribute('href') || '';
                     if (href.includes(targetPath) || href.includes(mdParam)) {
@@ -1013,13 +1000,13 @@
                 console.error("Markdown load failure:", err);
                 document.getElementById('markdownOutputContainer').innerHTML = `
                     <h2 style="color: #ff5252;">Module Load Error</h2>
-                    <p style="color: #94a3b8;">Failed to fetch from: <code>${fullTargetUrl}</code></p>
+                    <p style="color: #94a3b8;">Failed to load or parse: <code>${fullTargetUrl}</code></p>
                     <p style="color: #64748b; font-size: 0.85rem; margin-top: 10px;">${err.message}</p>
                 `;
             }
         }
 
-        // 3. TREE SIDEBAR ACCORDION CONTROLLER
+        // 4. TREE SIDEBAR EXPAND/COLLAPSE CONTROLLER
         document.querySelectorAll('.tree-node').forEach(node => {
             node.addEventListener('click', () => {
                 const branch = node.parentElement;
@@ -1044,35 +1031,6 @@
                 backdrop.classList.remove('active');
             });
         }
-
-        // 4. ENGINEER TEAM MODAL CONTROLLER
-        const teamDatabase = {
-            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
-            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
-            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Authentication and security.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
-            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Curriculum layout and styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
-            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Performance testing and QA.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
-        };
-
-        const engModal = document.getElementById('engineerModal');
-        window.openEngineerModal = function(key) {
-            const eng = teamDatabase[key];
-            if (!eng) return;
-            document.getElementById('engAvatar').textContent = eng.initials;
-            document.getElementById('engName').textContent = eng.name;
-            document.getElementById('engId').textContent = `Student ID: ${eng.id}`;
-            document.getElementById('engRole').textContent = eng.role;
-            document.getElementById('engBio').textContent = eng.bio;
-            document.getElementById('engEmail').href = eng.email;
-            document.getElementById('engGithub').href = eng.github;
-            engModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        };
-
-        document.getElementById('closeEngineerModal')?.addEventListener('click', () => {
-            engModal.classList.remove('show');
-            document.body.style.overflow = '';
-        });
 
         // 5. PROGRESS & AUTH LOGIC
         const COURSE_ID = 'html-101';
