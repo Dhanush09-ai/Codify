@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <title>Codify Lesson</title>
+    <!-- Load Marked.js Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+    <!-- Main Workspace Layout -->
+    <div class="page-wrapper" style="margin-top: 80px;">
+        <main class="content-workspace" style="width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px;">
+            <article class="content-body" id="markdownOutputContainer">
+                <p style="color: #00aaff; text-align: center;">Compiling lesson module...</p>
+            </article>
+        </main>
+    </div>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        // ==========================================================================
+        // MARKED.JS CUSTOM RENDERER OVERRIDES (SOLUTION B)
+        // ==========================================================================
+        const renderer = new marked.Renderer();
+
+        // 1. Automatically upgrade standard tables to your .modern-table design
+        renderer.table = function(header, body) {
+            return `
+                <div class="table-container">
+                    <table class="modern-table">
+                        <thead>${header}</thead>
+                        <tbody>${body}</tbody>
+                    </table>
+                </div>
+            `;
+        };
+
+        // 2. Automatically upgrade blockquotes to your .cyber-alert info boxes
+        renderer.blockquote = function(quote) {
+            return `
+                <div class="cyber-alert info">
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-text">${quote}</div>
+                </div>
+            `;
+        };
+
+        // 3. Automatically upgrade code blocks to your Mac-style code windows
+        renderer.code = function(code, infostring) {
+            const lang = infostring || 'text';
+            return `
+                <div class="mac-code-window">
+                    <div class="mac-header">
+                        <div class="mac-traffic-lights">
+                            <div class="mac-dot mac-red"></div>
+                            <div class="mac-dot mac-yellow"></div>
+                            <div class="mac-dot mac-green"></div>
+                        </div>
+                        <span style="font-family: monospace; font-size: 0.8rem; color: #8b949e; text-transform: uppercase;">${lang}</span>
+                    </div>
+                    <div class="mac-body"><pre><code>${code}</code></pre></div>
+                </div>
+            `;
+        };
+
+        marked.use({ renderer });
+
+        // ==========================================================================
+        // FETCH AND PARSE MARKDOWN FILE
+        // ==========================================================================
+        async function loadMarkdownLesson() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Example link format: /src/pages/courses/html/lesson.html?file=1.1-how-the-web-works.md
+            const mdFileName = urlParams.get('file') || '1.1-how-the-web-works.md';
+            
+            // Resolve relative path to your course chapter folder
+            const filePath = `./chapter-1/${mdFileName}`;
+
+            try {
+                const response = await fetch(filePath);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const markdownText = await response.text();
+                
+                // Parse markdown and inject into the page
+                document.getElementById('markdownOutputContainer').innerHTML = marked.parse(markdownText);
+            } catch (err) {
+                console.error("Markdown load failure:", err);
+                document.getElementById('markdownOutputContainer').innerHTML = `
+                    <h2 style="color: #f85149;">Module Load Error</h2>
+                    <p style="color: #94a3b8;">Could not fetch lesson file: <code>${mdFileName}</code></p>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadMarkdownLesson);
+    </script>
+</body>
+</html>
