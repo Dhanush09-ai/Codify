@@ -543,23 +543,7 @@
         .search-results-status { padding: 20px !important; text-align: center !important; color: #94a3b8 !important; }
         .search-results-list { list-style: none !important; display: flex !important; flex-direction: column !important; gap: 8px !important; margin: 0 !important; padding: 0 !important; }
 
-        @media (max-width: 900px) {
-            .sidebar-nav {
-                position: fixed;
-                left: 0;
-                top: 102px;
-                height: calc(100vh - 102px);
-                z-index: 1600;
-                transform: translateX(-100%);
-                background: #080d19;
-            }
-            .sidebar-nav.mobile-active {
-                transform: translateX(0);
-                box-shadow: 10px 0 35px rgba(0,0,0,0.85);
-            }
-            .content-workspace { padding: 25px 18px; }
-            .topic-title { font-size: 2rem; }
-        }
+        
     </style>
 </head>
 
@@ -579,12 +563,6 @@
             </div>
 
             <nav class="codify-center-nav" id="centerNav" aria-label="Main navigation menu">
-                <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
 
                 <ul class="codify-nav-links" id="navLinks">
                     <li><a href="/index.html">Home</a></li>
