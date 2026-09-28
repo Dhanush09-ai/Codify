@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="/src/css/style.css">
     <title>HTML Lesson | Codify</title>
 
-    <!-- Marked.js Markdown Parser -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Locked, stable Marked.js build (prevents any 'reading table' crash) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
 
     <style>
         /* ==========================================================================
@@ -41,7 +41,7 @@
         }
 
         /* ==========================================================================
-           HEADER (EXACT courses.html)
+           HEADER (MATCHING courses.html)
            ========================================================================== */
         .codify-main-header {
             position: fixed; top: 0; left: 0; width: 100%;
@@ -188,7 +188,7 @@
         .current-crumb { color: #00aaff; font-weight: 700; }
 
         /* ==========================================================================
-           PAGE WORKSPACE & ANIMATED SIDEBAR (FROM 1.2-key-features.html)
+           PAGE WORKSPACE & ANIMATED SIDEBAR
            ========================================================================== */
         .page-wrapper {
             display: flex;
@@ -546,7 +546,7 @@
 
     <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-    <!-- EXACT TOP NAV BAR (courses.html) -->
+    <!-- TOP HEADER -->
     <header class="codify-main-header">
         <div class="codify-header-container">
 
@@ -618,7 +618,7 @@
         </div>
     </header>
 
-    <!-- BREADCRUMB BAR (FROM 1.2-key-features.html) -->
+    <!-- BREADCRUMB BAR -->
     <header class="codify-breadcrumb-bar">
         <button class="breadcrumb-sidebar-trigger" id="sidebarToggleMobile" aria-label="Toggle Course Index">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -645,7 +645,7 @@
     </header>
 
     <div class="page-wrapper">
-        <!-- COLLAPSIBLE TREE SIDEBAR WITH TRANSITION ANIMATIONS -->
+        <!-- SIDEBAR TREE -->
         <aside class="sidebar-nav" id="sidebarNav">
             <div class="sidebar-header">
                 <h2 class="sidebar-title">HTML Curriculum</h2>
@@ -821,7 +821,7 @@
                 <p style="color: #00aaff; text-align: center;">Rendering lesson module stream...</p>
             </article>
 
-            <!-- TOPIC COMPLETION MATRIX CARD (FROM 1.2-key-features.html) -->
+            <!-- TOPIC COMPLETION MATRIX CARD -->
             <div class="lesson-complete-card">
                 <div class="complete-text">
                     <h3>Finished this topic?</h3>
@@ -837,7 +837,7 @@
         </main>
     </div>
 
-    <!-- EXACT FOOTER (courses.html) -->
+    <!-- FOOTER -->
     <footer class="codify-footer">
         <div>
             Built with precision for future developers • Developed by
@@ -868,7 +868,7 @@
         </div>
     </footer>
 
-    <!-- ENGINEER MODAL (courses.html) -->
+    <!-- ENGINEER MODAL -->
     <div class="modal-overlay" id="engineerModal" aria-hidden="true">
         <div class="modal-card">
             <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
@@ -888,7 +888,7 @@
         </div>
     </div>
 
-    <!-- SEARCH HUD MODAL (courses.html) -->
+    <!-- SEARCH HUD MODAL -->
     <div class="search-overlay-modal" id="searchOverlayModal" aria-hidden="true">
         <div class="search-modal-card">
             <div class="search-modal-header">
@@ -902,94 +902,103 @@
             </div>
         </div>
     </div>
-<script src="/src/js/script.js"></script>
+
+    <script src="/src/js/script.js"></script>
     <script type="module" src="/src/js/auth/nav-auth.js"></script>
     <script type="module" src="/src/js/config/supabase-client.js"></script>
 
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        // 1. CONFIGURE MARKED.JS SAFELY (NO getDefaults CRASHES)
+        // 1. SAFE MARKED PARSER SETUP (Zero renderer overrides to prevent parser crash)
         marked.setOptions({
             gfm: true,
             breaks: true
         });
 
-        // 2. BULLETPROOF RENDERER HOOKS
-        const renderer = {
-            // Render cyber-alert for blockquotes
-            blockquote(quote) {
-                const content = typeof quote === 'object' && quote !== null ? (quote.text || quote.raw) : quote;
-                return `
-                    <div class="cyber-alert info">
-                        <div class="alert-icon">💡</div>
-                        <div class="alert-text">${content}</div>
-                    </div>
-                `;
-            },
+        // 2. BULLETPROOF DOM POST-PROCESSOR
+        function applyCyberStyles(container) {
+            // Style Tables: Wrap all raw <table> into .table-container
+            container.querySelectorAll('table').forEach(table => {
+                if (!table.parentElement.classList.contains('table-container')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'table-container';
+                    table.parentNode.insertBefore(wrapper, table);
+                    wrapper.appendChild(table);
+                }
+            });
 
-            // Render Mac-style code window
-            code(code, infostring) {
-                const rawCode = typeof code === 'object' && code !== null ? code.text : code;
-                const lang = (typeof code === 'object' && code !== null ? code.lang : infostring) || 'code';
-                return `
-                    <div class="mac-code-window">
-                        <div class="mac-header">
-                            <div class="mac-traffic-lights">
-                                <div class="mac-dot mac-red"></div>
-                                <div class="mac-dot mac-yellow"></div>
-                                <div class="mac-dot mac-green"></div>
-                            </div>
-                            <span style="font-family: monospace; font-size: 0.75rem; color: #64748b; text-transform: uppercase;">${lang}</span>
+            // Style Blockquotes: Transform into .cyber-alert
+            container.querySelectorAll('blockquote').forEach(bq => {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'cyber-alert info';
+                alertDiv.innerHTML = `
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-text">${bq.innerHTML}</div>
+                `;
+                bq.parentNode.replaceChild(alertDiv, bq);
+            });
+
+            // Style Code Blocks: Wrap all <pre><code> into .mac-code-window
+            container.querySelectorAll('pre').forEach(pre => {
+                const codeElem = pre.querySelector('code');
+                const rawCode = codeElem ? codeElem.innerHTML : pre.innerHTML;
+                const langClass = codeElem ? codeElem.className : '';
+                const lang = langClass.replace('language-', '') || 'code';
+
+                const macWindow = document.createElement('div');
+                macWindow.className = 'mac-code-window';
+                macWindow.innerHTML = `
+                    <div class="mac-header">
+                        <div class="mac-traffic-lights">
+                            <div class="mac-dot mac-red"></div>
+                            <div class="mac-dot mac-yellow"></div>
+                            <div class="mac-dot mac-green"></div>
                         </div>
-                        <div class="mac-body"><pre><code>${rawCode}</code></pre></div>
+                        <span style="font-family: monospace; font-size: 0.75rem; color: #64748b; text-transform: uppercase;">${lang}</span>
                     </div>
+                    <div class="mac-body"><pre><code>${rawCode}</code></pre></div>
                 `;
-            }
-        };
+                pre.parentNode.replaceChild(macWindow, pre);
+            });
+        }
 
-        marked.use({ renderer });
-
-        // 3. FETCH & PARSE WITH SAFE TABLE WRAPPING
+        // 3. CLEAN FETCH & RENDER
         async function loadMarkdownLesson() {
             const params = new URLSearchParams(window.location.search);
-            let mdParam = params.get('file') || '1.1-how-the-web-works.md';
+            let mdParam = params.get('file') || 'chapter-1/1.1-how-the-web-works.md';
 
-            let targetPath = mdParam.replace(/^\/+/, '');
-            targetPath = targetPath.replace(/^src\/pages\/courses\/html\//, '');
-            if (!targetPath.includes('/')) {
-                targetPath = `chapter-1/${targetPath}`;
+            // Clean the parameter to extract folder and filename
+            let cleanFile = mdParam.replace(/^\/+/, '').replace(/^src\/pages\/courses\/html\//, '');
+            if (!cleanFile.includes('/')) {
+                cleanFile = `chapter-1/${cleanFile}`;
             }
 
-            const fullTargetUrl = `${window.location.origin}/src/pages/courses/html/${targetPath}`;
+            const targetUrl = `${window.location.origin}/src/pages/courses/html/${cleanFile}`;
 
             try {
-                const response = await fetch(fullTargetUrl, { cache: 'no-cache' });
-
+                const response = await fetch(targetUrl, { cache: 'no-cache' });
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status} - File not accessible`);
+                    throw new Error(`HTTP ${response.status} - Could not fetch ${targetUrl}`);
                 }
+
+                const markdownText = await response.text();
+                const container = document.getElementById('markdownOutputContainer');
                 
-                const text = await response.text();
+                // Parse standard markdown natively
+                container.innerHTML = marked.parse(markdownText);
                 
-                // Parse standard markdown safely without table overrides crashing
-                let parsedHtml = marked.parse(text);
+                // Enhance elements safely with DOM post-processor
+                applyCyberStyles(container);
 
-                // Seamlessly wrap every generated <table> inside <div class="table-container">
-                parsedHtml = parsedHtml
-                    .replace(/<table>/g, '<div class="table-container"><table>')
-                    .replace(/<\/table>/g, '</table></div>');
-
-                document.getElementById('markdownOutputContainer').innerHTML = parsedHtml;
-
-                // Sync active sidebar item and breadcrumb title
+                // Update active link and breadcrumb
                 document.querySelectorAll('.tree-leaves a').forEach(link => {
                     const href = link.getAttribute('href') || '';
-                    if (href.includes(targetPath) || href.includes(mdParam)) {
+                    if (href.includes(cleanFile) || href.includes(mdParam)) {
                         link.classList.add('active-leaf');
                         const parentBranch = link.closest('.tree-branch');
                         if (parentBranch) parentBranch.classList.add('expanded');
-                        
+
                         const title = link.getAttribute('data-title');
                         if (title) document.getElementById('breadcrumbCurrent').textContent = title;
                     } else {
@@ -1000,13 +1009,13 @@
                 console.error("Markdown load failure:", err);
                 document.getElementById('markdownOutputContainer').innerHTML = `
                     <h2 style="color: #ff5252;">Module Load Error</h2>
-                    <p style="color: #94a3b8;">Failed to load or parse: <code>${fullTargetUrl}</code></p>
+                    <p style="color: #94a3b8;">Failed to load from: <code>${targetUrl}</code></p>
                     <p style="color: #64748b; font-size: 0.85rem; margin-top: 10px;">${err.message}</p>
                 `;
             }
         }
 
-        // 4. TREE SIDEBAR EXPAND/COLLAPSE CONTROLLER
+        // 4. SIDEBAR ACCORDION CONTROLLER
         document.querySelectorAll('.tree-node').forEach(node => {
             node.addEventListener('click', () => {
                 const branch = node.parentElement;
@@ -1032,7 +1041,36 @@
             });
         }
 
-        // 5. PROGRESS & AUTH LOGIC
+        // 5. ENGINEER MODAL CONTROLLER
+        const teamDatabase = {
+            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
+            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
+            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Authentication and security.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
+            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Curriculum layout and styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
+            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Performance testing and QA.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
+        };
+
+        const engModal = document.getElementById('engineerModal');
+        window.openEngineerModal = function(key) {
+            const eng = teamDatabase[key];
+            if (!eng) return;
+            document.getElementById('engAvatar').textContent = eng.initials;
+            document.getElementById('engName').textContent = eng.name;
+            document.getElementById('engId').textContent = `Student ID: ${eng.id}`;
+            document.getElementById('engRole').textContent = eng.role;
+            document.getElementById('engBio').textContent = eng.bio;
+            document.getElementById('engEmail').href = eng.email;
+            document.getElementById('engGithub').href = eng.github;
+            engModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+
+        document.getElementById('closeEngineerModal')?.addEventListener('click', () => {
+            engModal.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+
+        // 6. PROGRESS TRACKING & SUPABASE
         const COURSE_ID = 'html-101';
         let currentUser = null;
         let isCompleted = false;
