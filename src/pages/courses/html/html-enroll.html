@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enroll in HTML Course | Codify</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0f1c, #0d1b2a);
+            color: #e0e6ed;
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .enroll-card {
+            background: rgba(13, 27, 42, 0.8);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(16px);
+        }
+        h1 { color: #00aaff; margin-bottom: 10px; font-size: 1.8rem; }
+        p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 30px; line-height: 1.5; }
+        .enroll-btn {
+            background: linear-gradient(90deg, #0077ff, #00aaff);
+            color: white; border: none; padding: 14px 28px; font-size: 1rem;
+            font-weight: bold; border-radius: 12px; cursor: pointer; width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.4); transition: transform 0.2s ease;
+        }
+        .enroll-btn:hover { transform: scale(1.02); }
+    </style>
+</head>
+
+<body>
+    <div class="enroll-card">
+        <h1>HTML Mastery</h1>
+        <p>Unlock all 10 chapters, track your code progress, and build full-scale web layouts.</p>
+        <button class="enroll-btn" id="enrollBtn">Enroll Now for Free</button>
+    </div>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        const COURSE_ID = 'html-101';
+
+        document.getElementById('enrollBtn').addEventListener('click', async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (!user) {
+                alert('Please log in first to enroll in courses.');
+                window.location.href = '/src/auth/login.html';
+                return;
+            }
+
+            const { error } = await supabase
+                .from('enrollments')
+                .upsert({ user_id: user.id, course_id: COURSE_ID });
+
+            if (error) {
+                alert('Enrollment failed: ' + error.message);
+            } else {
+                window.location.href = 'html-index.html';
+            }
+        });
+    </script>
+</body>
+</html>

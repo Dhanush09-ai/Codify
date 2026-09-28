@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Master HTML fundamentals and web anatomy through structured modules and syllabus tracking on Codify.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <title>HTML Syllabus | Codify</title>
+
+    <style>
+        html, body {
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            position: relative;
+            background-color: #0a0f1c;
+            color: #e0e6ed;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main, main section, .progress-card, .chapter-card {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+
+        main {
+            display: flex !important;
+            flex-direction: column !important;
+            flex: 1;
+            margin-top: 90px !important;
+            padding: 20px 24px 60px 24px !important;
+            max-width: 1100px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        .codify-main-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(10, 15, 28, 0.98); backdrop-filter: blur(12px);
+            z-index: 2000; border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+        }
+
+        .codify-header-container {
+            display: flex !important; justify-content: space-between !important; align-items: center !important;
+            padding: 10px 32px !important; width: 100% !important; box-sizing: border-box !important;
+        }
+
+        .codify-logo {
+            display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 800; color: #fff; text-decoration: none; cursor: pointer;
+        }
+        .logo-icon { width: 32px; height: 32px; }
+
+        .codify-right-group { display: flex; align-items: center; gap: 16px; position: relative; }
+        .codify-auth-group { display: flex; align-items: center; gap: 12px; }
+
+        .codify-btn-outline {
+            text-decoration: none; background: transparent; border: 1px solid rgba(0, 170, 255, 0.4);
+            color: #e0e6ed; font-size: 0.9rem; font-weight: bold; padding: 8px 18px; border-radius: 12px; transition: all 0.3s ease;
+        }
+        .codify-btn-outline:hover { background: rgba(0, 170, 255, 0.1); border-color: #00aaff; color: #fff; }
+
+        .nav-profile-dp {
+            width: 38px; height: 38px; border-radius: 50%; border: 2px solid #00aaff;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+            background: rgba(0, 170, 255, 0.15); color: #00aaff; font-weight: 800; text-decoration: none;
+        }
+        .nav-profile-dp img { width: 100%; height: 100%; object-fit: cover; }
+
+        .index-title { color: #ffffff; font-size: 2.2rem; font-weight: 800; margin: 10px 0 24px 0; }
+        .index-title span { background: linear-gradient(90deg, #0077ff, #00aaff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .progress-card {
+            background: rgba(13, 27, 42, 0.6) !important; border: 1px solid rgba(0, 170, 255, 0.25) !important;
+            border-radius: 20px !important; padding: 24px 28px !important; margin-bottom: 30px !important; backdrop-filter: blur(16px);
+        }
+        .progress-top { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 14px !important; }
+        .progress-metrics { display: flex !important; gap: 12px !important; }
+        .metric-pill { font-size: 0.85rem; font-weight: 700; padding: 5px 12px; border-radius: 8px; }
+        .finished { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .pending { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+        .progress-bar-bg { height: 10px; background: rgba(10, 15, 28, 0.85); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #10b981, #34d399); border-radius: 10px; transition: width 0.5s ease; }
+
+        .chapter-card {
+            background: rgba(13, 27, 42, 0.5) !important; border: 1px solid rgba(0, 170, 255, 0.2) !important;
+            border-radius: 20px !important; margin-bottom: 24px !important; overflow: hidden !important; backdrop-filter: blur(16px);
+        }
+        .chapter-header {
+            padding: 18px 24px; background: rgba(10, 15, 28, 0.7); font-weight: 800; color: #00aaff; font-size: 1.1rem;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+        }
+        .topic-list { list-style: none; padding: 0; margin: 0; }
+        .topic-item {
+            display: flex !important; align-items: center !important; justify-content: space-between !important;
+            padding: 16px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); gap: 16px;
+        }
+        .topic-item:hover { background: rgba(0, 170, 255, 0.06); }
+        .topic-link { color: #e0e6ed; font-size: 1rem; text-decoration: none; font-weight: 600; flex: 1; }
+        .topic-link:hover { color: #00aaff; }
+
+        .status-pill { font-size: 0.8rem; font-weight: 700; padding: 5px 12px; border-radius: 8px; white-space: nowrap; }
+        .status-pill.done { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .status-pill.open { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
+
+        .codify-footer {
+            margin-top: 50px; border-top: 1px solid rgba(0, 170, 255, 0.15); padding: 24px 20px;
+            text-align: center; color: #94a3b8; font-size: 0.9rem; background: rgba(10, 15, 28, 0.95);
+        }
+        .team-hover-wrapper { position: relative; display: inline-block; cursor: pointer; }
+        .team-trigger { color: #00aaff; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+        .team-popover {
+            position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(8px);
+            width: 320px; background: rgba(13, 27, 42, 0.98); border: 1px solid rgba(0, 170, 255, 0.35);
+            border-radius: 16px; padding: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 100;
+        }
+        .team-hover-wrapper:hover .team-popover { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .popover-header { font-size: 0.75rem; font-weight: 800; color: #00aaff; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid rgba(0, 170, 255, 0.15); padding-bottom: 6px; }
+        .team-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+        .team-member { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #e0e6ed; font-weight: 600; }
+        .member-dot { width: 6px; height: 6px; background: #00aaff; border-radius: 50%; box-shadow: 0 0 8px #00aaff; }
+        .student-id { color: #00aaff; font-size: 0.75rem; margin-left: auto; }
+    </style>
+</head>
+
+<body>
+
+    <header class="codify-main-header">
+        <div class="codify-header-container">
+            <div class="codify-left-group">
+                <a href="/index.html" class="codify-logo">
+                    <img src="/src/assets/logos/main-logo.svg" alt="Codify Logo" class="logo-icon">
+                    <span class="logo-text">Codify</span>
+                </a>
+            </div>
+            <nav class="codify-center-nav" aria-label="Main navigation menu">
+                <ul class="codify-nav-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/src/pages/courses.html" class="active-link">Courses</a></li>
+                    <li><a href="/src/pages/courses/exam.html">Quizzes &amp; Exams</a></li>
+                    <li><a href="/src/pages/certificate.html">Certificates</a></li>
+                    <li><a href="/src/pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="codify-right-group">
+                <div class="codify-auth-group" id="authNavGroup">
+                    <a href="/src/auth/login.html" class="codify-btn-outline">Login</a>
+                    <a href="/src/auth/signup.html" class="codify-btn-outline">Signup</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="index-title">HTML <span>Course Index &amp; Syllabus</span></h1>
+
+        <section class="progress-card">
+            <div class="progress-top">
+                <strong style="color: #ffffff; font-size: 1.1rem;">Your Course Matrix</strong>
+                <div class="progress-metrics">
+                    <span class="metric-pill finished" id="finishedMetric">0 Finished</span>
+                    <span class="metric-pill pending" id="pendingMetric">0 Incomplete</span>
+                </div>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+        </section>
+
+        <!-- Chapter 1 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 1: Intro to WWW &amp; HTML</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-1/1.1-how-the-web-works.html" class="topic-link">1.1 How the Web Works</a><span class="status-pill open" id="status-html-1.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-1/1.2-what-is-html.html" class="topic-link">1.2 What is HTML?</a><span class="status-pill open" id="status-html-1.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-1/1.3-setting-up-environment.html" class="topic-link">1.3 Setting Up Your Environment</a><span class="status-pill open" id="status-html-1.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-1/1.4-your-first-webpage.html" class="topic-link">1.4 Your First Webpage</a><span class="status-pill open" id="status-html-1.4">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+        <!-- Chapter 2 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 2: HTML Document Anatomy &amp; Core Concepts</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-2/2.1-tags-elements-attributes.html" class="topic-link">2.1 Tags, Elements, and Attributes</a><span class="status-pill open" id="status-html-2.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-2/2.2-the-boilerplate.html" class="topic-link">2.2 The Boilerplate</a><span class="status-pill open" id="status-html-2.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-2/2.3-metadata-essentials.html" class="topic-link">2.3 Metadata Essentials</a><span class="status-pill open" id="status-html-2.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-2/2.4-code-formatting.html" class="topic-link">2.4 Code Formatting &amp; Comments</a><span class="status-pill open" id="status-html-2.4">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+        <!-- Chapter 3 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 3: Working with Text &amp; Headings</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-3/3.1-headings-hierarchy.html" class="topic-link">3.1 Headings Hierarchy</a><span class="status-pill open" id="status-html-3.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-3/3.2-paragraphs-line-breaks.html" class="topic-link">3.2 Paragraphs and Line Breaks</a><span class="status-pill open" id="status-html-3.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-3/3.3-text-formatting.html" class="topic-link">3.3 Text Formatting</a><span class="status-pill open" id="status-html-3.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-3/3.4-preformatted-code.html" class="topic-link">3.4 Preformatted Text and Code</a><span class="status-pill open" id="status-html-3.4">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+        <!-- Chapter 4 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 4: Hyperlinks &amp; Navigation</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-4/4.1-anchor-element.html" class="topic-link">4.1 The Anchor Element</a><span class="status-pill open" id="status-html-4.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-4/4.2-absolute-relative-urls.html" class="topic-link">4.2 Absolute vs. Relative URLs</a><span class="status-pill open" id="status-html-4.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-4/4.3-link-behaviors.html" class="topic-link">4.3 Link Behaviors &amp; Security</a><span class="status-pill open" id="status-html-4.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-4/4.4-page-jumps-email.html" class="topic-link">4.4 Page Jumps &amp; Email Links</a><span class="status-pill open" id="status-html-4.4">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+        <!-- Chapter 5 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 5: Media &amp; Assets</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-5/5.1-displaying-images.html" class="topic-link">5.1 Displaying Images</a><span class="status-pill open" id="status-html-5.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-5/5.2-image-best-practices.html" class="topic-link">5.2 Image File Types &amp; Best Practices</a><span class="status-pill open" id="status-html-5.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-5/5.3-audio-elements.html" class="topic-link">5.3 Audio Elements</a><span class="status-pill open" id="status-html-5.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-5/5.4-video-elements.html" class="topic-link">5.4 Video Elements</a><span class="status-pill open" id="status-html-5.4">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+        <!-- Chapter 6 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 6: Lists &amp; Data Organization</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-6/6.1-unordered-lists.html" class="topic-link">6.1 Unordered Lists</a><span class="status-pill open" id="status-html-6.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-6/6.2-ordered-lists.html" class="topic-link">6.2 Ordered Lists</a><span class="status-pill open" id="status-html-6.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-6/6.3-description-lists.html" class="topic-link">6.3 Description Lists</a><span class="status-pill open" id="status-html-6.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-6/6.4-nesting-lists.html" class="topic-link">6.4 Nesting Lists</a><span class="status-pill open" id="status-html-6.4">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+        <!-- Chapter 7 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 7: HTML Tables</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-7/7.1-table-basics.html" class="topic-link">7.1 Table Basics</a><span class="status-pill open" id="status-html-7.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-7/7.2-semantic-table-sections.html" class="topic-link">7.2 Semantic Table Sections</a><span class="status-pill open" id="status-html-7.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-7/7.3-merging-cells.html" class="topic-link">7.3 Merging Cells (Colspan &amp; Rowspan)</a><span class="status-pill open" id="status-html-7.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-7/7.4-accessibility-tables.html" class="topic-link">7.4 Accessibility in Tables</a><span class="status-pill open" id="status-html-7.4">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+        <!-- Chapter 8 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 8: Forms &amp; User Input</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-8/8.1-form-container.html" class="topic-link">8.1 The Form Container</a><span class="status-pill open" id="status-html-8.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-8/8.2-basic-inputs.html" class="topic-link">8.2 Basic Inputs</a><span class="status-pill open" id="status-html-8.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-8/8.3-accessible-form-design.html" class="topic-link">8.3 Accessible Form Design</a><span class="status-pill open" id="status-html-8.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-8/8.4-advanced-inputs.html" class="topic-link">8.4 Advanced Inputs</a><span class="status-pill open" id="status-html-8.4">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-8/8.5-native-validation.html" class="topic-link">8.5 Native Form Validation</a><span class="status-pill open" id="status-html-8.5">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+        <!-- Chapter 9 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 9: Modern Semantic HTML5</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-9/9.1-why-semantics-matter.html" class="topic-link">9.1 Why Semantics Matter</a><span class="status-pill open" id="status-html-9.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-9/9.2-page-layout-elements.html" class="topic-link">9.2 Page Layout Elements</a><span class="status-pill open" id="status-html-9.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-9/9.3-content-chunking.html" class="topic-link">9.3 Content Chunking</a><span class="status-pill open" id="status-html-9.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-9/9.4-figures-captions.html" class="topic-link">9.4 Figures and Captions</a><span class="status-pill open" id="status-html-9.4">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+        <!-- Chapter 10 -->
+        <section class="chapter-card">
+            <div class="chapter-header">Chapter 10: Next Steps &amp; Real-World Projects</div>
+            <ul class="topic-list">
+                <li class="topic-item"><a href="chapter-10/10.1-connecting-to-css.html" class="topic-link">10.1 Connecting to CSS</a><span class="status-pill open" id="status-html-10.1">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-10/10.2-connecting-to-js.html" class="topic-link">10.2 Connecting to JavaScript</a><span class="status-pill open" id="status-html-10.2">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-10/10.3-validation-debugging.html" class="topic-link">10.3 Validation &amp; Debugging</a><span class="status-pill open" id="status-html-10.3">⚪ Incomplete</span></li>
+                <li class="topic-item"><a href="chapter-10/10.4-capstone-project.html" class="topic-link">10.4 Capstone Project</a><span class="status-pill open" id="status-html-10.4">⚪ Incomplete</span></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="codify-footer">
+        <div>
+            Built with precision for future developers • Developed by
+            <span class="team-hover-wrapper" tabindex="0" role="button">
+                <span class="team-trigger">Codify Team</span>
+                <div class="team-popover">
+                    <div class="popover-header">Core Engineers</div>
+                    <ul class="team-list">
+                        <li class="team-member" onclick="openEngineerModal('owais')"><span class="member-dot"></span>Mohammed Owais <span class="student-id">(193)</span></li>
+                        <li class="team-member" onclick="openEngineerModal('dhanush')"><span class="member-dot"></span>M. Dhanush <span class="student-id">(189)</span></li>
+                    </ul>
+                </div>
+            </span>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        const COURSE_ID = 'html-101';
+        const TOTAL_TOPICS = document.querySelectorAll('.topic-item').length;
+
+        async function loadIndexProgress() {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                const user = session?.user;
+                if (!user) return;
+
+                const { data: progress } = await supabase
+                    .from('user_progress')
+                    .select('lesson_id, completed')
+                    .eq('user_id', user.id)
+                    .eq('course_id', COURSE_ID);
+
+                let finishedCount = 0;
+                if (progress && progress.length > 0) {
+                    progress.forEach(item => {
+                        if (item.completed) {
+                            finishedCount++;
+                            const badge = document.getElementById(`status-${item.lesson_id}`);
+                            if (badge) {
+                                badge.className = 'status-pill done';
+                                badge.innerHTML = '✓ Finished';
+                            }
+                        }
+                    });
+                }
+
+                const pendingCount = TOTAL_TOPICS - finishedCount;
+                const percentage = Math.round((finishedCount / TOTAL_TOPICS) * 100);
+
+                document.getElementById('finishedMetric').textContent = `${finishedCount} Finished`;
+                document.getElementById('pendingMetric').textContent = `${pendingCount} Incomplete`;
+                document.getElementById('progressBarFill').style.width = `${percentage}%`;
+            } catch (err) {
+                console.error('Progress Error:', err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadIndexProgress);
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson | Codify</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <!-- Load Marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+    <!-- Your existing Header, Breadcrumbs, and Sidebar Layout -->
+    <div class="page-wrapper">
+        <aside class="sidebar-nav" id="sidebarNav">
+            <!-- Sidebar Navigation Links -->
+        </aside>
+
+        <main class="content-workspace">
+            <article class="content-body" id="dynamicLessonContent">
+                <!-- Markdown content will stream here automatically -->
+            </article>
+        </main>
+    </div>
+
+    <script type="module">
+        // Custom Renderer Configuration for Solution B
+        const renderer = new marked.Renderer();
+
+        // 1. Automatically wrap tables in your .table-container and .modern-table classes
+        renderer.table = function(header, body) {
+            return `
+                <div class="table-container">
+                    <table class="modern-table">
+                        <thead>${header}</thead>
+                        <tbody>${body}</tbody>
+                    </table>
+                </div>
+            `;
+        };
+
+        // 2. Automatically convert blockquotes into your custom .cyber-alert info boxes
+        renderer.blockquote = function(quote) {
+            return `
+                <div class="cyber-alert info">
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-text">${quote}</div>
+                </div>
+            `;
+        };
+
+        marked.use({ renderer });
+
+        async function loadLessonMarkdown() {
+            // Extracts the markdown file parameter from the URL, e.g., ?file=1.1-how-the-web-works.md
+            const params = new URLSearchParams(window.location.search);
+            const mdFile = params.get('file') || '1.1-how-the-web-works.md';
+
+            try {
+                const response = await fetch(mdFile);
+                if (!response.ok) throw new Error("File not found");
+                const markdownText = await response.text();
+                
+                // Parse markdown and inject into the document body
+                document.getElementById('dynamicLessonContent').innerHTML = marked.parse(markdownText);
+            } catch (err) {
+                document.getElementById('dynamicLessonContent').innerHTML = `
+                    <h2 style="color: #ff5252;">Error Loading Lesson</h2>
+                    <p>Could not retrieve markdown file: ${mdFile}</p>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadLessonMarkdown);
+    </script>
+</body>
+</html>
