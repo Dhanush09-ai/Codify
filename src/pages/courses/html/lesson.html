@@ -241,7 +241,6 @@
         }
         .tree-node:hover { background: rgba(0, 170, 255, 0.08); color: #00aaff; }
         
-        /* Smooth Rotate Arrow Animation */
         .tree-arrow {
             display: flex;
             align-items: center;
@@ -253,7 +252,6 @@
             color: #00aaff;
         }
 
-        /* Animated Accordion Leaves */
         .tree-leaves {
             list-style: none;
             padding: 0;
@@ -264,7 +262,7 @@
             transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .tree-branch.expanded .tree-leaves {
-            max-height: 500px;
+            max-height: 600px;
         }
 
         .tree-leaves li a {
@@ -355,7 +353,7 @@
             backdrop-filter: blur(14px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
         }
-        .modern-table {
+        .table-container table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
@@ -363,11 +361,11 @@
             color: #e0e6ed;
             min-width: 550px;
         }
-        .modern-table th, .modern-table td {
+        .table-container th, .table-container td {
             padding: 16px 20px;
             border-bottom: 1px solid rgba(0, 170, 255, 0.12);
         }
-        .modern-table th {
+        .table-container th {
             background: rgba(0, 170, 255, 0.12);
             color: #00aaff;
             font-weight: 800;
@@ -376,9 +374,9 @@
             letter-spacing: 0.5px;
             border-bottom: 2px solid rgba(0, 170, 255, 0.25);
         }
-        .modern-table tr:hover { background: rgba(0, 170, 255, 0.04); }
-        .modern-table tr:last-child td { border-bottom: none; }
-        .modern-table code {
+        .table-container tr:hover { background: rgba(0, 170, 255, 0.04); }
+        .table-container tr:last-child td { border-bottom: none; }
+        .table-container code {
             background: rgba(10, 15, 28, 0.85);
             border: 1px solid rgba(0, 170, 255, 0.3);
             color: #66ccff;
@@ -541,39 +539,6 @@
             }
             .content-workspace { padding: 30px 20px; }
         }
-
-        .table-container table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 0.95rem;
-    color: #e0e6ed;
-    min-width: 550px;
-}
-
-.table-container th, 
-.table-container td {
-    padding: 16px 20px;
-    border-bottom: 1px solid rgba(0, 170, 255, 0.12);
-}
-
-.table-container th {
-    background: rgba(0, 170, 255, 0.12);
-    color: #00aaff;
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 0.82rem;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid rgba(0, 170, 255, 0.25);
-}
-
-.table-container tr:hover { 
-    background: rgba(0, 170, 255, 0.04); 
-}
-
-.table-container tr:last-child td { 
-    border-bottom: none; 
-}
     </style>
 </head>
 
@@ -696,11 +661,11 @@
                         <span class="chapter-title">1. Introduction to Web &amp; HTML</span>
                     </div>
                     <ul class="tree-leaves">
-    <li><a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" class="active-leaf" data-title="1.1 How the Web Works">1.1 How the Web Works</a></li>
-    <li><a href="lesson.html?file=chapter-1/1.2-what-is-html.md" data-title="1.2 What is HTML?">1.2 What is HTML?</a></li>
-    <li><a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" data-title="1.3 Environment Setup">1.3 Setting Up Your Environment</a></li>
-    <li><a href="lesson.html?file=chapter-1/1.4-your-first-webpage.md" data-title="1.4 Your First Webpage">1.4 Your First Webpage</a></li>
-</ul>
+                        <li><a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" class="active-leaf" data-title="1.1 How the Web Works">1.1 How the Web Works</a></li>
+                        <li><a href="lesson.html?file=chapter-1/1.2-what-is-html.md" data-title="1.2 What is HTML?">1.2 What is HTML?</a></li>
+                        <li><a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" data-title="1.3 Environment Setup">1.3 Setting Up Your Environment</a></li>
+                        <li><a href="lesson.html?file=chapter-1/1.4-your-first-webpage.md" data-title="1.4 Your First Webpage">1.4 Your First Webpage</a></li>
+                    </ul>
                 </li>
 
                 <!-- Chapter 2 -->
@@ -712,10 +677,10 @@
                         <span class="chapter-title">2. Document Anatomy</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-2/2.1-tags-elements.md" data-title="2.1 Tags &amp; Attributes">2.1 Tags, Elements &amp; Attributes</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-2/2.2-boilerplate.md" data-title="2.2 Boilerplate">2.2 The Boilerplate</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-2/2.3-metadata.md" data-title="2.3 Metadata Essentials">2.3 Metadata Essentials</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-2/2.4-formatting.md" data-title="2.4 Code Formatting">2.4 Code Formatting &amp; Comments</a></li>
+                        <li><a href="lesson.html?file=chapter-2/2.1-tags-elements.md" data-title="2.1 Tags &amp; Attributes">2.1 Tags, Elements &amp; Attributes</a></li>
+                        <li><a href="lesson.html?file=chapter-2/2.2-boilerplate.md" data-title="2.2 Boilerplate">2.2 The Boilerplate</a></li>
+                        <li><a href="lesson.html?file=chapter-2/2.3-metadata.md" data-title="2.3 Metadata Essentials">2.3 Metadata Essentials</a></li>
+                        <li><a href="lesson.html?file=chapter-2/2.4-formatting.md" data-title="2.4 Code Formatting">2.4 Code Formatting &amp; Comments</a></li>
                     </ul>
                 </li>
 
@@ -728,10 +693,10 @@
                         <span class="chapter-title">3. Text &amp; Headings</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-3/3.1-headings.md" data-title="3.1 Headings Hierarchy">3.1 Headings Hierarchy</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-3/3.2-paragraphs.md" data-title="3.2 Paragraphs &amp; Breaks">3.2 Paragraphs and Line Breaks</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-3/3.3-text-formatting.md" data-title="3.3 Text Formatting">3.3 Text Formatting</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-3/3.4-preformatted-code.md" data-title="3.4 Preformatted &amp; Code">3.4 Preformatted Text &amp; Code</a></li>
+                        <li><a href="lesson.html?file=chapter-3/3.1-headings.md" data-title="3.1 Headings Hierarchy">3.1 Headings Hierarchy</a></li>
+                        <li><a href="lesson.html?file=chapter-3/3.2-paragraphs.md" data-title="3.2 Paragraphs &amp; Breaks">3.2 Paragraphs and Line Breaks</a></li>
+                        <li><a href="lesson.html?file=chapter-3/3.3-text-formatting.md" data-title="3.3 Text Formatting">3.3 Text Formatting</a></li>
+                        <li><a href="lesson.html?file=chapter-3/3.4-preformatted-code.md" data-title="3.4 Preformatted &amp; Code">3.4 Preformatted Text &amp; Code</a></li>
                     </ul>
                 </li>
 
@@ -744,10 +709,10 @@
                         <span class="chapter-title">4. Hyperlinks &amp; Navigation</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-4/4.1-anchor-element.md" data-title="4.1 Anchor Element">4.1 The Anchor Element</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-4/4.2-absolute-relative-urls.md" data-title="4.2 URLs">4.2 Absolute vs. Relative URLs</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-4/4.3-link-behaviors.md" data-title="4.3 Link Behaviors">4.3 Link Behaviors</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-4/4.4-page-jumps.md" data-title="4.4 Page Jumps &amp; Email">4.4 Page Jumps &amp; Email Links</a></li>
+                        <li><a href="lesson.html?file=chapter-4/4.1-anchor-element.md" data-title="4.1 Anchor Element">4.1 The Anchor Element</a></li>
+                        <li><a href="lesson.html?file=chapter-4/4.2-absolute-relative-urls.md" data-title="4.2 URLs">4.2 Absolute vs. Relative URLs</a></li>
+                        <li><a href="lesson.html?file=chapter-4/4.3-link-behaviors.md" data-title="4.3 Link Behaviors">4.3 Link Behaviors</a></li>
+                        <li><a href="lesson.html?file=chapter-4/4.4-page-jumps.md" data-title="4.4 Page Jumps &amp; Email">4.4 Page Jumps &amp; Email Links</a></li>
                     </ul>
                 </li>
 
@@ -760,10 +725,10 @@
                         <span class="chapter-title">5. Media &amp; Assets</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-5/5.1-images.md" data-title="5.1 Displaying Images">5.1 Displaying Images</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-5/5.2-image-types.md" data-title="5.2 Best Practices">5.2 Image Types &amp; Best Practices</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-5/5.3-audio.md" data-title="5.3 Audio Elements">5.3 Audio Elements</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-5/5.4-video.md" data-title="5.4 Video Elements">5.4 Video Elements</a></li>
+                        <li><a href="lesson.html?file=chapter-5/5.1-images.md" data-title="5.1 Displaying Images">5.1 Displaying Images</a></li>
+                        <li><a href="lesson.html?file=chapter-5/5.2-image-types.md" data-title="5.2 Best Practices">5.2 Image Types &amp; Best Practices</a></li>
+                        <li><a href="lesson.html?file=chapter-5/5.3-audio.md" data-title="5.3 Audio Elements">5.3 Audio Elements</a></li>
+                        <li><a href="lesson.html?file=chapter-5/5.4-video.md" data-title="5.4 Video Elements">5.4 Video Elements</a></li>
                     </ul>
                 </li>
 
@@ -776,10 +741,10 @@
                         <span class="chapter-title">6. Lists &amp; Data Organization</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-6/6.1-unordered-lists.md" data-title="6.1 Unordered Lists">6.1 Unordered Lists</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-6/6.2-ordered-lists.md" data-title="6.2 Ordered Lists">6.2 Ordered Lists</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-6/6.3-description-lists.md" data-title="6.3 Description Lists">6.3 Description Lists</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-6/6.4-nesting-lists.md" data-title="6.4 Nesting Lists">6.4 Nesting Lists</a></li>
+                        <li><a href="lesson.html?file=chapter-6/6.1-unordered-lists.md" data-title="6.1 Unordered Lists">6.1 Unordered Lists</a></li>
+                        <li><a href="lesson.html?file=chapter-6/6.2-ordered-lists.md" data-title="6.2 Ordered Lists">6.2 Ordered Lists</a></li>
+                        <li><a href="lesson.html?file=chapter-6/6.3-description-lists.md" data-title="6.3 Description Lists">6.3 Description Lists</a></li>
+                        <li><a href="lesson.html?file=chapter-6/6.4-nesting-lists.md" data-title="6.4 Nesting Lists">6.4 Nesting Lists</a></li>
                     </ul>
                 </li>
 
@@ -792,10 +757,10 @@
                         <span class="chapter-title">7. HTML Tables</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-7/7.1-table-basics.md" data-title="7.1 Table Basics">7.1 Table Basics</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-7/7.2-table-sections.md" data-title="7.2 Table Sections">7.2 Semantic Table Sections</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-7/7.3-merging-cells.md" data-title="7.3 Merging Cells">7.3 Merging Cells (Colspan/Rowspan)</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-7/7.4-accessibility.md" data-title="7.4 Accessibility">7.4 Accessibility in Tables</a></li>
+                        <li><a href="lesson.html?file=chapter-7/7.1-table-basics.md" data-title="7.1 Table Basics">7.1 Table Basics</a></li>
+                        <li><a href="lesson.html?file=chapter-7/7.2-table-sections.md" data-title="7.2 Table Sections">7.2 Semantic Table Sections</a></li>
+                        <li><a href="lesson.html?file=chapter-7/7.3-merging-cells.md" data-title="7.3 Merging Cells">7.3 Merging Cells (Colspan/Rowspan)</a></li>
+                        <li><a href="lesson.html?file=chapter-7/7.4-accessibility.md" data-title="7.4 Accessibility">7.4 Accessibility in Tables</a></li>
                     </ul>
                 </li>
 
@@ -808,11 +773,11 @@
                         <span class="chapter-title">8. Forms &amp; User Input</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-8/8.1-form-container.md" data-title="8.1 Form Container">8.1 The Form Container</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-8/8.2-basic-inputs.md" data-title="8.2 Basic Inputs">8.2 Basic Inputs</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-8/8.3-accessible-forms.md" data-title="8.3 Accessible Design">8.3 Accessible Form Design</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-8/8.4-advanced-inputs.md" data-title="8.4 Advanced Inputs">8.4 Advanced Inputs</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-8/8.5-native-validation.md" data-title="8.5 Native Validation">8.5 Native Form Validation</a></li>
+                        <li><a href="lesson.html?file=chapter-8/8.1-form-container.md" data-title="8.1 Form Container">8.1 The Form Container</a></li>
+                        <li><a href="lesson.html?file=chapter-8/8.2-basic-inputs.md" data-title="8.2 Basic Inputs">8.2 Basic Inputs</a></li>
+                        <li><a href="lesson.html?file=chapter-8/8.3-accessible-forms.md" data-title="8.3 Accessible Design">8.3 Accessible Form Design</a></li>
+                        <li><a href="lesson.html?file=chapter-8/8.4-advanced-inputs.md" data-title="8.4 Advanced Inputs">8.4 Advanced Inputs</a></li>
+                        <li><a href="lesson.html?file=chapter-8/8.5-native-validation.md" data-title="8.5 Native Validation">8.5 Native Form Validation</a></li>
                     </ul>
                 </li>
 
@@ -825,10 +790,10 @@
                         <span class="chapter-title">9. Modern Semantic HTML5</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-9/9.1-why-semantics.md" data-title="9.1 Why Semantics Matter">9.1 Why Semantics Matter</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-9/9.2-layout-elements.md" data-title="9.2 Layout Elements">9.2 Page Layout Elements</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-9/9.3-content-chunking.md" data-title="9.3 Content Chunking">9.3 Content Chunking</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-9/9.4-figures.md" data-title="9.4 Figures &amp; Captions">9.4 Figures and Captions</a></li>
+                        <li><a href="lesson.html?file=chapter-9/9.1-why-semantics.md" data-title="9.1 Why Semantics Matter">9.1 Why Semantics Matter</a></li>
+                        <li><a href="lesson.html?file=chapter-9/9.2-layout-elements.md" data-title="9.2 Layout Elements">9.2 Page Layout Elements</a></li>
+                        <li><a href="lesson.html?file=chapter-9/9.3-content-chunking.md" data-title="9.3 Content Chunking">9.3 Content Chunking</a></li>
+                        <li><a href="lesson.html?file=chapter-9/9.4-figures.md" data-title="9.4 Figures &amp; Captions">9.4 Figures and Captions</a></li>
                     </ul>
                 </li>
 
@@ -841,10 +806,10 @@
                         <span class="chapter-title">10. Next Steps &amp; Projects</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-10/10.1-connecting-css.md" data-title="10.1 Connecting to CSS">10.1 Connecting to CSS</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-10/10.2-connecting-js.md" data-title="10.2 Connecting to JS">10.2 Connecting to JavaScript</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-10/10.3-validation.md" data-title="10.3 Debugging">10.3 Validation &amp; Debugging</a></li>
-                        <li><a href="lesson.html?file=/src/pages/courses/html/chapter-10/10.4-capstone.md" data-title="10.4 Capstone Project">10.4 Capstone Project</a></li>
+                        <li><a href="lesson.html?file=chapter-10/10.1-connecting-css.md" data-title="10.1 Connecting to CSS">10.1 Connecting to CSS</a></li>
+                        <li><a href="lesson.html?file=chapter-10/10.2-connecting-js.md" data-title="10.2 Connecting to JS">10.2 Connecting to JavaScript</a></li>
+                        <li><a href="lesson.html?file=chapter-10/10.3-validation.md" data-title="10.3 Debugging">10.3 Validation &amp; Debugging</a></li>
+                        <li><a href="lesson.html?file=chapter-10/10.4-capstone.md" data-title="10.4 Capstone Project">10.4 Capstone Project</a></li>
                     </ul>
                 </li>
             </ul>
@@ -945,27 +910,22 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        // 1. CONFIGURE MARKED.JS WITH EXPLICIT GFM AND CUSTOM RENDERERS
-        // 1. CONFIGURE MARKED.JS FOR MODERN VERSIONS
+        // 1. CONFIGURE MARKED.JS FOR ALL MARKED VERSIONS
         marked.setOptions({
             gfm: true,
             breaks: true
         });
 
         const renderer = {
-            // Handles both modern object token signature and fallback signature
             table(tokenOrHeader, maybeBody) {
-                // If using modern Marked.js (single token object passed)
                 if (typeof tokenOrHeader === 'object' && tokenOrHeader !== null) {
-                    // Let marked generate standard HTML using default parsing
                     const defaultHtml = marked.getDefaults().renderer.table.call(this, tokenOrHeader);
                     return `<div class="table-container">${defaultHtml}</div>`;
                 }
 
-                // Fallback for older legacy versions (separate string arguments)
                 return `
                     <div class="table-container">
-                        <table class="modern-table">
+                        <table>
                             <thead>${tokenOrHeader}</thead>
                             <tbody>${maybeBody}</tbody>
                         </table>
@@ -973,7 +933,6 @@
                 `;
             },
 
-            // Cyber Alert Box Override
             blockquote(tokenOrQuote) {
                 const text = (typeof tokenOrQuote === 'object' && tokenOrQuote !== null) 
                     ? tokenOrQuote.text 
@@ -986,7 +945,6 @@
                 `;
             },
 
-            // Mac-style Code Window Override
             code(tokenOrCode, infostring) {
                 const code = (typeof tokenOrCode === 'object' && tokenOrCode !== null) 
                     ? tokenOrCode.text 
@@ -1012,24 +970,20 @@
 
         marked.use({ renderer });
 
-        // 2. FETCH & RENDER MARKDOWN
+        // 2. FETCH & RENDER MARKDOWN WITH ABSOLUTE ORIGIN RESOLUTION
         async function loadMarkdownLesson() {
             const params = new URLSearchParams(window.location.search);
             let mdParam = params.get('file') || '1.1-how-the-web-works.md';
 
-            // Clean the parameter to extract the chapter and file name
-            // e.g. "chapter-1/1.1-how-the-web-works.md"
             let targetPath = mdParam.replace(/^\/+/, '');
             targetPath = targetPath.replace(/^src\/pages\/courses\/html\//, '');
             if (!targetPath.includes('/')) {
                 targetPath = `chapter-1/${targetPath}`;
             }
 
-            // Construct the exact full URL using window.location.origin
             const fullTargetUrl = `${window.location.origin}/src/pages/courses/html/${targetPath}`;
 
             try {
-                // Fetch with no-cache to bypass stale CDN redirects
                 const response = await fetch(fullTargetUrl, {
                     headers: { 'Accept': 'text/plain, text/markdown, */*' },
                     cache: 'no-cache'
@@ -1042,7 +996,6 @@
                 const text = await response.text();
                 document.getElementById('markdownOutputContainer').innerHTML = marked.parse(text);
 
-                // Update active link in the sidebar tree & breadcrumbs
                 document.querySelectorAll('.tree-leaves a').forEach(link => {
                     const href = link.getAttribute('href') || '';
                     if (href.includes(targetPath) || href.includes(mdParam)) {
@@ -1061,13 +1014,12 @@
                 document.getElementById('markdownOutputContainer').innerHTML = `
                     <h2 style="color: #ff5252;">Module Load Error</h2>
                     <p style="color: #94a3b8;">Failed to fetch from: <code>${fullTargetUrl}</code></p>
-                    <p style="color: #64748b; font-size: 0.85rem; margin-top: 10px;">
-                        Status details: ${err.message}
-                    </p>
+                    <p style="color: #64748b; font-size: 0.85rem; margin-top: 10px;">${err.message}</p>
                 `;
             }
         }
-        // 3. TREE SIDEBAR ACCORDION ANIMATION
+
+        // 3. TREE SIDEBAR ACCORDION CONTROLLER
         document.querySelectorAll('.tree-node').forEach(node => {
             node.addEventListener('click', () => {
                 const branch = node.parentElement;
@@ -1075,7 +1027,6 @@
             });
         });
 
-        // Mobile Sidebar Slide-in Trigger
         const mobileToggle = document.getElementById('sidebarToggleMobile');
         const sidebar = document.getElementById('sidebarNav');
         const backdrop = document.getElementById('navBackdrop');
