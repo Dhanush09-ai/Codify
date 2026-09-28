@@ -1015,27 +1015,37 @@
         // 2. FETCH & RENDER MARKDOWN
         async function loadMarkdownLesson() {
             const params = new URLSearchParams(window.location.search);
-            let mdParam = params.get('file') || 'chapter-1/1.1-how-the-web-works.md';
+            let mdParam = params.get('file') || '1.1-how-the-web-works.md';
 
-            // Ensure we construct the exact working absolute path:
-            // /src/pages/courses/html/chapter-1/1.1-how-the-web-works.md
-            let cleanPath = mdParam.replace(/^\/+/, ''); // strip leading slash
-            if (!cleanPath.startsWith('src/pages/courses/html/')) {
-                cleanPath = `src/pages/courses/html/${cleanPath.replace(/^chapter-1\//, 'chapter-1/')}`;
+            // Clean the parameter to extract the chapter and file name
+            // e.g. "chapter-1/1.1-how-the-web-works.md"
+            let targetPath = mdParam.replace(/^\/+/, '');
+            targetPath = targetPath.replace(/^src\/pages\/courses\/html\//, '');
+            if (!targetPath.includes('/')) {
+                targetPath = `chapter-1/${targetPath}`;
             }
-            const fetchUrl = `/${cleanPath}`;
+
+            // Construct the exact full URL using window.location.origin
+            const fullTargetUrl = `${window.location.origin}/src/pages/courses/html/${targetPath}`;
 
             try {
-                const response = await fetch(fetchUrl);
-                if (!response.ok) throw new Error(`HTTP error ${response.status} fetching ${fetchUrl}`);
+                // Fetch with no-cache to bypass stale CDN redirects
+                const response = await fetch(fullTargetUrl, {
+                    headers: { 'Accept': 'text/plain, text/markdown, */*' },
+                    cache: 'no-cache'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status} returned from ${fullTargetUrl}`);
+                }
                 
                 const text = await response.text();
                 document.getElementById('markdownOutputContainer').innerHTML = marked.parse(text);
 
-                // Sync sidebar active state & breadcrumbs
+                // Update active link in the sidebar tree & breadcrumbs
                 document.querySelectorAll('.tree-leaves a').forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href && (href.includes(mdParam) || fetchUrl.includes(href.split('file=')[1] || ''))) {
+                    const href = link.getAttribute('href') || '';
+                    if (href.includes(targetPath) || href.includes(mdParam)) {
                         link.classList.add('active-leaf');
                         const parentBranch = link.closest('.tree-branch');
                         if (parentBranch) parentBranch.classList.add('expanded');
@@ -1050,7 +1060,10 @@
                 console.error("Markdown load failure:", err);
                 document.getElementById('markdownOutputContainer').innerHTML = `
                     <h2 style="color: #ff5252;">Module Load Error</h2>
-                    <p style="color: #94a3b8;">Could not retrieve markdown file: <code>${fetchUrl}</code></p>
+                    <p style="color: #94a3b8;">Failed to fetch from: <code>${fullTargetUrl}</code></p>
+                    <p style="color: #64748b; font-size: 0.85rem; margin-top: 10px;">
+                        Status details: ${err.message}
+                    </p>
                 `;
             }
         }
