@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/src/css/style.css">
     <title>HTML Lesson | Codify</title>
 
-    <!-- Locked, stable Marked.js build (prevents any 'reading table' crash) -->
+    <!-- Locked, stable Marked.js parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
 
     <style>
@@ -188,7 +188,7 @@
         .current-crumb { color: #00aaff; font-weight: 700; }
 
         /* ==========================================================================
-           PAGE WORKSPACE & ANIMATED SIDEBAR
+           PERFECT TREE SIDEBAR (PYTHON ACCORDION ENGINE)
            ========================================================================== */
         .page-wrapper {
             display: flex;
@@ -209,6 +209,7 @@
             padding-bottom: 40px;
             box-sizing: border-box;
             transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 100;
         }
 
         .sidebar-header {
@@ -225,7 +226,7 @@
         }
 
         .tree-root { list-style: none; padding: 0; margin: 0; }
-        .tree-branch { border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+        .tree-branch { border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
         
         .tree-node {
             display: flex;
@@ -236,17 +237,19 @@
             user-select: none;
             color: #e0e6ed;
             font-weight: 700;
-            font-size: 0.95rem;
-            transition: background 0.25s ease, color 0.25s ease;
+            font-size: 0.92rem;
+            transition: background 0.2s ease, color 0.2s ease;
         }
-        .tree-node:hover { background: rgba(0, 170, 255, 0.08); color: #00aaff; }
+        .tree-node:hover { background: rgba(0, 170, 255, 0.06); color: #00aaff; }
         
         .tree-arrow {
             display: flex;
             align-items: center;
             color: #64748b;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s ease;
+            flex-shrink: 0;
         }
+        
         .tree-branch.expanded .tree-arrow {
             transform: rotate(90deg);
             color: #00aaff;
@@ -258,29 +261,34 @@
             margin: 0;
             max-height: 0;
             overflow: hidden;
-            background: rgba(5, 10, 20, 0.5);
+            background: rgba(5, 10, 20, 0.45);
             transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .tree-branch.expanded .tree-leaves {
-            max-height: 600px;
         }
 
         .tree-leaves li a {
             display: block;
-            padding: 10px 20px 10px 44px;
+            padding: 10px 20px 10px 42px;
             color: #94a3b8;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
             transition: all 0.2s ease;
             position: relative;
+            border-left: 3px solid transparent;
         }
-        .tree-leaves li a:hover, 
-        .tree-leaves li a.active-leaf {
+        
+        .tree-leaves li a:hover {
             color: #00aaff;
             background: rgba(0, 170, 255, 0.08);
-            border-left: 3px solid #00aaff;
-            padding-left: 41px;
+            border-left-color: rgba(0, 170, 255, 0.4);
+        }
+
+        .tree-leaves li a.active-leaf {
+            color: #ffffff !important;
+            background: rgba(0, 170, 255, 0.15) !important;
+            border-left-color: #00aaff !important;
+            font-weight: 700 !important;
+            box-shadow: inset 0 0 15px rgba(0, 170, 255, 0.08);
         }
 
         .content-workspace {
@@ -529,13 +537,13 @@
                 left: 0;
                 top: 102px;
                 height: calc(100vh - 102px);
-                z-index: 1400;
+                z-index: 1600;
                 transform: translateX(-100%);
                 background: #0a0f1c;
             }
             .sidebar-nav.mobile-active {
                 transform: translateX(0);
-                box-shadow: 10px 0 30px rgba(0,0,0,0.8);
+                box-shadow: 10px 0 35px rgba(0,0,0,0.85);
             }
             .content-workspace { padding: 30px 20px; }
         }
@@ -645,7 +653,7 @@
     </header>
 
     <div class="page-wrapper">
-        <!-- SIDEBAR TREE -->
+        <!-- SIDEBAR TREE ACCORDION -->
         <aside class="sidebar-nav" id="sidebarNav">
             <div class="sidebar-header">
                 <h2 class="sidebar-title">HTML Curriculum</h2>
@@ -653,7 +661,7 @@
 
             <ul class="tree-root">
                 <!-- Chapter 1 -->
-                <li class="tree-branch expanded">
+                <li class="tree-branch">
                     <div class="tree-node">
                         <span class="tree-arrow">
                             <svg width="14" height="14" viewBox="0 0 15 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"></path></svg>
@@ -661,7 +669,7 @@
                         <span class="chapter-title">1. Introduction to Web &amp; HTML</span>
                     </div>
                     <ul class="tree-leaves">
-                        <li><a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" class="active-leaf" data-title="1.1 How the Web Works">1.1 How the Web Works</a></li>
+                        <li><a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" data-title="1.1 How the Web Works">1.1 How the Web Works</a></li>
                         <li><a href="lesson.html?file=chapter-1/1.2-what-is-html.md" data-title="1.2 What is HTML?">1.2 What is HTML?</a></li>
                         <li><a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" data-title="1.3 Environment Setup">1.3 Setting Up Your Environment</a></li>
                         <li><a href="lesson.html?file=chapter-1/1.4-your-first-webpage.md" data-title="1.4 Your First Webpage">1.4 Your First Webpage</a></li>
@@ -910,15 +918,14 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        // 1. SAFE MARKED PARSER SETUP (Zero renderer overrides to prevent parser crash)
+        // 1. MARKED CONFIGURATION
         marked.setOptions({
             gfm: true,
             breaks: true
         });
 
-        // 2. BULLETPROOF DOM POST-PROCESSOR
+        // 2. DOM POST-PROCESSING
         function applyCyberStyles(container) {
-            // Style Tables: Wrap all raw <table> into .table-container
             container.querySelectorAll('table').forEach(table => {
                 if (!table.parentElement.classList.contains('table-container')) {
                     const wrapper = document.createElement('div');
@@ -928,7 +935,6 @@
                 }
             });
 
-            // Style Blockquotes: Transform into .cyber-alert
             container.querySelectorAll('blockquote').forEach(bq => {
                 const alertDiv = document.createElement('div');
                 alertDiv.className = 'cyber-alert info';
@@ -939,7 +945,6 @@
                 bq.parentNode.replaceChild(alertDiv, bq);
             });
 
-            // Style Code Blocks: Wrap all <pre><code> into .mac-code-window
             container.querySelectorAll('pre').forEach(pre => {
                 const codeElem = pre.querySelector('code');
                 const rawCode = codeElem ? codeElem.innerHTML : pre.innerHTML;
@@ -963,12 +968,36 @@
             });
         }
 
-        // 3. CLEAN FETCH & RENDER
+        // 3. ENHANCED ACCORDION CONTROLLER WITH DYNAMIC HEIGHT
+        function toggleBranch(branch, forceOpen = false) {
+            const leaves = branch.querySelector('.tree-leaves');
+            if (!leaves) return;
+
+            const isExpanded = branch.classList.contains('expanded');
+
+            if (forceOpen || !isExpanded) {
+                branch.classList.add('expanded');
+                leaves.style.maxHeight = `${leaves.scrollHeight}px`;
+            } else {
+                branch.classList.remove('expanded');
+                leaves.style.maxHeight = '0px';
+            }
+        }
+
+        function initSidebarAccordion() {
+            document.querySelectorAll('.tree-node').forEach(node => {
+                node.addEventListener('click', () => {
+                    const branch = node.parentElement;
+                    toggleBranch(branch);
+                });
+            });
+        }
+
+        // 4. FETCH LESSON AND SYNC ACTIVE LEAF
         async function loadMarkdownLesson() {
             const params = new URLSearchParams(window.location.search);
             let mdParam = params.get('file') || 'chapter-1/1.1-how-the-web-works.md';
 
-            // Clean the parameter to extract folder and filename
             let cleanFile = mdParam.replace(/^\/+/, '').replace(/^src\/pages\/courses\/html\//, '');
             if (!cleanFile.includes('/')) {
                 cleanFile = `chapter-1/${cleanFile}`;
@@ -985,19 +1014,19 @@
                 const markdownText = await response.text();
                 const container = document.getElementById('markdownOutputContainer');
                 
-                // Parse standard markdown natively
                 container.innerHTML = marked.parse(markdownText);
-                
-                // Enhance elements safely with DOM post-processor
                 applyCyberStyles(container);
 
-                // Update active link and breadcrumb
+                // Highlight Active Link and Expand Chapter
                 document.querySelectorAll('.tree-leaves a').forEach(link => {
                     const href = link.getAttribute('href') || '';
                     if (href.includes(cleanFile) || href.includes(mdParam)) {
                         link.classList.add('active-leaf');
+                        
                         const parentBranch = link.closest('.tree-branch');
-                        if (parentBranch) parentBranch.classList.add('expanded');
+                        if (parentBranch) {
+                            toggleBranch(parentBranch, true);
+                        }
 
                         const title = link.getAttribute('data-title');
                         if (title) document.getElementById('breadcrumbCurrent').textContent = title;
@@ -1015,14 +1044,7 @@
             }
         }
 
-        // 4. SIDEBAR ACCORDION CONTROLLER
-        document.querySelectorAll('.tree-node').forEach(node => {
-            node.addEventListener('click', () => {
-                const branch = node.parentElement;
-                branch.classList.toggle('expanded');
-            });
-        });
-
+        // 5. MOBILE OFF-CANVAS SIDEBAR CONTROLS
         const mobileToggle = document.getElementById('sidebarToggleMobile');
         const sidebar = document.getElementById('sidebarNav');
         const backdrop = document.getElementById('navBackdrop');
@@ -1036,12 +1058,12 @@
 
         if (backdrop) {
             backdrop.addEventListener('click', () => {
-                sidebar.classList.remove('mobile-active');
+                if (sidebar) sidebar.classList.remove('mobile-active');
                 backdrop.classList.remove('active');
             });
         }
 
-        // 5. ENGINEER MODAL CONTROLLER
+        // 6. TEAM MODAL CONTROLLER
         const teamDatabase = {
             'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
             'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
@@ -1070,12 +1092,13 @@
             document.body.style.overflow = '';
         });
 
-        // 6. PROGRESS TRACKING & SUPABASE
+        // 7. PROGRESS TRACKING & SUPABASE
         const COURSE_ID = 'html-101';
         let currentUser = null;
         let isCompleted = false;
 
         async function initLesson() {
+            initSidebarAccordion();
             await loadMarkdownLesson();
 
             const { data: { user } } = await supabase.auth.getUser();
