@@ -7,6 +7,131 @@
     <title>Codify Lesson</title>
     <!-- Load Marked.js Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        html, body {
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0a0f1c;
+            color: #e0e6ed;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        .codify-main-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(10, 15, 28, 0.98); backdrop-filter: blur(12px);
+            z-index: 2000; border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+        }
+
+        .codify-header-container {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 32px; width: 100%; box-sizing: border-box;
+        }
+
+        .codify-logo {
+            display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 800; color: #fff; text-decoration: none; cursor: pointer;
+        }
+        .logo-icon { width: 32px; height: 32px; }
+
+        .codify-btn-outline {
+            text-decoration: none; background: transparent; border: 1px solid rgba(0, 170, 255, 0.4);
+            color: #e0e6ed; font-size: 0.9rem; font-weight: bold; padding: 8px 18px;
+            border-radius: 12px; transition: all 0.3s ease; white-space: nowrap;
+        }
+        .codify-btn-outline:hover {
+            background: rgba(0, 170, 255, 0.1); border-color: #00aaff;
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.3); color: #fff;
+        }
+
+        /* Workspace Layout */
+        .page-wrapper {
+            display: flex;
+            margin-top: 100px;
+            min-height: calc(100vh - 100px);
+            position: relative;
+        }
+
+        .content-workspace {
+            flex: 1;
+            padding: 40px 60px 80px 60px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content-body {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           CODIFY DESIGN SYSTEM TYPOGRAPHY FOR MARKDOWN OUTPUT
+           ========================================================================== */
+        #markdownOutputContainer h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.25;
+            margin: 0 0 20px 0;
+            letter-spacing: -0.5px;
+        }
+
+        #markdownOutputContainer h2 {
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: #66ccff;
+            margin: 40px 0 18px 0;
+        }
+
+        #markdownOutputContainer h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00aaff;
+            margin: 24px 0 10px 0;
+        }
+
+        #markdownOutputContainer p {
+            font-size: 1.08rem;
+            line-height: 1.75;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        #markdownOutputContainer ul, 
+        #markdownOutputContainer ol {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: #cbd5e1;
+            margin: 16px 0 24px 24px;
+        }
+
+        #markdownOutputContainer li {
+            margin-bottom: 10px;
+        }
+
+        #markdownOutputContainer hr {
+            border: none;
+            border-top: 1px solid rgba(0, 170, 255, 0.2);
+            margin: 40px 0;
+        }
+
+        /* Footer */
+        .codify-footer {
+            margin-top: auto; border-top: 1px solid rgba(0, 170, 255, 0.15); padding: 24px;
+            text-align: center; color: #94a3b8; font-size: 0.9rem; background: rgba(10, 15, 28, 0.95);
+        }
+    </style>
 </head>
 <body>
 
