@@ -1581,8 +1581,6 @@
                 }
 
                 let markdownText = await response.text();
-                
-                // Compile and extract dynamic Markdown quiz
                 markdownText = compileMarkdownQuiz(markdownText);
 
                 const container = document.getElementById('markdownOutputContainer');
@@ -1611,8 +1609,11 @@
                         }
 
                         const title = link.getAttribute('data-title') || link.textContent;
+                        
+                        // Update UI and Browser Tab Title Dynamically
                         document.getElementById('breadcrumbCurrent').textContent = title;
                         document.getElementById('pageMainHeading').textContent = title;
+                        document.title = `${title} | Codify`;
                     }
                 });
 
