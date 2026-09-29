@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/src/css/style.css">
     <title>HTML Lesson | Codify</title>
 
-    <!-- Stable Marked.js Parser -->
+    <!-- Locked, stable Marked.js Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
 
     <style>
@@ -40,6 +40,7 @@
             min-height: 100vh;
         }
 
+        /* Prevent desktop backdrop blur */
         .nav-backdrop {
             display: none;
             position: fixed;
@@ -215,7 +216,7 @@
 
         /* ==========================================================================
            BREADCRUMB BAR
-           ========================================================================= */
+           ========================================================================== */
         .codify-breadcrumb-bar {
             position: fixed;
             top: 58px;
@@ -356,7 +357,7 @@
         .tree-node:hover {
             background: rgba(13, 27, 42, 0.8) !important;
             border-color: rgba(0, 170, 255, 0.5) !important;
-            box-shadow: 0 0 10px rgba(0, 170, 255, 0.2) !important;
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
         }
         
         .tree-arrow {
@@ -377,7 +378,6 @@
             color: #00aaff !important;
         }
 
-        /* FIX: Prevents text overflowing from the node container */
         .chapter-title {
             font-size: 0.95rem !important;
             font-weight: 700 !important;
@@ -431,11 +431,10 @@
         
         .tree-leaves li a:hover {
             color: #00aaff !important;
-            background: rgba(0, 170, 255, 0.08) !important;
+            background: rgba(0, 170, 255, 0.08);
             padding-left: 16px !important;
         }
 
-        /* Active Leaf Style */
         .tree-leaves li a.active {
             color: #ffffff !important;
             background: linear-gradient(90deg, rgba(0, 119, 255, 0.4), rgba(0, 170, 255, 0.2)) !important;
@@ -577,7 +576,6 @@
             color: #66ccff;
         }
 
-        /* Cyber Alerts & Code Windows */
         .cyber-alert {
             display: flex;
             gap: 16px;
@@ -661,7 +659,7 @@
         .mac-body code { font-family: monospace; background: transparent !important; border: none !important; }
 
         /* ==========================================================================
-           INTERACTIVE QUIZ STYLING
+           DYNAMIC INTERACTIVE QUIZ (GENERATED FROM MARKDOWN)
            ========================================================================== */
         .interactive-quiz-container {
             background: rgba(13, 27, 42, 0.4);
@@ -728,7 +726,6 @@
         .next-question-btn:hover { box-shadow: 0 0 15px rgba(0, 170, 255, 0.5); }
         .quiz-completion { text-align: center; display: none; }
         .quiz-completion.active { display: block; }
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
         /* Lesson Completion Card */
         .lesson-complete-card {
@@ -857,7 +854,7 @@
         .member-dot { width: 6px; height: 6px; background: #00aaff; border-radius: 50%; box-shadow: 0 0 8px #00aaff; flex-shrink: 0; }
         .student-id { color: #00aaff; font-size: 0.75rem; font-weight: 800; margin-left: auto; opacity: 0.8; }
 
-        /* Modal Overlay */
+        /* Modal Overlay for Core Engineers */
         .modal-overlay {
             position: fixed; 
             top: 0; 
@@ -1014,6 +1011,7 @@
             padding: 0 !important; 
         }
 
+        /* Mobile Layout */
         @media (max-width: 900px) {
             .content-workspace { 
                 margin-left: 0px !important; 
@@ -1291,7 +1289,7 @@
                         <li><a href="lesson.html?file=chapter-10/10.1-connecting-css.md" class="topic-link" data-title="10.1 Connecting to CSS">10.1 Connecting to CSS</a></li>
                         <li><a href="lesson.html?file=chapter-10/10.2-connecting-js.md" class="topic-link" data-title="10.2 Connecting to JS">10.2 Connecting to JavaScript</a></li>
                         <li><a href="lesson.html?file=chapter-10/10.3-validation.md" class="topic-link" data-title="10.3 Debugging">10.3 Validation &amp; Debugging</a></li>
-                        <li><a href="lesson.html?file=chapter-10/10.4-capstone.md" class="topic-link" data-title="10.4 Capstone Project">10.4 Capstone Project</a></li>
+                        <li><a href="lesson.html?file=chapter-10/10.4-capstone.md" data-title="10.4 Capstone Project">10.4 Capstone Project</a></li>
                     </ul>
                 </li>
             </ul>
@@ -1316,75 +1314,10 @@
                     <p style="color: #00aaff; text-align: center;">Rendering lesson module stream...</p>
                 </div>
 
-                <!-- INTERACTIVE TOPIC QUIZ COMPONENT (MATCHING 1.2-key-features.html) -->
-                <div class="interactive-quiz-container">
-                    <div class="quiz-question-block active-question" id="qb-1">
-                        <div class="quiz-header"><span class="quiz-tracker">Question 1 of 5</span></div>
-                        <div class="quiz-prompt">What primary protocol does a web browser use to request documents from a server?</div>
-                        <div class="quiz-options">
-                            <button class="q-option" onclick="handleAnswer(this, false, 1)">A) FTP (File Transfer Protocol)</button>
-                            <button class="q-option" onclick="handleAnswer(this, true, 1)">B) HTTP / HTTPS (Hypertext Transfer Protocol)</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 1)">C) SMTP (Simple Mail Transfer Protocol)</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 1)">D) SSH (Secure Shell)</button>
-                        </div>
-                        <button class="next-question-btn" id="next-1" onclick="nextQuestion(1)">Next Question ➔</button>
-                    </div>
+                <!-- DYNAMIC QUIZ MOUNT CONTAINER (POPULATED ONLY WHEN PRESENT IN MD) -->
+                <div id="dynamicQuizMount"></div>
 
-                    <div class="quiz-question-block" id="qb-2">
-                        <div class="quiz-header"><span class="quiz-tracker">Question 2 of 5</span></div>
-                        <div class="quiz-prompt">What role does the Domain Name System (DNS) play on the Web?</div>
-                        <div class="quiz-options">
-                            <button class="q-option" onclick="handleAnswer(this, false, 2)">A) Encrypts passwords entered in forms</button>
-                            <button class="q-option" onclick="handleAnswer(this, true, 2)">B) Translates human-readable domain names into IP addresses</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 2)">C) Compresses image files before rendering</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 2)">D) Runs JavaScript logic inside the client browser</button>
-                        </div>
-                        <button class="next-question-btn" id="next-2" onclick="nextQuestion(2)">Next Question ➔</button>
-                    </div>
-
-                    <div class="quiz-question-block" id="qb-3">
-                        <div class="quiz-header"><span class="quiz-tracker">Question 3 of 5</span></div>
-                        <div class="quiz-prompt">Which component represents the 'Client' in the Client-Server model?</div>
-                        <div class="quiz-options">
-                            <button class="q-option" onclick="handleAnswer(this, true, 3)">A) The user's web browser requesting the webpage</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 3)">B) The database storing account records</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 3)">C) The cloud data center hosting assets</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 3)">D) The fiber optic cable carrying electricity</button>
-                        </div>
-                        <button class="next-question-btn" id="next-3" onclick="nextQuestion(3)">Next Question ➔</button>
-                    </div>
-
-                    <div class="quiz-question-block" id="qb-4">
-                        <div class="quiz-header"><span class="quiz-tracker">Question 4 of 5</span></div>
-                        <div class="quiz-prompt">What status code indicates that the requested web page was successfully returned?</div>
-                        <div class="quiz-options">
-                            <button class="q-option" onclick="handleAnswer(this, false, 4)">A) 404 Not Found</button>
-                            <button class="q-option" onclick="handleAnswer(this, true, 4)">B) 200 OK</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 4)">C) 500 Internal Server Error</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 4)">D) 301 Moved Permanently</button>
-                        </div>
-                        <button class="next-question-btn" id="next-4" onclick="nextQuestion(4)">Next Question ➔</button>
-                    </div>
-
-                    <div class="quiz-question-block" id="qb-5">
-                        <div class="quiz-header"><span class="quiz-tracker">Question 5 of 5</span></div>
-                        <div class="quiz-prompt">What does HTML provide to a webpage?</div>
-                        <div class="quiz-options">
-                            <button class="q-option" onclick="handleAnswer(this, false, 5)">A) Dynamic database encryption algorithms</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 5)">B) Visual color gradients and keyframe animations</button>
-                            <button class="q-option" onclick="handleAnswer(this, true, 5)">C) The core semantic skeleton, content, and structure</button>
-                            <button class="q-option" onclick="handleAnswer(this, false, 5)">D) Server operating system instructions</button>
-                        </div>
-                        <button class="next-question-btn" id="next-5" onclick="finishQuiz()">Finish Quiz ➔</button>
-                    </div>
-
-                    <div class="quiz-completion" id="qb-complete">
-                        <h3 style="color: #00aaff; font-size: 2rem; margin-bottom: 10px;">Module Complete! 🎉</h3>
-                        <p style="color: #cfd8dc; font-size: 1.1rem;">You have verified your foundational web mechanics comprehension.</p>
-                    </div>
-                </div>
-
-                <!-- FAST LOADING LESSON COMPLETION MATRIX CARD -->
+                <!-- FAST LOADING LESSON COMPLETION CARD -->
                 <div class="lesson-complete-card">
                     <div class="complete-text">
                         <h3>Finished this topic?</h3>
@@ -1534,7 +1467,74 @@
             });
         }
 
-        // 3. TREE ACCORDION ANIMATION WITH SMOOTH SLIDE TRANSITION
+        // 3. DYNAMIC MARKDOWN QUIZ COMPILER (TRANSLATES - [x] / - [ ] LISTS TO INTERACTIVE ENGINE)
+        function compileMarkdownQuiz(markdownText) {
+            const quizMatch = markdownText.match(/(?:##|###)\s*(?:Topic\s+Quiz|Quiz)[\s\S]*$/i);
+            const mount = document.getElementById('dynamicQuizMount');
+            if (!quizMatch || !mount) {
+                if (mount) mount.innerHTML = '';
+                return markdownText;
+            }
+
+            const quizRawBlock = quizMatch[0];
+            const cleanMarkdown = markdownText.replace(quizRawBlock, '');
+
+            const questionBlocks = quizRawBlock.split(/\n(?=\d+\.\s+)/).slice(1);
+            if (questionBlocks.length === 0) return cleanMarkdown;
+
+            let quizHTML = `<div class="interactive-quiz-container">`;
+
+            questionBlocks.forEach((qBlock, idx) => {
+                const lines = qBlock.trim().split('\n');
+                const promptLine = lines[0].replace(/^\d+\.\s+/, '').trim();
+                const optionLines = lines.slice(1);
+
+                quizHTML += `
+                    <div class="quiz-question-block ${idx === 0 ? 'active-question' : ''}" id="qb-${idx + 1}">
+                        <div class="quiz-header">
+                            <span class="quiz-tracker">Question ${idx + 1} of ${questionBlocks.length}</span>
+                        </div>
+                        <div class="quiz-prompt">${promptLine}</div>
+                        <div class="quiz-options">
+                `;
+
+                optionLines.forEach(opt => {
+                    const isCorrect = /-\s*\[x\]/i.test(opt);
+                    const optText = opt.replace(/^-\s*\[[ x]\]\s*/i, '').trim();
+                    if (optText) {
+                        quizHTML += `
+                            <button class="q-option" onclick="handleAnswer(this, ${isCorrect}, ${idx + 1})">
+                                ${optText}
+                            </button>
+                        `;
+                    }
+                });
+
+                if (idx < questionBlocks.length - 1) {
+                    quizHTML += `
+                        </div>
+                        <button class="next-question-btn" id="next-${idx + 1}" onclick="nextQuestion(${idx + 1})">Next Question ➔</button>
+                    </div>`;
+                } else {
+                    quizHTML += `
+                        </div>
+                        <button class="next-question-btn" id="next-${idx + 1}" onclick="finishQuiz(${questionBlocks.length})">Finish Quiz ➔</button>
+                    </div>`;
+                }
+            });
+
+            quizHTML += `
+                <div class="quiz-completion" id="qb-complete">
+                    <h3 style="color: #00aaff; font-size: 2rem; margin-bottom: 10px;">Module Complete! 🎉</h3>
+                    <p style="color: #cfd8dc; font-size: 1.1rem;">You have completed the quiz for this lesson.</p>
+                </div>
+            </div>`;
+
+            mount.innerHTML = quizHTML;
+            return cleanMarkdown;
+        }
+
+        // 4. TREE ACCORDION ANIMATION WITH SMOOTH SLIDE TRANSITION
         function toggleBranch(branch, forceOpen = false) {
             const leaves = branch.querySelector('.tree-leaves');
             if (!leaves) return;
@@ -1562,7 +1562,7 @@
             });
         }
 
-        // 4. FETCH LESSON AND AUTO-SYNC
+        // 5. FETCH LESSON AND AUTO-SYNC
         async function loadMarkdownLesson() {
             const params = new URLSearchParams(window.location.search);
             let mdParam = params.get('file') || 'chapter-1/1.1-how-the-web-works.md';
@@ -1580,9 +1580,12 @@
                     throw new Error(`HTTP ${response.status} - Could not fetch ${targetUrl}`);
                 }
 
-                const markdownText = await response.text();
-                const container = document.getElementById('markdownOutputContainer');
+                let markdownText = await response.text();
                 
+                // Compile and extract dynamic Markdown quiz
+                markdownText = compileMarkdownQuiz(markdownText);
+
+                const container = document.getElementById('markdownOutputContainer');
                 container.innerHTML = marked.parse(markdownText);
                 applyCyberStyles(container);
 
@@ -1636,7 +1639,7 @@
             }
         }
 
-        // 5. SIDEBAR COLLAPSE CONTROLLER
+        // 6. SIDEBAR COLLAPSE ENGINE (DESKTOP FLUID EXPANSION & MOBILE DRAWER)
         const sidebarToggleMobile = document.getElementById('sidebarToggleMobile');
         const sidebar = document.getElementById('sidebarNav');
         const pageWrapper = document.querySelector('.page-wrapper');
@@ -1665,7 +1668,7 @@
             });
         }
 
-        // 6. CORE ENGINEER TEAM MODAL CONTROLLER
+        // 7. TEAM MODAL CONTROLLER
         const teamDatabase = {
             'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
             'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
@@ -1694,7 +1697,7 @@
             document.body.style.overflow = '';
         });
 
-        // 7. QUIZ SEQUENTIAL CONTROLS
+        // 8. QUIZ SEQUENTIAL CONTROLS
         window.handleAnswer = function(btnElement, isCorrect, questionNumber) {
             const optionsContainer = btnElement.parentElement;
             const allButtons = optionsContainer.querySelectorAll('.q-option');
@@ -1719,12 +1722,12 @@
             document.getElementById('qb-' + (currentNumber + 1)).classList.add('active-question');
         };
 
-        window.finishQuiz = function() {
-            document.getElementById('qb-5').classList.remove('active-question');
+        window.finishQuiz = function(totalQuestions) {
+            document.getElementById('qb-' + totalQuestions).classList.remove('active-question');
             document.getElementById('qb-complete').classList.add('active');
         };
 
-        // 8. PROGRESS TRACKING & SUPABASE
+        // 9. PROGRESS TRACKING & SUPABASE
         const COURSE_ID = 'html-101';
         let currentUser = null;
         let isCompleted = false;
