@@ -547,7 +547,6 @@
 
         #markdownOutputContainer p {
             font-size: 1.15rem;
-            line-height: 1.75;
             color: #cbccce;
             margin-bottom: 20px;
         }
@@ -1027,6 +1026,268 @@
                 font-size: 1.85rem !important; 
             }
         }
+
+        /* ==========================================================================
+           PROFESSIONAL LIGHTBOX LAYOUT FOR IMAGES
+           ========================================================================== */
+        /* ==========================================================================
+           CLEAN FLUID IMAGES (NO BOX, NATURAL RESPONSIVE DEFAULT SIZE)
+           ========================================================================== */
+        
+        /* Removes the heavy background box wrapper completely */
+        /* Keep the content image wrapper box as it was */
+        /* ==========================================================================
+           BALANCED CONTENT IMAGE SIZING & CAPTIONS
+           ========================================================================== */
+        /* ==========================================================================
+           PROFESSIONAL IMAGE CONTAINERS & DESCRIPTIONS
+           ========================================================================= */
+        .content-image-wrapper {
+            margin: 2.5rem auto;
+            text-align: center;
+            background: rgba(13, 17, 23, 0.6);
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-width: fit-content;
+        }
+
+        .content-image-wrapper img,
+        #markdownOutputContainer img {
+            display: block;
+            max-width: 650px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            margin: 0 auto;
+            cursor: zoom-in;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .content-image-wrapper img:hover,
+        #markdownOutputContainer img:hover {
+            transform: scale(1.015);
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.4);
+        }
+
+        /* Professional Description Caption Styling */
+        .content-image-caption,
+        #markdownOutputContainer img + em,
+        #markdownOutputContainer p > em:last-child {
+            display: block;
+            font-size: 0.9rem;
+            color: #66ccff; /* Bright cyber-neon accent for description */
+            font-weight: 600;
+            font-style: normal;
+            text-align: center;
+            letter-spacing: 0.4px;
+            background: rgba(0, 170, 255, 0.05);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 170, 255, 0.15);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* FULL-SCREEN LIGHTBOX: Removed the small box restriction so images open huge */
+        .lightbox-viewport {
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            background: transparent !important;
+        }
+
+        .lightbox-img {
+            max-width: 95vw !important;
+            max-height: 90vh !important;
+            width: auto !important;
+            height: auto !important;
+            object-fit: contain !important;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            transform-origin: center center;
+            transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1);
+            user-select: none;
+            -webkit-user-drag: none;
+            cursor: grab;
+        }
+
+        .lightbox-img.dragging {
+            cursor: grabbing;
+            transition: none;
+        }
+
+        .content-image-caption {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: #00aaff;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 8, 15, 0.92);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 2500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .lightbox-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox-viewport {
+            max-width: 90%;
+            max-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 0 60px rgba(0, 170, 255, 0.15);
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 75vh;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 170, 255, 0.25);
+            transform-origin: center center;
+            transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1);
+            user-select: none;
+            -webkit-user-drag: none;
+            cursor: grab; /* Hand grab icon */
+        }
+
+        .lightbox-img.dragging {
+            cursor: grabbing; /* Hand moving icon */
+            transition: none;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 35px;
+            right: 45px;
+            color: #94a3b8;
+            font-size: 2.8rem;
+            font-weight: 200;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+            z-index: 2502;
+        }
+
+        .lightbox-close:hover {
+            color: #ff5f56;
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        /* HUD Toast Shortcut Box */
+        .lightbox-hud-box {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(13, 22, 38, 0.85);
+            border: 1px solid rgba(0, 170, 255, 0.25);
+            padding: 12px 24px;
+            padding-right: 45px;
+            border-radius: 8px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            z-index: 2505;
+            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            animation: hudSlideUp 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .lightbox-hud-box.hud-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 20px);
+        }
+
+        @keyframes hudSlideUp {
+            from { opacity: 0; transform: translate(-50%, 15px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        .hud-dismiss-btn {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: #64748b;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .hud-dismiss-btn:hover {
+            color: #ff5f56;
+            background: rgba(255, 95, 86, 0.15);
+        }
+
+        .hud-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #cfd8dc;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .hud-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(0, 170, 255, 0.2);
+        }
+
+        .lightbox-hud-box kbd {
+            background: #161b22;
+            color: #00aaff;
+            border: 1px solid rgba(0, 170, 255, 0.4);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -1406,6 +1667,26 @@
             <div class="search-results-viewport">
                 <div class="search-results-status" id="searchResultsStatus">Start typing to search your course parameters...</div>
                 <ul class="search-results-list" id="searchResultsList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFESSIONAL LIGHTBOX MODAL WITH ZOOM, PAN & HUD TOAST -->
+    <div class="lightbox-modal" id="globalLightbox" role="dialog" aria-hidden="true">
+        <span class="lightbox-close" id="closeLightbox" title="Close Lightbox">&times;</span>
+        <div class="lightbox-viewport" id="lightboxViewport">
+            <img class="lightbox-img" id="lightboxTargetImg" src="" alt="Active course diagram blueprint view">
+        </div>
+        <div class="lightbox-hud-box" id="lightboxHudBox">
+            <button class="hud-dismiss-btn" id="dismissHudBtn" title="Dismiss Hints">✕</button>
+            <div class="hud-item">
+                <span class="hud-icon">🖱️</span> 
+                <span><strong>Mouse / Trackpad:</strong> Scroll to Zoom. Click &amp; Drag to Pan.</span>
+            </div>
+            <div class="hud-divider"></div>
+            <div class="hud-item">
+                <span class="hud-icon">⌨️</span> 
+                <span><strong>Shortcuts:</strong> Zoom In <kbd>+</kbd> | Zoom Out <kbd>-</kbd> | Reset View <kbd>0</kbd></span>
             </div>
         </div>
     </div>
@@ -1792,6 +2073,130 @@
         }
 
         document.addEventListener('DOMContentLoaded', initLesson);
+
+        // 10. ADVANCED LIGHTBOX ENGINE (ZOOM, DRAG/PAN, AND HUD TOAST)
+        document.addEventListener('DOMContentLoaded', () => {
+            const lightbox = document.getElementById('globalLightbox');
+            const lightboxImg = document.getElementById('lightboxTargetImg');
+            const closeBtn = document.getElementById('closeLightbox');
+            const hudBox = document.getElementById('lightboxHudBox');
+            const dismissHudBtn = document.getElementById('dismissHudBtn');
+
+            let currentZoom = 1.0;
+            let translateX = 0;
+            let translateY = 0;
+            
+            const ZOOM_STEP = 0.25;
+            const MAX_ZOOM = 4.0;
+            const MIN_ZOOM = 0.5;
+
+            let isDragging = false;
+            let startX = 0;
+            let startY = 0;
+
+            if (lightbox && lightboxImg) {
+                const applyTransformState = () => {
+                    lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                };
+
+                const performZoomIn = () => {
+                    if (currentZoom < MAX_ZOOM) {
+                        currentZoom += ZOOM_STEP;
+                        if (currentZoom > MAX_ZOOM) currentZoom = MAX_ZOOM;
+                        applyTransformState();
+                    }
+                };
+
+                const performZoomOut = () => {
+                    if (currentZoom > MIN_ZOOM) {
+                        currentZoom -= ZOOM_STEP;
+                        if (currentZoom < MIN_ZOOM) currentZoom = MIN_ZOOM;
+                        if (currentZoom === 1.0) { translateX = 0; translateY = 0; }
+                        applyTransformState();
+                    }
+                };
+
+                const resetTransformState = () => {
+                    currentZoom = 1.0;
+                    translateX = 0;
+                    translateY = 0;
+                    applyTransformState();
+                };
+
+                // Mouse Drag / Pan Hand Mechanics
+                lightboxImg.addEventListener('mousedown', (e) => {
+                    e.preventDefault(); 
+                    isDragging = true;
+                    lightboxImg.classList.add('dragging');
+                    startX = e.clientX - translateX;
+                    startY = e.clientY - translateY;
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    translateX = e.clientX - startX;
+                    translateY = e.clientY - startY;
+                    applyTransformState();
+                });
+
+                window.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        lightboxImg.classList.remove('dragging');
+                    }
+                });
+
+                // Attach to images rendered inside markdown container
+                document.getElementById('markdownOutputContainer').addEventListener('click', (e) => {
+                    if (e.target.tagName === 'IMG') {
+                        lightboxImg.src = e.target.src;
+                        lightboxImg.alt = e.target.alt;
+                        resetTransformState();
+                        if (hudBox) hudBox.classList.remove('hud-hidden');
+                        lightbox.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+
+                const dismissLightbox = () => {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                    setTimeout(() => { lightboxImg.src = ''; }, 400);
+                };
+
+                if (closeBtn) closeBtn.addEventListener('click', dismissLightbox);
+                
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox || e.target === closeBtn) {
+                        dismissLightbox();
+                    }
+                });
+
+                if (dismissHudBtn && hudBox) {
+                    dismissHudBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        hudBox.classList.add('hud-hidden');
+                    });
+                }
+
+                // Scroll wheel zooming
+                lightbox.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    if (e.deltaY < 0) performZoomIn();
+                    else performZoomOut();
+                }, { passive: false });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (lightbox.classList.contains('active')) {
+                        if (e.key === 'Escape') dismissLightbox();
+                        if (e.key === '+' || e.key === '=') performZoomIn();
+                        if (e.key === '-') performZoomOut();
+                        if (e.key === '0') resetTransformState();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 
