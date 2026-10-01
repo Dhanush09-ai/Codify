@@ -34,6 +34,14 @@
             min-height: 100vh;
         }
 
+        /* FORCE VISIBILITY OVERRIDE AGAINST EXTERNAL ANIMATION CLASSES */
+        main, main section, .progress-card, .chapter-card, .topic-list, .topic-item {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+
         main {
             display: flex !important;
             flex-direction: column !important;
@@ -491,7 +499,7 @@
 
         <!-- Chapter 1 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 1: Intro to WWW &amp; HTML</div>
+            <div class="chapter-header">1. Introduction to Web &amp; HTML</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" class="topic-link">1.1 How the Web Works</a>
@@ -514,7 +522,7 @@
         
         <!-- Chapter 2 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 2: HTML Document Anatomy &amp; Core Concepts</div>
+            <div class="chapter-header">2. Document Anatomy &amp; Structure</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-2/2.1-tags-elements.md" class="topic-link">2.1 Tags, Elements &amp; Attributes</a>
@@ -537,7 +545,7 @@
 
         <!-- Chapter 3 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 3: Working with Text &amp; Headings</div>
+            <div class="chapter-header">3. Text &amp; Headings Hierarchy</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-3/3.1-headings.md" class="topic-link">3.1 Headings Hierarchy</a>
@@ -560,7 +568,7 @@
 
         <!-- Chapter 4 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 4: Hyperlinks &amp; Site Navigation</div>
+            <div class="chapter-header">4. Hyperlinks &amp; Site Navigation</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-4/4.1-anchor-element.md" class="topic-link">4.1 The Anchor Element</a>
@@ -583,7 +591,7 @@
 
         <!-- Chapter 5 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 5: Media &amp; Visual Assets</div>
+            <div class="chapter-header">5. Media &amp; Visual Assets</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-5/5.1-images.md" class="topic-link">5.1 Displaying Images</a>
@@ -606,7 +614,7 @@
 
         <!-- Chapter 6 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 6: Lists &amp; Data Organization</div>
+            <div class="chapter-header">6. Lists &amp; Data Organization</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-6/6.1-unordered-lists.md" class="topic-link">6.1 Unordered Lists</a>
@@ -629,7 +637,7 @@
 
         <!-- Chapter 7 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 7: HTML Tables &amp; Tabular Data</div>
+            <div class="chapter-header">7. HTML Tables &amp; Tabular Data</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-7/7.1-table-basics.md" class="topic-link">7.1 Table Basics</a>
@@ -652,7 +660,7 @@
 
         <!-- Chapter 8 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 8: Forms &amp; User Input Control</div>
+            <div class="chapter-header">8. Forms &amp; User Input Control</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-8/8.1-form-container.md" class="topic-link">8.1 The Form Container</a>
@@ -679,7 +687,7 @@
 
         <!-- Chapter 9 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 9: Modern Semantic HTML5 Layouts</div>
+            <div class="chapter-header">9. Modern Semantic HTML5 Layouts</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-9/9.1-why-semantics.md" class="topic-link">9.1 Why Semantics Matter</a>
@@ -702,7 +710,7 @@
 
         <!-- Chapter 10 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 10: Projects &amp; Next Horizons</div>
+            <div class="chapter-header">10. Projects &amp; Next Horizons</div>
             <ul class="topic-list">
                 <li class="topic-item">
                     <a href="lesson.html?file=chapter-10/10.1-connecting-css.md" class="topic-link">10.1 Connecting to CSS</a>
