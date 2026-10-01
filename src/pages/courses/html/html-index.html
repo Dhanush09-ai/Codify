@@ -34,13 +34,6 @@
             min-height: 100vh;
         }
 
-        main, main section, .progress-card, .chapter-card {
-            display: block !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            transform: none !important;
-        }
-
         main {
             display: flex !important;
             flex-direction: column !important;
@@ -72,6 +65,14 @@
         }
         .logo-icon { width: 32px; height: 32px; }
 
+        .codify-nav-links {
+            list-style: none; display: flex; gap: 32px; margin: 0; padding: 0; white-space: nowrap;
+        }
+        .codify-nav-links li a {
+            text-decoration: none; color: #e0e6ed; font-size: 1.05rem; font-weight: 600; transition: color 0.3s ease;
+        }
+        .codify-nav-links li a:hover, .codify-nav-links li a.active-link { color: #00aaff; }
+
         .codify-right-group { display: flex; align-items: center; gap: 16px; position: relative; }
         .codify-auth-group { display: flex; align-items: center; gap: 12px; }
 
@@ -80,13 +81,6 @@
             color: #e0e6ed; font-size: 0.9rem; font-weight: bold; padding: 8px 18px; border-radius: 12px; transition: all 0.3s ease;
         }
         .codify-btn-outline:hover { background: rgba(0, 170, 255, 0.1); border-color: #00aaff; color: #fff; }
-
-        .nav-profile-dp {
-            width: 38px; height: 38px; border-radius: 50%; border: 2px solid #00aaff;
-            display: flex; align-items: center; justify-content: center; overflow: hidden;
-            background: rgba(0, 170, 255, 0.15); color: #00aaff; font-weight: 800; text-decoration: none;
-        }
-        .nav-profile-dp img { width: 100%; height: 100%; object-fit: cover; }
 
         .index-title { color: #ffffff; font-size: 2.2rem; font-weight: 800; margin: 10px 0 24px 0; }
         .index-title span { background: linear-gradient(90deg, #0077ff, #00aaff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -121,7 +115,7 @@
         .topic-link { color: #e0e6ed; font-size: 1rem; text-decoration: none; font-weight: 600; flex: 1; }
         .topic-link:hover { color: #00aaff; }
 
-        .status-pill { font-size: 0.8rem; font-weight: 700; padding: 5px 12px; border-radius: 8px; white-space: nowrap; }
+        .status-pill { font-size: 0.8rem; font-weight: 700; padding: 5px 12px; border-radius: 8px; white-space: nowrap; transition: all 0.3s ease; }
         .status-pill.done { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
         .status-pill.open { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
 
@@ -129,20 +123,6 @@
             margin-top: 50px; border-top: 1px solid rgba(0, 170, 255, 0.15); padding: 24px 20px;
             text-align: center; color: #94a3b8; font-size: 0.9rem; background: rgba(10, 15, 28, 0.95);
         }
-        .team-hover-wrapper { position: relative; display: inline-block; cursor: pointer; }
-        .team-trigger { color: #00aaff; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-        .team-popover {
-            position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(8px);
-            width: 320px; background: rgba(13, 27, 42, 0.98); border: 1px solid rgba(0, 170, 255, 0.35);
-            border-radius: 16px; padding: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-            opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 100;
-        }
-        .team-hover-wrapper:hover .team-popover { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-        .popover-header { font-size: 0.75rem; font-weight: 800; color: #00aaff; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid rgba(0, 170, 255, 0.15); padding-bottom: 6px; }
-        .team-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-        .team-member { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #e0e6ed; font-weight: 600; }
-        .member-dot { width: 6px; height: 6px; background: #00aaff; border-radius: 50%; box-shadow: 0 0 8px #00aaff; }
-        .student-id { color: #00aaff; font-size: 0.75rem; margin-left: auto; }
     </style>
 </head>
 
@@ -192,134 +172,246 @@
 
         <!-- Chapter 1 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 1: Intro to WWW &amp; HTML</div>
+            <div class="chapter-header">1. Introduction to Web &amp; HTML</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="lesson.html?file=/src/pages/courses/html/chapter-1/1.1-how-the-web-works.md" class="topic-link">
-    1.1 How the Web Works
-</a><span class="status-pill open" id="status-html-1.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="lesson.html?file=chapter-1/1.2-what-is-html.md" class="topic-link">1.2 What is HTML?</a><span class="status-pill open" id="status-html-1.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" class="topic-link">1.3 Setting Up Your Environment</a><span class="status-pill open" id="status-html-1.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-1/1.4-your-first-webpage.md" class="topic-link">1.4 Your First Webpage</a><span class="status-pill open" id="status-html-1.4">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-1/1.1-how-the-web-works.md" class="topic-link">1.1 How the Web Works</a>
+                    <span class="status-pill open" data-topic="chapter-1/1.1-how-the-web-works.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-1/1.2-what-is-html.md" class="topic-link">1.2 What is HTML?</a>
+                    <span class="status-pill open" data-topic="chapter-1/1.2-what-is-html.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-1/1.3-setting-up-environment.md" class="topic-link">1.3 Setting Up Your Environment</a>
+                    <span class="status-pill open" data-topic="chapter-1/1.3-setting-up-environment.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-1/1.4-your-first-webpage.md" class="topic-link">1.4 Your First Webpage</a>
+                    <span class="status-pill open" data-topic="chapter-1/1.4-your-first-webpage.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
         
         <!-- Chapter 2 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 2: HTML Document Anatomy &amp; Core Concepts</div>
+            <div class="chapter-header">2. Document Anatomy &amp; Structure</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="chapter-2/2.1-tags-elements-attributes.html" class="topic-link">2.1 Tags, Elements, and Attributes</a><span class="status-pill open" id="status-html-2.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-2/2.2-the-boilerplate.html" class="topic-link">2.2 The Boilerplate</a><span class="status-pill open" id="status-html-2.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-2/2.3-metadata-essentials.html" class="topic-link">2.3 Metadata Essentials</a><span class="status-pill open" id="status-html-2.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-2/2.4-code-formatting.html" class="topic-link">2.4 Code Formatting &amp; Comments</a><span class="status-pill open" id="status-html-2.4">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-2/2.1-tags-elements.md" class="topic-link">2.1 Tags, Elements &amp; Attributes</a>
+                    <span class="status-pill open" data-topic="chapter-2/2.1-tags-elements.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-2/2.2-boilerplate.md" class="topic-link">2.2 The Boilerplate</a>
+                    <span class="status-pill open" data-topic="chapter-2/2.2-boilerplate.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-2/2.3-metadata.md" class="topic-link">2.3 Metadata Essentials</a>
+                    <span class="status-pill open" data-topic="chapter-2/2.3-metadata.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-2/2.4-formatting.md" class="topic-link">2.4 Code Formatting &amp; Comments</a>
+                    <span class="status-pill open" data-topic="chapter-2/2.4-formatting.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
 
         <!-- Chapter 3 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 3: Working with Text &amp; Headings</div>
+            <div class="chapter-header">3. Text &amp; Headings Hierarchy</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="chapter-3/3.1-headings-hierarchy.md" class="topic-link">3.1 Headings Hierarchy</a><span class="status-pill open" id="status-html-3.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-3/3.2-paragraphs-line-breaks.md" class="topic-link">3.2 Paragraphs and Line Breaks</a><span class="status-pill open" id="status-html-3.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-3/3.3-text-formatting.md" class="topic-link">3.3 Text Formatting</a><span class="status-pill open" id="status-html-3.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-3/3.4-preformatted-code.md" class="topic-link">3.4 Preformatted Text and Code</a><span class="status-pill open" id="status-html-3.4">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-3/3.1-headings.md" class="topic-link">3.1 Headings Hierarchy</a>
+                    <span class="status-pill open" data-topic="chapter-3/3.1-headings.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-3/3.2-paragraphs.md" class="topic-link">3.2 Paragraphs &amp; Line Breaks</a>
+                    <span class="status-pill open" data-topic="chapter-3/3.2-paragraphs.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-3/3.3-text-formatting.md" class="topic-link">3.3 Text Formatting</a>
+                    <span class="status-pill open" data-topic="chapter-3/3.3-text-formatting.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-3/3.4-preformatted-code.md" class="topic-link">3.4 Preformatted Text &amp; Code</a>
+                    <span class="status-pill open" data-topic="chapter-3/3.4-preformatted-code.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
 
         <!-- Chapter 4 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 4: Hyperlinks &amp; Navigation</div>
+            <div class="chapter-header">4. Hyperlinks &amp; Site Navigation</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="chapter-4/4.1-anchor-element.html" class="topic-link">4.1 The Anchor Element</a><span class="status-pill open" id="status-html-4.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-4/4.2-absolute-relative-urls.html" class="topic-link">4.2 Absolute vs. Relative URLs</a><span class="status-pill open" id="status-html-4.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-4/4.3-link-behaviors.html" class="topic-link">4.3 Link Behaviors &amp; Security</a><span class="status-pill open" id="status-html-4.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-4/4.4-page-jumps-email.html" class="topic-link">4.4 Page Jumps &amp; Email Links</a><span class="status-pill open" id="status-html-4.4">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-4/4.1-anchor-element.md" class="topic-link">4.1 The Anchor Element</a>
+                    <span class="status-pill open" data-topic="chapter-4/4.1-anchor-element.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-4/4.2-absolute-relative-urls.md" class="topic-link">4.2 Absolute vs. Relative URLs</a>
+                    <span class="status-pill open" data-topic="chapter-4/4.2-absolute-relative-urls.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-4/4.3-link-behaviors.md" class="topic-link">4.3 Link Behaviors</a>
+                    <span class="status-pill open" data-topic="chapter-4/4.3-link-behaviors.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-4/4.4-page-jumps.md" class="topic-link">4.4 Page Jumps &amp; Email Links</a>
+                    <span class="status-pill open" data-topic="chapter-4/4.4-page-jumps.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
 
         <!-- Chapter 5 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 5: Media &amp; Assets</div>
+            <div class="chapter-header">5. Media &amp; Visual Assets</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="chapter-5/5.1-displaying-images.html" class="topic-link">5.1 Displaying Images</a><span class="status-pill open" id="status-html-5.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-5/5.2-image-best-practices.html" class="topic-link">5.2 Image File Types &amp; Best Practices</a><span class="status-pill open" id="status-html-5.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-5/5.3-audio-elements.html" class="topic-link">5.3 Audio Elements</a><span class="status-pill open" id="status-html-5.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-5/5.4-video-elements.html" class="topic-link">5.4 Video Elements</a><span class="status-pill open" id="status-html-5.4">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-5/5.1-images.md" class="topic-link">5.1 Displaying Images</a>
+                    <span class="status-pill open" data-topic="chapter-5/5.1-images.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-5/5.2-image-types.md" class="topic-link">5.2 Image Types &amp; Best Practices</a>
+                    <span class="status-pill open" data-topic="chapter-5/5.2-image-types.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-5/5.3-audio.md" class="topic-link">5.3 Audio Elements</a>
+                    <span class="status-pill open" data-topic="chapter-5/5.3-audio.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-5/5.4-video.md" class="topic-link">5.4 Video Elements</a>
+                    <span class="status-pill open" data-topic="chapter-5/5.4-video.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
 
         <!-- Chapter 6 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 6: Lists &amp; Data Organization</div>
+            <div class="chapter-header">6. Lists &amp; Data Organization</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="chapter-6/6.1-unordered-lists.html" class="topic-link">6.1 Unordered Lists</a><span class="status-pill open" id="status-html-6.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-6/6.2-ordered-lists.html" class="topic-link">6.2 Ordered Lists</a><span class="status-pill open" id="status-html-6.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-6/6.3-description-lists.html" class="topic-link">6.3 Description Lists</a><span class="status-pill open" id="status-html-6.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-6/6.4-nesting-lists.html" class="topic-link">6.4 Nesting Lists</a><span class="status-pill open" id="status-html-6.4">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-6/6.1-unordered-lists.md" class="topic-link">6.1 Unordered Lists</a>
+                    <span class="status-pill open" data-topic="chapter-6/6.1-unordered-lists.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-6/6.2-ordered-lists.md" class="topic-link">6.2 Ordered Lists</a>
+                    <span class="status-pill open" data-topic="chapter-6/6.2-ordered-lists.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-6/6.3-description-lists.md" class="topic-link">6.3 Description Lists</a>
+                    <span class="status-pill open" data-topic="chapter-6/6.3-description-lists.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-6/6.4-nesting-lists.md" class="topic-link">6.4 Nesting Lists</a>
+                    <span class="status-pill open" data-topic="chapter-6/6.4-nesting-lists.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
 
         <!-- Chapter 7 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 7: HTML Tables</div>
+            <div class="chapter-header">7. HTML Tables &amp; Tabular Data</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="chapter-7/7.1-table-basics.html" class="topic-link">7.1 Table Basics</a><span class="status-pill open" id="status-html-7.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-7/7.2-semantic-table-sections.html" class="topic-link">7.2 Semantic Table Sections</a><span class="status-pill open" id="status-html-7.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-7/7.3-merging-cells.html" class="topic-link">7.3 Merging Cells (Colspan &amp; Rowspan)</a><span class="status-pill open" id="status-html-7.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-7/7.4-accessibility-tables.html" class="topic-link">7.4 Accessibility in Tables</a><span class="status-pill open" id="status-html-7.4">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-7/7.1-table-basics.md" class="topic-link">7.1 Table Basics</a>
+                    <span class="status-pill open" data-topic="chapter-7/7.1-table-basics.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-7/7.2-table-sections.md" class="topic-link">7.2 Semantic Table Sections</a>
+                    <span class="status-pill open" data-topic="chapter-7/7.2-table-sections.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-7/7.3-merging-cells.md" class="topic-link">7.3 Merging Cells</a>
+                    <span class="status-pill open" data-topic="chapter-7/7.3-merging-cells.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-7/7.4-accessibility.md" class="topic-link">7.4 Accessibility in Tables</a>
+                    <span class="status-pill open" data-topic="chapter-7/7.4-accessibility.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
 
         <!-- Chapter 8 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 8: Forms &amp; User Input</div>
+            <div class="chapter-header">8. Forms &amp; User Input Control</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="chapter-8/8.1-form-container.html" class="topic-link">8.1 The Form Container</a><span class="status-pill open" id="status-html-8.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-8/8.2-basic-inputs.html" class="topic-link">8.2 Basic Inputs</a><span class="status-pill open" id="status-html-8.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-8/8.3-accessible-form-design.html" class="topic-link">8.3 Accessible Form Design</a><span class="status-pill open" id="status-html-8.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-8/8.4-advanced-inputs.html" class="topic-link">8.4 Advanced Inputs</a><span class="status-pill open" id="status-html-8.4">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-8/8.5-native-validation.html" class="topic-link">8.5 Native Form Validation</a><span class="status-pill open" id="status-html-8.5">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-8/8.1-form-container.md" class="topic-link">8.1 The Form Container</a>
+                    <span class="status-pill open" data-topic="chapter-8/8.1-form-container.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-8/8.2-basic-inputs.md" class="topic-link">8.2 Basic Inputs</a>
+                    <span class="status-pill open" data-topic="chapter-8/8.2-basic-inputs.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-8/8.3-accessible-forms.md" class="topic-link">8.3 Accessible Form Design</a>
+                    <span class="status-pill open" data-topic="chapter-8/8.3-accessible-forms.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-8/8.4-advanced-inputs.md" class="topic-link">8.4 Advanced Inputs</a>
+                    <span class="status-pill open" data-topic="chapter-8/8.4-advanced-inputs.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-8/8.5-native-validation.md" class="topic-link">8.5 Native Form Validation</a>
+                    <span class="status-pill open" data-topic="chapter-8/8.5-native-validation.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
 
         <!-- Chapter 9 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 9: Modern Semantic HTML5</div>
+            <div class="chapter-header">9. Modern Semantic HTML5 Layouts</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="chapter-9/9.1-why-semantics-matter.html" class="topic-link">9.1 Why Semantics Matter</a><span class="status-pill open" id="status-html-9.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-9/9.2-page-layout-elements.html" class="topic-link">9.2 Page Layout Elements</a><span class="status-pill open" id="status-html-9.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-9/9.3-content-chunking.html" class="topic-link">9.3 Content Chunking</a><span class="status-pill open" id="status-html-9.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-9/9.4-figures-captions.html" class="topic-link">9.4 Figures and Captions</a><span class="status-pill open" id="status-html-9.4">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-9/9.1-why-semantics.md" class="topic-link">9.1 Why Semantics Matter</a>
+                    <span class="status-pill open" data-topic="chapter-9/9.1-why-semantics.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-9/9.2-layout-elements.md" class="topic-link">9.2 Page Layout Elements</a>
+                    <span class="status-pill open" data-topic="chapter-9/9.2-layout-elements.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-9/9.3-content-chunking.md" class="topic-link">9.3 Content Chunking</a>
+                    <span class="status-pill open" data-topic="chapter-9/9.3-content-chunking.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-9/9.4-figures.md" class="topic-link">9.4 Figures &amp; Captions</a>
+                    <span class="status-pill open" data-topic="chapter-9/9.4-figures.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
 
         <!-- Chapter 10 -->
         <section class="chapter-card">
-            <div class="chapter-header">Chapter 10: Next Steps &amp; Real-World Projects</div>
+            <div class="chapter-header">10. Projects &amp; Next Horizons</div>
             <ul class="topic-list">
-                <li class="topic-item"><a href="chapter-10/10.1-connecting-to-css.html" class="topic-link">10.1 Connecting to CSS</a><span class="status-pill open" id="status-html-10.1">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-10/10.2-connecting-to-js.html" class="topic-link">10.2 Connecting to JavaScript</a><span class="status-pill open" id="status-html-10.2">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-10/10.3-validation-debugging.html" class="topic-link">10.3 Validation &amp; Debugging</a><span class="status-pill open" id="status-html-10.3">⚪ Incomplete</span></li>
-                <li class="topic-item"><a href="chapter-10/10.4-capstone-project.html" class="topic-link">10.4 Capstone Project</a><span class="status-pill open" id="status-html-10.4">⚪ Incomplete</span></li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-10/10.1-connecting-css.md" class="topic-link">10.1 Connecting to CSS</a>
+                    <span class="status-pill open" data-topic="chapter-10/10.1-connecting-css.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-10/10.2-connecting-js.md" class="topic-link">10.2 Connecting to JavaScript</a>
+                    <span class="status-pill open" data-topic="chapter-10/10.2-connecting-js.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-10/10.3-validation.md" class="topic-link">10.3 Validation &amp; Debugging</a>
+                    <span class="status-pill open" data-topic="chapter-10/10.3-validation.md">⚪ Incomplete</span>
+                </li>
+                <li class="topic-item">
+                    <a href="lesson.html?file=chapter-10/10.4-capstone.md" class="topic-link">10.4 Capstone Project</a>
+                    <span class="status-pill open" data-topic="chapter-10/10.4-capstone.md">⚪ Incomplete</span>
+                </li>
             </ul>
         </section>
 
     </main>
 
     <footer class="codify-footer">
-        <div>
-            Built with precision for future developers • Developed by
-            <span class="team-hover-wrapper" tabindex="0" role="button">
-                <span class="team-trigger">Codify Team</span>
-                <div class="team-popover">
-                    <div class="popover-header">Core Engineers</div>
-                    <ul class="team-list">
-                        <li class="team-member" onclick="openEngineerModal('owais')"><span class="member-dot"></span>Mohammed Owais <span class="student-id">(193)</span></li>
-                        <li class="team-member" onclick="openEngineerModal('dhanush')"><span class="member-dot"></span>M. Dhanush <span class="student-id">(189)</span></li>
-                    </ul>
-                </div>
-            </span>
-        </div>
+        <div>Built with precision for future developers • Codify Platform</div>
     </footer>
+
+    <script type="module" src="/src/js/auth/nav-auth.js"></script>
+    <script type="module" src="/src/js/config/supabase-client.js"></script>
 
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
@@ -327,40 +419,61 @@
         const COURSE_ID = 'html-101';
         const TOTAL_TOPICS = document.querySelectorAll('.topic-item').length;
 
+        function normalizePath(path) {
+            if (!path) return '';
+            return path.replace(/^\/+/, '').replace(/^src\/pages\/courses\/html\//, '').trim();
+        }
+
         async function loadIndexProgress() {
             try {
-                const { data: { session } } = await supabase.auth.getSession();
-                const user = session?.user;
+                const { data: { user } } = await supabase.auth.getUser();
                 if (!user) return;
 
-                const { data: progress } = await supabase
+                const { data: progress, error } = await supabase
                     .from('user_progress')
                     .select('lesson_id, completed')
                     .eq('user_id', user.id)
                     .eq('course_id', COURSE_ID);
 
+                if (error) throw error;
+
                 let finishedCount = 0;
+
                 if (progress && progress.length > 0) {
-                    progress.forEach(item => {
-                        if (item.completed) {
+                    const completedSet = new Set(
+                        progress.filter(p => p.completed).map(p => normalizePath(p.lesson_id))
+                    );
+
+                    document.querySelectorAll('.status-pill[data-topic]').forEach(badge => {
+                        const topicKey = normalizePath(badge.getAttribute('data-topic'));
+                        
+                        // Checks both direct match and shorthand file names
+                        const isDone = Array.from(completedSet).some(comp => comp.includes(topicKey) || topicKey.includes(comp));
+
+                        if (isDone) {
                             finishedCount++;
-                            const badge = document.getElementById(`status-${item.lesson_id}`);
-                            if (badge) {
-                                badge.className = 'status-pill done';
-                                badge.innerHTML = '✓ Finished';
-                            }
+                            badge.className = 'status-pill done';
+                            badge.innerHTML = '✓ Finished';
+                        } else {
+                            badge.className = 'status-pill open';
+                            badge.innerHTML = '⚪ Incomplete';
                         }
                     });
                 }
 
-                const pendingCount = TOTAL_TOPICS - finishedCount;
+                const pendingCount = Math.max(0, TOTAL_TOPICS - finishedCount);
                 const percentage = Math.round((finishedCount / TOTAL_TOPICS) * 100);
 
-                document.getElementById('finishedMetric').textContent = `${finishedCount} Finished`;
-                document.getElementById('pendingMetric').textContent = `${pendingCount} Incomplete`;
-                document.getElementById('progressBarFill').style.width = `${percentage}%`;
+                const finishedEl = document.getElementById('finishedMetric');
+                const pendingEl = document.getElementById('pendingMetric');
+                const progressFill = document.getElementById('progressBarFill');
+
+                if (finishedEl) finishedEl.textContent = `${finishedCount} Finished`;
+                if (pendingEl) pendingEl.textContent = `${pendingCount} Incomplete`;
+                if (progressFill) progressFill.style.width = `${percentage}%`;
+
             } catch (err) {
-                console.error('Progress Error:', err);
+                console.error('Progress sync error:', err);
             }
         }
 
