@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Enroll in the HTML Masterclass on Codify. Learn web structure, document anatomy, semantic layouts, forms, and modern web standards.">
+    <meta name="description" content="Enroll in Java Masterclass on Codify. Learn core syntax, OOP, arrays, and advanced Java architectures.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
 
     <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
     <link rel="stylesheet" href="/src/css/style.css">
-    <title>Enroll in HTML Fundamentals | Codify</title>
+    <title>Enroll in Java Programming | Codify</title>
 
     <style>
         html, body {
@@ -620,14 +620,14 @@
         <!-- HERO ENROLL CARD -->
         <section class="enroll-hero-card">
             <div class="course-badge-row">
-                <span class="course-badge">HTML Certification</span>
-                <span style="color: #64748b; font-size: 0.88rem; font-weight: 700;">• Beginner Friendly</span>
+                <span class="course-badge">Java Certification</span>
+                <span style="color: #64748b; font-size: 0.88rem; font-weight: 700;">• Intermediate Level</span>
             </div>
 
-            <h1 class="enroll-title">HTML <span>Fundamentals & Semantic Web</span></h1>
+            <h1 class="enroll-title">Java <span>Programming Masterclass</span></h1>
 
             <p class="enroll-description">
-                Build the structural backbone of modern web pages. Master semantic elements, accessible user input forms, metadata essentials, tables, media embedding, and clean production document architecture.
+                Develop robust, high-performance backends and Object-Oriented architectures with Java. Master control structures, methods, recursion, arrays, memory management, and enterprise-grade software patterns.
             </p>
 
             <div class="course-highlights">
@@ -635,14 +635,14 @@
                     <span class="highlight-icon">⏱️</span>
                     <div class="highlight-info">
                         <h4>Duration</h4>
-                        <p>10 Core Chapters</p>
+                        <p>10 Comprehensive Chapters</p>
                     </div>
                 </div>
                 <div class="highlight-item">
                     <span class="highlight-icon">⚡</span>
                     <div class="highlight-info">
                         <h4>Modules</h4>
-                        <p>40 Interactive Topics</p>
+                        <p>50 Interactive Topics</p>
                     </div>
                 </div>
                 <div class="highlight-item">
@@ -675,43 +675,43 @@
             <div class="curriculum-grid">
                 <div class="module-summary-pill">
                     <span class="module-num">01</span>
-                    <span>Introduction to Web & HTML</span>
+                    <span>Introduction to Java (JVM, JDK, Setup)</span>
                 </div>
                 <div class="module-summary-pill">
                     <span class="module-num">02</span>
-                    <span>Document Anatomy & Structure</span>
+                    <span>Java Basics (Variables, Data Types, I/O)</span>
                 </div>
                 <div class="module-summary-pill">
                     <span class="module-num">03</span>
-                    <span>Text & Headings Hierarchy</span>
+                    <span>Operators & Precedence Rules</span>
                 </div>
                 <div class="module-summary-pill">
                     <span class="module-num">04</span>
-                    <span>Hyperlinks & Navigation</span>
+                    <span>Conditional Statements & Switch</span>
                 </div>
                 <div class="module-summary-pill">
                     <span class="module-num">05</span>
-                    <span>Media & Visual Assets</span>
+                    <span>Loops & Control Flow Mechanics</span>
                 </div>
                 <div class="module-summary-pill">
                     <span class="module-num">06</span>
-                    <span>Lists & Data Organization</span>
+                    <span>Methods, Parameters & Overloading</span>
                 </div>
                 <div class="module-summary-pill">
                     <span class="module-num">07</span>
-                    <span>HTML Tables & Tabular Data</span>
+                    <span>Arrays & 2D Matrices</span>
                 </div>
                 <div class="module-summary-pill">
                     <span class="module-num">08</span>
-                    <span>Forms & User Input Controls</span>
+                    <span>Strings, Mutability & Built-in Methods</span>
                 </div>
                 <div class="module-summary-pill">
                     <span class="module-num">09</span>
-                    <span>Modern Semantic Layouts</span>
+                    <span>Variable Scopes & Wrapper Classes</span>
                 </div>
                 <div class="module-summary-pill">
                     <span class="module-num">10</span>
-                    <span>Projects & Next Horizons</span>
+                    <span>OOP Architecture & Recursion</span>
                 </div>
             </div>
         </section>
@@ -774,7 +774,7 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        const COURSE_ID = 'html-101';
+        const COURSE_ID = 'java-101';
         let currentUser = null;
         let isEnrolled = false;
 
@@ -815,7 +815,7 @@
             }
 
             if (isEnrolled) {
-                window.location.href = 'html-index.html';
+                window.location.href = 'java-index.html';
                 return;
             }
 
@@ -829,7 +829,7 @@
 
                 if (error && error.code !== '23505') throw error;
 
-                window.location.href = 'html-index.html';
+                window.location.href = 'java-index.html';
             } catch (err) {
                 console.error("Enroll error:", err);
                 alert("Could not process enrollment. Please try again.");
