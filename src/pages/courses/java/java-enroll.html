@@ -780,27 +780,39 @@
 
         async function checkEnrollmentStatus() {
             try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user) return;
-                currentUser = user;
+                // Ensure there is an active session with a valid JWT
+                const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+                if (sessionError || !session || !session.user) {
+                    console.log("No active authenticated session found.");
+                    return;
+                }
+
+                currentUser = session.user;
 
                 const { data, error } = await supabase
                     .from('user_enrollments')
                     .select('id')
-                    .eq('user_id', user.id)
+                    .eq('user_id', currentUser.id)
                     .eq('course_id', COURSE_ID)
                     .maybeSingle();
+
+                if (error) {
+                    console.error("Enrollment check query error:", error);
+                    return;
+                }
 
                 if (data) {
                     isEnrolled = true;
                     const btn = document.getElementById('enrollActionBtn');
-                    btn.classList.add('enrolled');
-                    btn.innerHTML = `
-                        <span>Go to Syllabus</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    `;
+                    if (btn) {
+                        btn.classList.add('enrolled');
+                        btn.innerHTML = `
+                            <span>Go to Syllabus</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        `;
+                    }
                 }
             } catch (err) {
                 console.error("Enrollment check error:", err);

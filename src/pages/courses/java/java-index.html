@@ -13,6 +13,7 @@
     <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
     <link rel="stylesheet" href="/src/css/style.css">
     <title>Java Syllabus | Codify</title>
+    
 
     <style>
         html, body {
@@ -833,11 +834,38 @@
             return path.replace(/^\/+/, '').replace(/^src\/pages\/courses\/java\//, '').trim();
         }
 
-        async function loadIndexProgress() {
-            try {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user) return;
+        // Enrollment Guard: Verifies membership before rendering user progress
+        async function verifyEnrollmentGuard(user) {
+            const { data: enrollment, error } = await supabase
+                .from('user_enrollments')
+                .select('id')
+                .eq('user_id', user.id)
+                .eq('course_id', COURSE_ID)
+                .maybeSingle();
 
+            if (!enrollment || error) {
+                window.location.replace('java-enroll.html');
+                return false;
+            }
+            return true;
+        }
+
+        async function initPage() {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                const user = session?.user;
+
+                // 1. Force unauthenticated guests to login
+                if (!user) {
+                    window.location.replace('/src/auth/login.html');
+                    return;
+                }
+
+                // 2. Redirect non-enrolled students to the course enroll page
+                const isEnrolled = await verifyEnrollmentGuard(user);
+                if (!isEnrolled) return;
+
+                // 3. Load topic progress tracking matrix from user_progress
                 const { data: progress, error } = await supabase
                     .from('user_progress')
                     .select('lesson_id, completed')
@@ -855,7 +883,6 @@
 
                     document.querySelectorAll('.status-pill[data-topic]').forEach(badge => {
                         const topicKey = normalizePath(badge.getAttribute('data-topic'));
-                        
                         const isDone = Array.from(completedSet).some(comp => comp.includes(topicKey) || topicKey.includes(comp));
 
                         if (isDone) {
@@ -885,7 +912,7 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadIndexProgress);
+        document.addEventListener('DOMContentLoaded', initPage);
 
         // Core Engineers Popover & Modal Handlers
         const teamDatabase = {

@@ -18,6 +18,17 @@
     <!-- Locked, stable Marked.js Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
 
+    // 1. Put this in
+
+    <style id="authGuardStyle">
+        html.auth-checking body {
+            display: none !important;
+        }
+    </style>
+    <script>
+        document.documentElement.classList.add('auth-checking');
+    </script>
+
     <style>
         /* ==========================================================================
            CORE RESET & VIEWPORT
@@ -1503,8 +1514,8 @@
         }
 
         .content-image-caption,
-        #markdownOutputContainer img + em,
-        #markdownOutputContainer p > em:last-child {
+        #markdownOutputContainer img+em,
+        #markdownOutputContainer p>em:last-child {
             display: block;
             margin-top: 12px;
             font-size: 0.9rem;
@@ -1628,8 +1639,15 @@
         }
 
         @keyframes hudSlideUp {
-            from { opacity: 0; transform: translate(-50%, 15px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
+            from {
+                opacity: 0;
+                transform: translate(-50%, 15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
         }
 
         .hud-dismiss-btn {
@@ -2239,6 +2257,66 @@
         </div>
     </div>
 
+    // 2. Put this right after
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        const COURSE_ID = 'html-101';
+        const ENROLL_URL = 'html-enroll.html';
+
+        function revealPage() {
+            document.documentElement.classList.remove('auth-checking');
+            const style = document.getElementById('authGuardStyle');
+            if (style) style.remove();
+        }
+
+        async function checkAccess() {
+            const safetyTimer = setTimeout(() => {
+                console.warn("Auth check timed out. Revealing page.");
+                revealPage();
+            }, 4000);
+
+            try {
+                // 1. Check login
+                const { data: { session } } = await supabase.auth.getSession();
+                const user = session?.user;
+
+                if (!user) {
+                    clearTimeout(safetyTimer);
+                    const returnUrl = encodeURIComponent(window.location.href);
+                    window.location.replace(`/src/auth/login.html?redirect=${returnUrl}`);
+                    return;
+                }
+
+                // 2. Check enrollment
+                const { data: enrollment } = await supabase
+                    .from('user_enrollments')
+                    .select('id')
+                    .eq('user_id', user.id)
+                    .eq('course_id', COURSE_ID)
+                    .maybeSingle();
+
+                if (!enrollment) {
+                    clearTimeout(safetyTimer);
+                    window.location.replace(ENROLL_URL);
+                    return;
+                }
+
+                // 3. Allowed
+                clearTimeout(safetyTimer);
+                revealPage();
+
+            } catch (err) {
+                clearTimeout(safetyTimer);
+                console.error("Access guard failed:", err);
+                revealPage();
+            }
+        }
+
+        checkAccess();
+    </script>
+
     <script type="module" src="/src/js/auth/nav-auth.js"></script>
     <script type="module" src="/src/js/config/supabase-client.js"></script>
 
@@ -2358,8 +2436,8 @@
 
 
         }
-        
-        
+
+
 
 
 
@@ -2385,7 +2463,7 @@
                 // Extract question and escape HTML tags so they display safely
                 let promptLine = lines[0].replace(/^\d+\.\s+/, '').trim();
                 promptLine = promptLine.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                
+
                 // Convert backticks to styled code blocks in the question
                 promptLine = promptLine.replace(/`([^`]+)`/g, '<code>$1</code>');
                 const optionLines = lines.slice(1);
@@ -2402,14 +2480,14 @@
                 optionLines.forEach(opt => {
                     const isCorrect = /-\s*\[x\]/i.test(opt);
                     let optText = opt.replace(/^-\s*\[[ x]\]\s*/i, '').trim();
-                    
+
                     if (optText) {
                         // 1. Escape HTML brackets so they display safely as text
                         optText = optText.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                        
+
                         // 2. Convert markdown backticks into stylized code elements
                         optText = optText.replace(/`([^`]+)`/g, '<code>$1</code>');
-                        
+
                         quizHTML += `<button class="q-option" onclick="handleAnswer(this, ${isCorrect}, ${idx + 1})">${optText}</button>`;
                     }
                 });
