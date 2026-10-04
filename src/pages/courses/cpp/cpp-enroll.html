@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Enroll in C++ & OOP Masterclass on Codify. Learn core syntax, classes, objects, polymorphism, and advanced C++ features.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <title>Enroll in C++ &amp; OOP Programming | Codify</title>
+
+    <style>
+        html, body {
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            position: relative;
+            background-color: #0a0f1c;
+            color: #e0e6ed;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* FORCE VISIBILITY OVERRIDE AGAINST EXTERNAL ANIMATION CLASSES */
+        main, main section, .enroll-hero-card, .curriculum-preview-card {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+
+        main {
+            display: flex !important;
+            flex-direction: column !important;
+            flex: 1;
+            margin-top: 90px !important;
+            padding: 20px 24px 80px 24px !important;
+            max-width: 1000px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        .codify-main-header {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%;
+            background: rgba(10, 15, 28, 0.98); 
+            backdrop-filter: blur(12px);
+            z-index: 2000; 
+            border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+        }
+
+        .codify-header-container {
+            display: flex !important; 
+            justify-content: space-between !important; 
+            align-items: center !important;
+            padding: 10px 32px !important; 
+            width: 100% !important; 
+            box-sizing: border-box !important;
+        }
+
+        .codify-logo {
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            color: #fff; 
+            text-decoration: none; 
+            cursor: pointer;
+        }
+        .logo-icon { width: 32px; height: 32px; }
+
+        .codify-nav-links {
+            list-style: none; 
+            display: flex; 
+            gap: 32px; 
+            margin: 0; 
+            padding: 0; 
+            white-space: nowrap;
+        }
+        .codify-nav-links li a {
+            text-decoration: none; 
+            color: #e0e6ed; 
+            font-size: 1.05rem; 
+            font-weight: 600; 
+            transition: color 0.3s ease;
+        }
+        .codify-nav-links li a:hover, 
+        .codify-nav-links li a.active-link { color: #00aaff; }
+
+        .codify-right-group { display: flex; align-items: center; gap: 16px; position: relative; }
+        .codify-auth-group { display: flex; align-items: center; gap: 12px; }
+
+        .codify-btn-outline {
+            text-decoration: none; 
+            background: transparent; 
+            border: 1px solid rgba(0, 170, 255, 0.4);
+            color: #e0e6ed; 
+            font-size: 0.9rem; 
+            font-weight: bold; 
+            padding: 8px 18px; 
+            border-radius: 12px; 
+            transition: all 0.3s ease;
+        }
+        .codify-btn-outline:hover { 
+            background: rgba(0, 170, 255, 0.1); 
+            border-color: #00aaff; 
+            color: #fff; 
+        }
+
+        /* BACK BUTTON COMPONENT */
+        .back-nav-container {
+            margin-bottom: 25px;
+        }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(13, 27, 42, 0.6);
+            border: 1px solid rgba(0, 170, 255, 0.25);
+            color: #00aaff;
+            font-size: 0.92rem;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(10px);
+        }
+        .btn-back:hover {
+            background: rgba(0, 170, 255, 0.12);
+            border-color: #00aaff;
+            color: #fff;
+            transform: translateX(-4px);
+        }
+        .btn-back svg {
+            transition: transform 0.25s ease;
+        }
+        .btn-back:hover svg {
+            transform: translateX(-2px);
+        }
+
+        /* ENROLL CARD */
+        .enroll-hero-card {
+            background: rgba(13, 27, 42, 0.6) !important;
+            border: 1px solid rgba(0, 170, 255, 0.25) !important;
+            border-radius: 24px !important;
+            padding: 40px !important;
+            margin-bottom: 35px !important;
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .enroll-hero-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(0, 170, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .course-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .course-badge {
+            background: rgba(0, 170, 255, 0.12);
+            border: 1px solid rgba(0, 170, 255, 0.4);
+            color: #00aaff;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .enroll-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .enroll-title span {
+            background: linear-gradient(90deg, #0077ff, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .enroll-description {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 800px;
+        }
+
+        .course-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        .highlight-item {
+            background: rgba(10, 15, 28, 0.6);
+            border: 1px solid rgba(0, 170, 255, 0.15);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .highlight-icon {
+            font-size: 1.4rem;
+        }
+        .highlight-info h4 {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .highlight-info p {
+            margin: 2px 0 0 0;
+            font-size: 0.98rem;
+            color: #e0e6ed;
+            font-weight: 700;
+        }
+
+        .enroll-action-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(0, 170, 255, 0.15);
+            padding-top: 24px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .pricing-box {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .price-label {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #10b981;
+        }
+        .price-sub {
+            color: #64748b;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .btn-enroll-action {
+            background: linear-gradient(90deg, #0077ff, #00aaff);
+            border: none;
+            color: #ffffff;
+            padding: 12px 32px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 170, 255, 0.3);
+            font-family: inherit;
+        }
+        .btn-enroll-action:hover {
+            box-shadow: 0 4px 25px rgba(0, 170, 255, 0.5);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+        .btn-enroll-action.enrolled {
+            background: #10b981;
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* CURRICULUM OVERVIEW CARD */
+        .curriculum-preview-card {
+            background: rgba(13, 27, 42, 0.5) !important;
+            border: 1px solid rgba(0, 170, 255, 0.2) !important;
+            border-radius: 20px !important;
+            padding: 30px !important;
+            backdrop-filter: blur(16px);
+        }
+
+        .curriculum-preview-card h3 {
+            margin: 0 0 20px 0;
+            color: #00aaff;
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .module-summary-pill {
+            background: rgba(10, 15, 28, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #cfd8dc;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .module-num {
+            background: rgba(0, 170, 255, 0.1);
+            color: #00aaff;
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        /* FOOTER */
+        .codify-footer {
+            margin-top: auto !important;
+            border-top: 1px solid rgba(0, 170, 255, 0.15) !important;
+            padding: 24px 20px !important;
+            text-align: center !important;
+            color: #94a3b8 !important;
+            font-size: 0.9rem !important;
+            background: rgba(10, 15, 28, 0.95) !important;
+            position: relative !important;
+            z-index: 10 !important;
+        }
+
+        .team-hover-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .team-trigger {
+            color: #00aaff !important;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .team-trigger:hover,
+        .team-trigger:focus {
+            background: rgba(0, 170, 255, 0.15);
+            color: #38bdf8 !important;
+            outline: none;
+        }
+
+        .team-popover {
+            position: absolute;
+            bottom: 135%;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            width: 320px;
+            background: rgba(13, 27, 42, 0.98);
+            border: 1px solid rgba(0, 170, 255, 0.35);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 170, 255, 0.15);
+            backdrop-filter: blur(16px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+        }
+
+        .team-popover::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: rgba(13, 27, 42, 0.98) transparent transparent transparent;
+        }
+
+        .team-hover-wrapper:hover .team-popover,
+        .team-hover-wrapper:focus-within .team-popover {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .popover-header {
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #00aaff;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+            padding-bottom: 6px;
+            text-align: left;
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #e0e6ed;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 6px;
+            transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+        }
+
+        .team-member:hover {
+            background: rgba(0, 170, 255, 0.15);
+            transform: translateX(4px);
+            color: #ffffff;
+        }
+
+        .member-dot {
+            width: 6px;
+            height: 6px;
+            background: #00aaff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00aaff;
+            flex-shrink: 0;
+        }
+
+        .student-id {
+            color: #00aaff;
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin-left: auto;
+            opacity: 0.8;
+        }
+
+        /* Modal Overlay for Core Engineers */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 10, 20, 0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show { display: flex; opacity: 1; }
+        .modal-card {
+            background: #0d1b2a;
+            border: 1.5px solid #00aaff;
+            border-radius: 24px;
+            max-width: 450px;
+            width: 100%;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0, 170, 255, 0.35);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.show .modal-card { transform: scale(1); }
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .modal-close-btn:hover { color: #00aaff; }
+
+        .eng-avatar {
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 170, 255, 0.15);
+            border: 2px solid #00aaff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #00aaff;
+            margin: 0 auto 15px auto;
+            font-weight: bold;
+        }
+
+        .eng-name { margin: 0; color: #fff; font-size: 1.6rem; font-weight: 800; }
+        .eng-id { color: #00aaff; font-weight: 700; margin: 5px 0 15px 0; font-size: 0.95rem; }
+        .eng-role {
+            background: rgba(13, 27, 42, 0.8);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #e0e6ed;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .eng-bio-box {
+            background: rgba(10, 15, 28, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 170, 255, 0.15);
+            margin: 20px 0;
+        }
+        .eng-bio-box p { margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
+        .eng-actions { display: flex; gap: 12px; justify-content: center; }
+        .eng-actions a { flex: 1; padding: 10px; font-size: 0.95rem; }
+    </style>
+</head>
+
+<body>
+
+    <header class="codify-main-header">
+        <div class="codify-header-container">
+            <div class="codify-left-group">
+                <a href="/index.html" class="codify-logo">
+                    <img src="/src/assets/logos/main-logo.svg" alt="Codify Logo" class="logo-icon">
+                    <span class="logo-text">Codify</span>
+                </a>
+            </div>
+            <nav class="codify-center-nav" aria-label="Main navigation menu">
+                <ul class="codify-nav-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/src/pages/courses.html" class="active-link">Courses</a></li>
+                    <li><a href="/src/pages/courses/exam.html">Quizzes &amp; Exams</a></li>
+                    <li><a href="/src/pages/certificate.html">Certificates</a></li>
+                    <li><a href="/src/pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="codify-right-group">
+                <div class="codify-auth-group" id="authNavGroup">
+                    <a href="/src/auth/login.html" class="codify-btn-outline">Login</a>
+                    <a href="/src/auth/signup.html" class="codify-btn-outline">Signup</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- BACK BUTTON NAVIGATION -->
+        <div class="back-nav-container">
+            <a href="/src/pages/courses.html" class="btn-back">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>Back to Courses</span>
+            </a>
+        </div>
+
+        <!-- HERO ENROLL CARD -->
+        <section class="enroll-hero-card">
+            <div class="course-badge-row">
+                <span class="course-badge">C++ &amp; OOP Certification</span>
+                <span style="color: #64748b; font-size: 0.88rem; font-weight: 700;">• Intermediate Level</span>
+            </div>
+
+            <h1 class="enroll-title">C++ &amp; OOP <span>Masterclass</span></h1>
+
+            <p class="enroll-description">
+                Master modern C++ and Object-Oriented Programming principles. Build robust, high-performance software using classes, inheritance, polymorphism, templates, and dynamic memory management.
+            </p>
+
+            <div class="course-highlights">
+                <div class="highlight-item">
+                    <span class="highlight-icon">⏱️</span>
+                    <div class="highlight-info">
+                        <h4>Duration</h4>
+                        <p>10 Comprehensive Chapters</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <span class="highlight-icon">⚡</span>
+                    <div class="highlight-info">
+                        <h4>Modules</h4>
+                        <p>50 Interactive Topics</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <span class="highlight-icon">🏆</span>
+                    <div class="highlight-info">
+                        <h4>Outcome</h4>
+                        <p>Verified Certificate</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="enroll-action-bar">
+                <div class="pricing-box">
+                    <span class="price-label">Free</span>
+                    <span class="price-sub">Lifetime open-access curriculum</span>
+                </div>
+                <button id="enrollActionBtn" class="btn-enroll-action" onclick="handleEnrollment()">
+                    <span>Enroll in Course</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- CURRICULUM OVERVIEW CARD -->
+        <section class="curriculum-preview-card">
+            <h3>Curriculum Outline</h3>
+            <div class="curriculum-grid">
+                <div class="module-summary-pill">
+                    <span class="module-num">01</span>
+                    <span>Introduction to C++ & Environment</span>
+                </div>
+                <div class="module-summary-pill">
+                    <span class="module-num">02</span>
+                    <span>C++ Basics & Data Types</span>
+                </div>
+                <div class="module-summary-pill">
+                    <span class="module-num">03</span>
+                    <span>Operators & Expressions</span>
+                </div>
+                <div class="module-summary-pill">
+                    <span class="module-num">04</span>
+                    <span>Control Statements & Conditions</span>
+                </div>
+                <div class="module-summary-pill">
+                    <span class="module-num">05</span>
+                    <span>Loops & Pattern Programs</span>
+                </div>
+                <div class="module-summary-pill">
+                    <span class="module-num">06</span>
+                    <span>Functions, Overloading & Scope</span>
+                </div>
+                <div class="module-summary-pill">
+                    <span class="module-num">07</span>
+                    <span>Arrays, Strings & Pointers</span>
+                </div>
+                <div class="module-summary-pill">
+                    <span class="module-num">08</span>
+                    <span>Classes & Objects Core Concepts</span>
+                </div>
+                <div class="module-summary-pill">
+                    <span class="module-num">09</span>
+                    <span>Object-Oriented Programming Pillars</span>
+                </div>
+                <div class="module-summary-pill">
+                    <span class="module-num">10</span>
+                    <span>Advanced OOP & C++ Features</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER WITH CORE ENGINEERS POPOVER -->
+    <footer class="codify-footer">
+        <div>
+            Built with precision for future developers • Developed by
+            <span class="team-hover-wrapper" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="team-trigger">Codify Team</span>
+
+                <div class="team-popover" role="tooltip">
+                    <div class="popover-header">Core Engineers</div>
+                    <ul class="team-list">
+                        <li class="team-member" onclick="openEngineerModal('owais')" style="font-weight: 700;">
+                            <span class="member-dot"></span>Mohammed Owais <span class="student-id">(24030-CM-193)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('dhanush')">
+                            <span class="member-dot"></span>M. Dhanush <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('feroz')">
+                            <span class="member-dot"></span>MD. Feroz Basha <span class="student-id">(24030-CM-190)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('basha')">
+                            <span class="member-dot"></span>M. Basha <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('prasad')">
+                            <span class="member-dot"></span>M. Prasad <span class="student-id">(24030-CM-196)</span>
+                        </li>
+                    </ul>
+                </div>
+            </span>
+        </div>
+    </footer>
+
+    <!-- ENGINEER MODAL -->
+    <div class="modal-overlay" id="engineerModal" aria-hidden="true">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div id="engAvatar" class="eng-avatar"></div>
+                <h2 id="engName" class="eng-name">Name</h2>
+                <p id="engId" class="eng-id">ID</p>
+                <span id="engRole" class="eng-role">Role</span>
+            </div>
+            <div class="eng-bio-box">
+                <p id="engBio">Bio goes here...</p>
+            </div>
+            <div class="eng-actions">
+                <a href="#" id="engEmail" class="codify-btn-outline">✉️ Email</a>
+                <a href="#" id="engGithub" class="codify-btn-outline" target="_blank">💻 GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/js/auth/nav-auth.js"></script>
+    <script type="module" src="/src/js/config/supabase-client.js"></script>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        const COURSE_ID = 'cpp-101';
+        let currentUser = null;
+        let isEnrolled = false;
+
+        async function checkEnrollmentStatus() {
+            try {
+                const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+                if (sessionError || !session || !session.user) {
+                    console.log("No active authenticated session found.");
+                    return;
+                }
+
+                currentUser = session.user;
+
+                const { data, error } = await supabase
+                    .from('user_enrollments')
+                    .select('id')
+                    .eq('user_id', currentUser.id)
+                    .eq('course_id', COURSE_ID)
+                    .maybeSingle();
+
+                if (error) {
+                    console.error("Enrollment check query error:", error);
+                    return;
+                }
+
+                if (data) {
+                    isEnrolled = true;
+                    const btn = document.getElementById('enrollActionBtn');
+                    if (btn) {
+                        btn.classList.add('enrolled');
+                        btn.innerHTML = `
+                            <span>Go to Syllabus</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        `;
+                    }
+                }
+            } catch (err) {
+                console.error("Enrollment check error:", err);
+            }
+        }
+
+        window.handleEnrollment = async function() {
+            if (!currentUser) {
+                alert("Please log in or sign up to enroll in this course!");
+                window.location.href = '/src/auth/login.html';
+                return;
+            }
+
+            if (isEnrolled) {
+                window.location.href = 'cpp-index.html';
+                return;
+            }
+
+            try {
+                const { error } = await supabase
+                    .from('user_enrollments')
+                    .insert({
+                        user_id: currentUser.id,
+                        course_id: COURSE_ID
+                    });
+
+                if (error && error.code !== '23505') throw error;
+
+                window.location.href = 'cpp-index.html';
+            } catch (err) {
+                console.error("Enroll error:", err);
+                alert("Could not process enrollment. Please try again.");
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', checkEnrollmentStatus);
+
+        // Core Engineers Popover & Modal Handlers
+        const teamDatabase = {
+            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
+            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
+            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Authentication and security.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
+            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Curriculum layout and styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
+            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Performance testing and QA.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
+        };
+
+        const engModal = document.getElementById('engineerModal');
+        window.openEngineerModal = function (key) {
+            const eng = teamDatabase[key];
+            if (!eng || !engModal) return;
+            document.getElementById('engAvatar').textContent = eng.initials;
+            document.getElementById('engName').textContent = eng.name;
+            document.getElementById('engId').textContent = `Student ID: ${eng.id}`;
+            document.getElementById('engRole').textContent = eng.role;
+            document.getElementById('engBio').textContent = eng.bio;
+            document.getElementById('engEmail').href = eng.email;
+            document.getElementById('engGithub').href = eng.github;
+            engModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+
+        document.getElementById('closeEngineerModal')?.addEventListener('click', () => {
+            if (engModal) {
+                engModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
