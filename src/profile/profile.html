@@ -15,7 +15,7 @@
             display: flex;
             flex-direction: column;
             margin: 0;
-            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         .profile-container {
@@ -28,7 +28,7 @@
         }
 
         .profile-card {
-            background: rgba(13, 27, 42, 0.65);
+            background: rgba(13, 27, 42, 0.75);
             border: 1px solid rgba(0, 170, 255, 0.25);
             border-radius: 24px;
             padding: 36px;
@@ -87,7 +87,6 @@
             cursor: pointer;
             transition: opacity 0.2s ease;
             color: #00aaff;
-            font-size: 1.4rem;
         }
 
         .avatar-container.editable:hover .avatar-overlay {
@@ -108,12 +107,19 @@
             font-size: 1rem;
         }
 
-        .btn-edit-trigger {
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-edit-trigger, .btn-email-trigger {
             background: rgba(0, 170, 255, 0.15);
             border: 1px solid rgba(0, 170, 255, 0.4);
             color: #00aaff;
-            padding: 10px 20px;
-            font-size: 0.95rem;
+            padding: 10px 18px;
+            font-size: 0.9rem;
             font-weight: 800;
             border-radius: 12px;
             cursor: pointer;
@@ -123,7 +129,7 @@
             transition: all 0.25s ease;
         }
 
-        .btn-edit-trigger:hover {
+        .btn-edit-trigger:hover, .btn-email-trigger:hover {
             background: #00aaff;
             color: #0d1b2a;
             box-shadow: 0 0 15px rgba(0, 170, 255, 0.4);
@@ -138,6 +144,8 @@
             font-size: 0.85rem;
             font-weight: 800;
             display: none;
+            align-items: center;
+            gap: 6px;
         }
 
         .section-title {
@@ -151,6 +159,43 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-card {
+            background: rgba(10, 15, 28, 0.6);
+            border: 1px solid rgba(0, 170, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.6rem;
+            color: #00aaff;
+            font-weight: 800;
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 0.82rem;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .profile-grid {
@@ -185,8 +230,8 @@
 
         .profile-input {
             width: 100%;
-            background: rgba(10, 15, 28, 0.5);
-            border: 1px solid rgba(0, 170, 255, 0.15);
+            background: rgba(10, 15, 28, 0.6);
+            border: 1px solid rgba(0, 170, 255, 0.2);
             border-radius: 12px;
             padding: 13px 16px;
             color: #e0e6ed;
@@ -247,7 +292,7 @@
             line-height: 1.5;
         }
 
-        /* MODAL SHARED STYLES */
+        /* MODAL STYLES */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -327,35 +372,10 @@
             box-shadow: 0 0 15px rgba(0, 170, 255, 0.4);
         }
 
-        .otp-inputs-wrapper {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .otp-digit-input {
-            width: 48px;
-            height: 56px;
-            background: rgba(10, 15, 28, 0.9);
-            border: 1.5px solid rgba(0, 170, 255, 0.3);
-            border-radius: 12px;
-            color: #00aaff;
-            font-size: 1.5rem;
-            font-weight: 800;
-            text-align: center;
-            transition: all 0.2s ease;
-        }
-
-        .otp-digit-input:focus {
-            outline: none;
-            border-color: #00aaff;
-            box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
-        }
-
         .modal-actions {
             display: flex;
             gap: 12px;
+            margin-top: 20px;
         }
 
         .btn-modal-primary {
@@ -408,7 +428,9 @@
                 <div class="profile-user-info">
                     <div class="avatar-container" id="avatarContainer">
                         <img id="avatarImage" class="avatar-img" src="/src/assets/images/avatars/avatar-1.png" alt="Profile Picture">
-                        <div class="avatar-overlay" id="avatarOverlayTrigger">📷</div>
+                        <div class="avatar-overlay" id="avatarOverlayTrigger">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                        </div>
                     </div>
                     <div class="profile-title-group">
                         <h1 id="headerDisplayName">User Profile</h1>
@@ -416,19 +438,46 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn-edit-trigger" id="requestEditOtpBtn">
-                    ✏️ Edit Profile
-                </button>
-                <div class="edit-badge-unlocked" id="unlockedBadge">
-                    🔓 Edit Mode Unlocked
+                <div class="header-actions">
+                    <button type="button" class="btn-edit-trigger" id="requestPasswordModalBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        Edit Profile
+                    </button>
+                    
+                    <div class="edit-badge-unlocked" id="unlockedBadge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        Unlocked
+                    </div>
                 </div>
             </div>
 
             <div id="statusAlert" class="alert-box"></div>
 
+            <!-- Learning Progress & Activity Stats -->
+            <div class="section-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                Learning Activity
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 id="statEnrolledCourses">0</h3>
+                    <p>Enrolled Courses</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statCertificates">0</h3>
+                    <p>Certificates Earned</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statProgress">0%</h3>
+                    <p>Overall Progress</p>
+                </div>
+            </div>
+
             <form id="profileForm">
-                
-                <div class="section-title">👤 Personal Information</div>
+                <div class="section-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    Personal Information
+                </div>
                 
                 <div class="profile-grid">
                     <div class="profile-form-group">
@@ -448,7 +497,10 @@
 
                     <div class="profile-form-group">
                         <label for="emailInput">Email Address</label>
-                        <input type="email" id="emailInput" class="profile-input" placeholder="user@example.com" disabled required>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="email" id="emailInput" class="profile-input" placeholder="user@example.com" disabled required>
+                            <button type="button" class="btn-email-trigger" id="openEmailChangeModal" style="display: none; white-space: nowrap; padding: 0 14px;">Change</button>
+                        </div>
                     </div>
                 </div>
 
@@ -459,54 +511,60 @@
 
                 <div style="margin-top: 28px;">
                     <button type="submit" class="profile-submit-btn" id="saveProfileBtn">
-                        💾 Save Profile Changes
+                        Save Profile Changes
                     </button>
                 </div>
             </form>
         </div>
     </main>
 
-    <div class="modal-overlay" id="otpModal">
+    <!-- Password Verification Modal -->
+    <div class="modal-overlay" id="passwordModal">
         <div class="modal-card">
-            <h2>🔐 Verify Identity</h2>
-            <p>Enter the 6-digit OTP code sent to <strong id="modalTargetEmail" style="color: #00aaff;"></strong> to unlock profile editing.</p>
+            <h2>Confirm Password</h2>
+            <p>Please enter your current account password to unlock editing.</p>
             
-            <div id="modalAlert" class="alert-box"></div>
+            <div id="passwordModalAlert" class="alert-box"></div>
 
-            <div class="otp-inputs-wrapper" id="unlockOtpContainer">
-                </div>
+            <div class="profile-form-group" style="text-align: left; margin-bottom: 20px;">
+                <label for="confirmPasswordInput">CURRENT PASSWORD</label>
+                <input type="password" id="confirmPasswordInput" class="profile-input" placeholder="••••••••">
+            </div>
 
             <div class="modal-actions">
-                <button type="button" class="btn-modal-secondary" id="closeOtpModalBtn">Cancel</button>
-                <button type="button" class="btn-modal-primary" id="verifyOtpBtn">Verify & Unlock</button>
+                <button type="button" class="btn-modal-secondary" id="closePasswordModalBtn">Cancel</button>
+                <button type="button" class="btn-modal-primary" id="verifyPasswordBtn">Confirm & Unlock</button>
             </div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="newEmailOtpModal">
+    <!-- Email Change Link Modal -->
+    <div class="modal-overlay" id="emailChangeModal">
         <div class="modal-card">
-            <h2>📧 Verify New Email</h2>
-            <p>You changed your email address! Please enter the 6-digit OTP code sent to <strong id="modalNewEmailTarget" style="color: #00aaff;"></strong> to finalize your profile update.</p>
+            <h2>Change Email Address</h2>
+            <p>Enter your new email address. Supabase will send a secure change link to your new inbox.</p>
             
-            <div id="newEmailModalAlert" class="alert-box"></div>
+            <div id="emailModalAlert" class="alert-box"></div>
 
-            <div class="otp-inputs-wrapper" id="newEmailOtpContainer">
-                </div>
+            <div class="profile-form-group" style="text-align: left; margin-bottom: 20px;">
+                <label for="newEmailInput">NEW EMAIL ADDRESS</label>
+                <input type="email" id="newEmailInput" class="profile-input" placeholder="newemail@domain.com">
+            </div>
 
             <div class="modal-actions">
-                <button type="button" class="btn-modal-secondary" id="closeNewEmailOtpModalBtn">Cancel Update</button>
-                <button type="button" class="btn-modal-primary" id="verifyNewEmailOtpBtn">Verify & Save Profile</button>
+                <button type="button" class="btn-modal-secondary" id="closeEmailModalBtn">Cancel</button>
+                <button type="button" class="btn-modal-primary" id="sendEmailChangeLinkBtn">Send Link</button>
             </div>
         </div>
     </div>
 
+    <!-- Avatar Selection Modal -->
     <div class="modal-overlay" id="avatarModal">
         <div class="modal-card" style="max-width: 500px;">
             <h2>Choose an Avatar</h2>
             <p>Select a profile picture from the gallery below.</p>
             
-            <div class="avatar-selection-grid" id="avatarGrid">
-                </div>
+            <div class="avatar-selection-grid" id="avatarGrid"></div>
 
             <div class="modal-actions">
                 <button type="button" class="btn-modal-secondary" id="closeAvatarModalBtn">Cancel</button>
@@ -520,17 +578,13 @@
         let currentAuthUser = null;
         let isEditUnlocked = false;
         let selectedAvatarUrl = null; 
-        
-        // Variables for multi-step save
-        let pendingProfileData = null;
-        let pendingNewEmail = null;
 
         const alertBox = document.getElementById('statusAlert');
-        const modalAlertBox = document.getElementById('modalAlert');
-        const newEmailModalAlert = document.getElementById('newEmailModalAlert');
+        const passwordModalAlert = document.getElementById('passwordModalAlert');
+        const emailModalAlert = document.getElementById('emailModalAlert');
         
-        const otpModal = document.getElementById('otpModal');
-        const newEmailOtpModal = document.getElementById('newEmailOtpModal');
+        const passwordModal = document.getElementById('passwordModal');
+        const emailChangeModal = document.getElementById('emailChangeModal');
         const avatarModal = document.getElementById('avatarModal');
 
         function showAlert(msg, isError = false) {
@@ -542,51 +596,9 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Setup OTP inputs helper function
-        function setupOtpInputs(containerId) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = ''; // clear
-            const inputs = [];
-            
-            for(let i=0; i<6; i++) {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.maxLength = 1;
-                input.className = 'otp-digit-input';
-                if(i===0) input.autofocus = true;
-                
-                input.addEventListener('input', (e) => {
-                    if (e.target.value.length === 1 && i < 5) inputs[i + 1].focus();
-                });
-
-                input.addEventListener('keydown', (e) => {
-                    if (e.key === 'Backspace' && !e.target.value && i > 0) inputs[i - 1].focus();
-                });
-
-                input.addEventListener('paste', (e) => {
-                    e.preventDefault();
-                    const pastedData = e.clipboardData.getData('text').trim().slice(0, 6);
-                    pastedData.split('').forEach((char, idx) => {
-                        if (inputs[idx]) inputs[idx].value = char;
-                    });
-                });
-                
-                inputs.push(input);
-                container.appendChild(input);
-            }
-            return inputs;
-        }
-
-        const unlockOtpInputs = setupOtpInputs('unlockOtpContainer');
-        const newEmailOtpInputs = setupOtpInputs('newEmailOtpContainer');
-
-        function clearOtpInputs(inputs) {
-            inputs.forEach(i => i.value = '');
-        }
-
-        // Initialize the Avatar Grid
         function initAvatarGrid() {
             const grid = document.getElementById('avatarGrid');
+            grid.innerHTML = '';
             for (let i = 1; i <= 20; i++) {
                 const imgUrl = `/src/assets/images/avatars/avatar-${i}.png`;
                 const img = document.createElement('img');
@@ -602,16 +614,13 @@
             }
         }
 
-        // Load Profile Data
-        async function loadProfile() {
+        async function loadProfileAndStats() {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
-
                 if (!user) {
                     window.location.href = '/src/auth/login.html';
                     return;
                 }
-
                 currentAuthUser = user;
                 document.getElementById('emailInput').value = user.email || '';
 
@@ -629,7 +638,6 @@
                 const avatarUrl = profile?.avatar_url || user.user_metadata?.avatar_url || '/src/assets/images/avatars/avatar-1.png';
 
                 selectedAvatarUrl = avatarUrl; 
-
                 document.getElementById('firstNameInput').value = firstName;
                 document.getElementById('lastNameInput').value = lastName;
                 document.getElementById('usernameInput').value = username;
@@ -640,190 +648,152 @@
                 document.getElementById('headerDisplayName').textContent = fullDisplayName;
                 document.getElementById('headerUserHandle').textContent = `@${username.toLowerCase().replace(/\s+/g, '')}`;
 
+                try {
+                    const { count: courseCount } = await supabase.from('enrollments').select('*', { count: 'exact', head: true }).eq('user_id', user.id);
+                    document.getElementById('statEnrolledCourses').textContent = courseCount || 0;
+                } catch(e) { document.getElementById('statEnrolledCourses').textContent = 0; }
+
+                try {
+                    const { count: certCount } = await supabase.from('certificates').select('*', { count: 'exact', head: true }).eq('user_id', user.id);
+                    document.getElementById('statCertificates').textContent = certCount || 0;
+                } catch(e) { document.getElementById('statCertificates').textContent = 0; }
+
             } catch (err) {
                 console.error('Failed to load user profile:', err);
             }
         }
 
-        // 1. UNLOCK PROFILE FLOW
-        document.getElementById('requestEditOtpBtn').addEventListener('click', async () => {
-            try {
-                const { error } = await supabase.auth.signInWithOtp({ email: currentAuthUser.email });
-                if (error) throw error;
-
-                document.getElementById('modalTargetEmail').textContent = currentAuthUser.email;
-                otpModal.style.display = 'flex';
-                clearOtpInputs(unlockOtpInputs);
-            } catch (err) {
-                showAlert(`❌ Unable to send OTP: ${err.message}`, true);
-            }
+        // Password Modal Handlers
+        document.getElementById('requestPasswordModalBtn').addEventListener('click', () => {
+            passwordModal.style.display = 'flex';
+            document.getElementById('confirmPasswordInput').value = '';
+            passwordModalAlert.style.display = 'none';
+            setTimeout(() => document.getElementById('confirmPasswordInput').focus(), 100);
         });
 
-        document.getElementById('verifyOtpBtn').addEventListener('click', async () => {
-            const token = unlockOtpInputs.map(i => i.value).join('');
-            if (token.length !== 6) {
-                modalAlertBox.style.display = 'block';
-                modalAlertBox.textContent = 'Please enter the full 6-digit code.';
+        document.getElementById('closePasswordModalBtn').addEventListener('click', () => {
+            passwordModal.style.display = 'none';
+        });
+
+        document.getElementById('verifyPasswordBtn').addEventListener('click', async () => {
+            const password = document.getElementById('confirmPasswordInput').value;
+            if (!password) {
+                passwordModalAlert.style.display = 'block';
+                passwordModalAlert.textContent = 'Please enter your password.';
                 return;
             }
 
             try {
-                const { error } = await supabase.auth.verifyOtp({
+                const { error } = await supabase.auth.signInWithPassword({
                     email: currentAuthUser.email,
-                    token: token,
-                    type: 'email'
+                    password: password
                 });
 
                 if (error) throw error;
 
                 isEditUnlocked = true;
-                otpModal.style.display = 'none';
+                passwordModal.style.display = 'none';
 
-                ['firstNameInput', 'lastNameInput', 'usernameInput', 'emailInput', 'bioInput'].forEach(id => {
+                // Unlock info fields (excluding email since email requires change link)
+                ['firstNameInput', 'lastNameInput', 'usernameInput', 'bioInput'].forEach(id => {
                     document.getElementById(id).disabled = false;
                 });
 
                 document.getElementById('avatarContainer').classList.add('editable');
-                document.getElementById('requestEditOtpBtn').style.display = 'none';
-                document.getElementById('unlockedBadge').style.display = 'inline-block';
+                document.getElementById('requestPasswordModalBtn').style.display = 'none';
+                document.getElementById('unlockedBadge').style.display = 'inline-flex';
                 document.getElementById('saveProfileBtn').style.display = 'inline-flex';
+                document.getElementById('openEmailChangeModal').style.display = 'inline-block';
 
-                showAlert('🔓 Verification successful! You can now edit your details below.');
+                showAlert('Password verified! You can now edit your profile details or change your email.');
             } catch (err) {
-                modalAlertBox.style.display = 'block';
-                modalAlertBox.textContent = `❌ ${err.message}`;
+                passwordModalAlert.style.display = 'block';
+                passwordModalAlert.textContent = `Incorrect password: ${err.message}`;
             }
         });
 
-        document.getElementById('closeOtpModalBtn').addEventListener('click', () => otpModal.style.display = 'none');
-
-        // Avatar Overlay Logic
+        // Avatar Modal Handlers
         document.getElementById('avatarOverlayTrigger').addEventListener('click', () => {
             if (isEditUnlocked) avatarModal.style.display = 'flex';
         });
-        document.getElementById('closeAvatarModalBtn').addEventListener('click', () => avatarModal.style.display = 'none');
-
-        // Helper: Save to DB Function
-        async function saveProfileToDatabase(profileData) {
-            const { error: profileErr } = await supabase
-                .from('profiles')
-                .upsert({
-                    id: currentAuthUser.id,
-                    first_name: profileData.firstName,
-                    last_name: profileData.lastName,
-                    display_name: profileData.computedDisplayName,
-                    username: profileData.username,
-                    email: profileData.email,
-                    bio: profileData.bio,
-                    avatar_url: profileData.avatarUrl,
-                    updated_at: new Date()
-                });
-
-            if (profileErr) throw profileErr;
-
-            showAlert('✓ Profile details and avatar saved successfully!');
-            setTimeout(() => window.location.reload(), 1500);
-        }
-
-        // 2. SAVE PROFILE & NEW EMAIL FLOW
-        document.getElementById('profileForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isEditUnlocked) return;
-
-            // Collect all form data
-            const firstName = document.getElementById('firstNameInput').value.trim();
-            const lastName = document.getElementById('lastNameInput').value.trim();
-            const username = document.getElementById('usernameInput').value.trim();
-            const email = document.getElementById('emailInput').value.trim();
-            const bio = document.getElementById('bioInput').value.trim();
-            
-            pendingProfileData = {
-                firstName,
-                lastName,
-                computedDisplayName: `${firstName} ${lastName}`.trim(),
-                username,
-                email,
-                bio,
-                avatarUrl: selectedAvatarUrl
-            };
-
-            try {
-                // Check if email was changed
-                if (email !== currentAuthUser.email) {
-                    pendingNewEmail = email;
-                    
-                    // Trigger Supabase to send OTP to the NEW email
-                    const { error: emailErr } = await supabase.auth.updateUser({ 
-                        email: pendingNewEmail 
-                    });
-                    
-                    if (emailErr) throw emailErr;
-
-                    // Show the New Email Verification Modal
-                    document.getElementById('modalNewEmailTarget').textContent = pendingNewEmail;
-                    newEmailOtpModal.style.display = 'flex';
-                    clearOtpInputs(newEmailOtpInputs);
-                    return; // Pause the saving process here
-                }
-
-                // If email was NOT changed, save directly to Database
-                await saveProfileToDatabase(pendingProfileData);
-
-            } catch (err) {
-                // 🛑 THIS IS THE FIX: Properly extract the error message
-                console.error('Full Supabase Error Object:', err);
-                
-                let errorMessage = 'An unknown error occurred.';
-                if (err.message) {
-                    errorMessage = err.message;
-                } else if (err.error_description) {
-                    errorMessage = err.error_description;
-                } else {
-                    errorMessage = JSON.stringify(err);
-                }
-                
-                showAlert(`❌ Error: ${errorMessage}`, true);
-            }
+        document.getElementById('closeAvatarModalBtn').addEventListener('click', () => {
+            avatarModal.style.display = 'none';
         });
 
-        // 3. VERIFY NEW EMAIL OTP
-        document.getElementById('verifyNewEmailOtpBtn').addEventListener('click', async () => {
-            const token = newEmailOtpInputs.map(i => i.value).join('');
-            if (token.length !== 6) {
-                newEmailModalAlert.style.display = 'block';
-                newEmailModalAlert.textContent = 'Please enter the full 6-digit code.';
+        // Email Change Modal Handlers
+        document.getElementById('openEmailChangeModal').addEventListener('click', () => {
+            emailChangeModal.style.display = 'flex';
+            document.getElementById('newEmailInput').value = '';
+            emailModalAlert.style.display = 'none';
+            setTimeout(() => document.getElementById('newEmailInput').focus(), 100);
+        });
+
+        document.getElementById('closeEmailModalBtn').addEventListener('click', () => {
+            emailChangeModal.style.display = 'none';
+        });
+
+        document.getElementById('sendEmailChangeLinkBtn').addEventListener('click', async () => {
+            const newEmail = document.getElementById('newEmailInput').value.trim();
+            if (!newEmail || !newEmail.includes('@')) {
+                emailModalAlert.style.display = 'block';
+                emailModalAlert.textContent = 'Please enter a valid email address.';
                 return;
             }
 
             try {
-                // Verify the OTP sent to the new email
-                const { error } = await supabase.auth.verifyOtp({
-                    email: pendingNewEmail,
-                    token: token,
-                    type: 'email_change' // Specific type for email updates
+                const { error } = await supabase.auth.updateUser({ email: newEmail }, {
+                    emailRedirectTo: `${window.location.origin}/src/profile/profile.html`
                 });
 
                 if (error) throw error;
 
-                newEmailOtpModal.style.display = 'none';
-                
-                // Now that email is verified, save the rest of the profile
-                await saveProfileToDatabase(pendingProfileData);
-
+                emailChangeModal.style.display = 'none';
+                showAlert(`A verification link has been sent to ${newEmail}. Please check your new inbox to finalize the update.`);
             } catch (err) {
-                newEmailModalAlert.style.display = 'block';
-                newEmailModalAlert.textContent = `❌ ${err.message}`;
+                emailModalAlert.style.display = 'block';
+                emailModalAlert.textContent = `Error: ${err.message}`;
             }
         });
 
-        document.getElementById('closeNewEmailOtpModalBtn').addEventListener('click', () => {
-            newEmailOtpModal.style.display = 'none';
+        // Save Profile Form Submission
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!isEditUnlocked) return;
+
+            const firstName = document.getElementById('firstNameInput').value.trim();
+            const lastName = document.getElementById('lastNameInput').value.trim();
+            const username = document.getElementById('usernameInput').value.trim();
+            const bio = document.getElementById('bioInput').value.trim();
+            const computedDisplayName = `${firstName} ${lastName}`.trim();
+
+            try {
+                const { error: profileErr } = await supabase
+                    .from('profiles')
+                    .upsert({
+                        id: currentAuthUser.id,
+                        first_name: firstName,
+                        last_name: lastName,
+                        display_name: computedDisplayName,
+                        username: username,
+                        email: currentAuthUser.email,
+                        bio: bio,
+                        avatar_url: selectedAvatarUrl,
+                        updated_at: new Date()
+                    });
+
+                if (profileErr) throw profileErr;
+
+                showAlert('Profile details saved successfully!');
+                setTimeout(() => window.location.reload(), 1500);
+
+            } catch (err) {
+                showAlert(`Error: ${err.message}`, true);
+            }
         });
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             initAvatarGrid();
-            loadProfile();
+            loadProfileAndStats();
         });
     </script>
     <script type="module" src="/src/js/auth/nav-auth.js"></script>
