@@ -4,455 +4,795 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="/assets/logos/main-logo.svg">
-    <link rel="stylesheet" href="/style.css">
-    <title>Final Course Assessment | Codify</title>
-
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <title>HTML Mastery Exam | Codify</title>
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-
         body {
             background-color: #0a0f1c;
             color: #e0e6ed;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            position: relative;
             overflow-x: hidden;
         }
 
-        /* Ambient Glow */
-        .page-glow {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 700px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(0, 170, 255, 0.14) 0%, transparent 70%);
+        /* WATERMARK OVERLAY */
+        .exam-watermark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
-            z-index: 0;
+            z-index: 9999;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 120px;
+            gap: 30px;
+            padding: 30px;
+            opacity: 0.15;
+            color: #00aaff;
+            font-size: 1rem;
+            font-weight: 800;
+            transform: rotate(-15deg);
+            white-space: nowrap;
+            overflow: hidden;
+            display: none;
         }
 
-        /* Force Main Visibility */
-        main {
-            display: flex !important;
-            flex-direction: column !important;
-            flex: 1 0 auto;
-            opacity: 1 !important;
-            visibility: visible !important;
-            margin-top: 110px !important;
-            padding: 20px;
-            max-width: 850px;
+        .exam-watermark.active {
+            display: grid;
+        }
+
+        .exam-container {
+            flex: 1;
+            max-width: 1200px;
             width: 100%;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 30px auto;
+            padding: 0 20px;
             box-sizing: border-box;
-            position: relative !important;
-            z-index: 2 !important;
+            z-index: 2;
         }
 
-        /* Header Card */
-        .exam-hero-card {
-            background: rgba(13, 27, 42, 0.6);
-            border: 1px solid rgba(0, 170, 255, 0.22);
+        .exam-card {
+            background: rgba(13, 27, 42, 0.95);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(16px);
+            position: relative;
+        }
+
+        .exam-screen {
+            display: none;
+        }
+
+        .exam-screen.active {
+            display: block;
+        }
+
+        /* WARNING MODAL */
+        .exam-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 10, 20, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .exam-modal-card {
+            background: #0d1b2a;
+            border: 1.5px solid #00aaff;
             border-radius: 20px;
-            padding: 32px;
-            backdrop-filter: blur(20px);
-            margin-bottom: 28px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+            max-width: 420px;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 170, 255, 0.4);
         }
 
-        .exam-hero-card h1 {
+        .exam-modal-card h3 {
             color: #ffffff;
-            font-size: 2.2rem;
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+
+        .exam-modal-card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        /* RULES SCREEN */
+        .rules-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .rules-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .rules-header h1 {
+            color: #ffffff;
+            font-size: 2rem;
             font-weight: 800;
             margin: 0 0 10px 0;
         }
 
-        .exam-hero-card h1 span {
-            background: linear-gradient(90deg, #0077ff, #00aaff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .exam-hero-card p {
+        .rules-header p {
             color: #94a3b8;
             font-size: 1rem;
             margin: 0;
+        }
+
+        .rules-list {
+            margin-bottom: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: rgba(10, 15, 28, 0.5);
+            border: 1px solid rgba(0, 170, 255, 0.15);
+            padding: 16px 20px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            color: #cbd5e1;
             line-height: 1.5;
         }
 
-        /* Question Container */
-        .question-card {
-            background: rgba(13, 27, 42, 0.45);
-            border: 1px solid rgba(0, 170, 255, 0.15);
-            border-radius: 18px;
-            padding: 24px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(12px);
+        /* QUIZ LAYOUT */
+        .quiz-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
         }
 
-        .question-number {
-            font-size: 0.8rem;
+        @media (max-width: 900px) {
+            .quiz-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quiz-sidebar {
+            background: rgba(10, 15, 28, 0.6);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 18px;
+            padding: 20px;
+            max-height: 550px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-title {
+            font-size: 0.9rem;
             font-weight: 800;
             color: #00aaff;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            overflow-y: auto;
+            max-height: 420px;
+            padding-right: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: #00aaff rgba(10, 15, 28, 0.5);
+        }
+
+        .nav-pill {
+            aspect-ratio: 1/1;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 8px;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .nav-pill:hover {
+            border-color: #00aaff;
+            color: #ffffff;
+        }
+
+        .nav-pill.current {
+            border-color: #00aaff;
+            background: rgba(0, 170, 255, 0.25);
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.4);
+        }
+
+        .nav-pill.answered {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            color: #34d399;
+        }
+
+        .quiz-main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+        }
+
+        .question-counter {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #00aaff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer-badge {
+            background: rgba(0, 170, 255, 0.1);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: #00aaff;
+            font-weight: 800;
+            font-size: 0.9rem;
         }
 
         .question-title {
+            font-size: 1.2rem;
             color: #ffffff;
-            font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: 24px;
+            line-height: 1.6;
         }
 
-        .options-list {
+        .options-grid {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
-        .option-label {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .option-card {
             background: rgba(10, 15, 28, 0.6);
-            border: 1px solid rgba(0, 170, 255, 0.15);
-            padding: 14px 18px;
-            border-radius: 12px;
+            border: 1.5px solid rgba(0, 170, 255, 0.2);
+            border-radius: 14px;
+            padding: 16px 20px;
+            color: #e0e6ed;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 0.95rem;
-            color: #e0e6ed;
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
-        .option-label:hover {
+        .option-card:hover {
             border-color: #00aaff;
             background: rgba(0, 170, 255, 0.08);
         }
 
-        .option-label input[type="radio"] {
-            accent-color: #00aaff;
-            transform: scale(1.1);
+        .option-card.selected {
+            border-color: #00aaff;
+            background: rgba(0, 170, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.25);
+            color: #ffffff;
+            font-weight: 700;
         }
 
-        /* Submit Button */
-        .submit-exam-btn {
+        .option-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0, 170, 255, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .option-card.selected .option-radio::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #00aaff;
+            border-radius: 50%;
+        }
+
+        .exam-btn {
             background: linear-gradient(90deg, #0077ff, #00aaff);
-            color: #ffffff;
-            font-size: 1.05rem;
-            font-weight: 700;
-            padding: 15px 36px;
             border: none;
-            border-radius: 14px;
+            color: #fff;
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 800;
+            border-radius: 12px;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0, 170, 255, 0.35);
             transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 170, 255, 0.3);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-family: inherit;
-            width: 100%;
-            margin-top: 10px;
-            margin-bottom: 40px;
+            gap: 8px;
         }
 
-        .submit-exam-btn:hover {
+        .exam-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 170, 255, 0.55);
+            box-shadow: 0 6px 25px rgba(0, 170, 255, 0.5);
         }
 
-        /* Score Modal / Result Box */
-        .result-box {
-            background: rgba(13, 27, 42, 0.85);
-            border: 2px solid rgba(16, 185, 129, 0.4);
-            border-radius: 20px;
-            padding: 32px;
-            text-align: center;
-            display: none; /* Shown after grading */
-            margin-bottom: 40px;
-            backdrop-filter: blur(20px);
-        }
-
-        .result-box.failed {
-            border-color: rgba(239, 68, 68, 0.4);
-        }
-
-        .result-score {
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 8px;
-        }
-
-        .result-box.passed .result-score { color: #34d399; }
-        .result-box.failed .result-score { color: #f87171; }
-
-        .result-msg {
-            color: #94a3b8;
-            font-size: 1rem;
-            margin-bottom: 24px;
-        }
-
-        /* Footer */
-        .codify-footer {
-            flex-shrink: 0;
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
             margin-top: auto;
-            border-top: 1px solid rgba(0, 170, 255, 0.15);
-            padding: 24px 20px;
-            text-align: center;
-            color: #64748b;
-            font-size: 0.88rem;
-            background: rgba(10, 15, 28, 0.95);
-            position: relative;
-            z-index: 100;
         }
 
-        .team-hover-wrapper { position: relative; display: inline-block; cursor: pointer; }
-        .team-trigger { color: #00aaff; font-weight: 700; }
-        .team-popover {
-            position: absolute;
-            bottom: 140%;
-            left: 50%;
-            transform: translateX(-50%) translateY(8px);
-            width: 240px;
-            background: rgba(13, 27, 42, 0.95);
-            border: 1px solid rgba(0, 170, 255, 0.3);
-            border-radius: 16px;
-            padding: 16px;
-            backdrop-filter: blur(16px);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: all 0.3s ease;
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            color: #94a3b8;
+            padding: 14px 24px;
         }
-        .team-hover-wrapper:hover .team-popover { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
-        .team-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-        .team-member { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #e0e6ed; }
-        .member-dot { width: 6px; height: 6px; background: #00aaff; border-radius: 50%; }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #f87171;
+            padding: 14px 20px;
+        }
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.3);
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .result-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .result-score-box {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #00aaff;
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(0, 170, 255, 0.4);
+        }
+
+        .status-pass, .status-fail {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            display: inline-block;
+        }
+        .status-pass { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #34d399; }
+        .status-fail { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #f87171; }
     </style>
 </head>
 
 <body>
 
-    <header class="codify-main-header">
+    <!-- Watermark Overlay -->
+    <div class="exam-watermark" id="examWatermark"></div>
+
+    <!-- Custom Warning Modal -->
+    <div class="exam-modal-overlay" id="warningModal">
+        <div class="exam-modal-card">
+            <h3 id="modalTitle">Security Warning</h3>
+            <p id="modalMessage">Leaving the exam tab is prohibited.</p>
+            <button type="button" class="exam-btn" id="modalDismissBtn" style="width: 100%;">I Understand & Return</button>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="codify-main-header" id="mainHeader">
         <div class="codify-header-container">
             <div class="codify-left-group">
                 <div class="codify-logo" onclick="window.location.href='/'">Codify</div>
             </div>
-
             <nav class="codify-center-nav">
                 <ul class="codify-nav-links">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/src/course.html">Courses</a></li>
-                    <li><a href="/my-certificates.html">Certificates</a></li>
-                    <li><a href="/contact.html">Contact</a></li>
+                    <li><a href="/src/pages/courses.html">Courses</a></li>
                 </ul>
             </nav>
-
             <div class="codify-right-group">
-                <div class="codify-auth-group" id="authNavGroup">
-                    <a href="/login.html" class="codify-btn-outline">Login</a>
-                    <a href="/signup.html" class="codify-btn-outline">Signup</a>
-                </div>
+                <div class="codify-auth-group" id="authNavGroup"></div>
             </div>
         </div>
     </header>
 
-    <div class="page-glow"></div>
+    <main class="exam-container">
+        <div class="exam-card">
 
-    <main>
-        <section class="exam-hero-card">
-            <h1>Final Certification <span>Assessment</span></h1>
-            <p>Score 80% or higher on this comprehensive assessment to verify your track knowledge and unlock your official certificate.</p>
-        </section>
+            <!-- SCREEN 1: RULES -->
+            <div class="exam-screen active" id="rulesScreen">
+                <div class="rules-wrapper">
+                    <div class="rules-header">
+                        <h1>HTML Mastery Assessment Guidelines</h1>
+                        <p>Review the testing rules below before proceeding.</p>
+                    </div>
 
-        <form id="examForm" onsubmit="gradeExam(event)">
-            <div id="questionsContainer"></div>
+                    <div class="rules-list">
+                        <div class="rule-item">
+                            <span><strong>Time Limit:</strong> You have <strong>30 minutes</strong> to complete the assessment.</span>
+                        </div>
+                        <div class="rule-item">
+                            <span><strong>Tab Switch Policy:</strong> Switching tabs or minimizing the browser window more than 2 times will automatically submit and quit your exam.</span>
+                        </div>
+                        <div class="rule-item">
+                            <span><strong>Fullscreen Lock:</strong> Starting the exam locks your browser view into mandatory fullscreen mode until completion.</span>
+                        </div>
+                    </div>
 
-            <button type="submit" id="submitBtn" class="submit-exam-btn">
-                Submit Assessment for Grading
-            </button>
-        </form>
+                    <div style="text-align: center;">
+                        <button type="button" class="exam-btn" id="startExamBtn" style="width: 100%;">Start Exam & Lock Fullscreen</button>
+                    </div>
+                </div>
+            </div>
 
-        <div id="resultBox" class="result-box">
-            <div id="resultScore" class="result-score">0%</div>
-            <p id="resultMsg" class="result-msg"></p>
-            <div id="resultAction"></div>
+            <!-- SCREEN 2: QUIZ -->
+            <div class="exam-screen" id="quizScreen">
+                <div class="quiz-layout">
+                    <aside class="quiz-sidebar">
+                        <div class="sidebar-title">Navigator</div>
+                        <div class="nav-grid" id="navGridContainer"></div>
+                    </aside>
+
+                    <div class="quiz-main">
+                        <div class="quiz-top-bar">
+                            <div class="question-counter" id="questionCounter">Question 1 of 30</div>
+                            <div class="timer-badge"><span id="timerDisplay">30:00</span></div>
+                        </div>
+
+                        <div class="question-title" id="questionTitle">Loading question...</div>
+                        <div class="options-grid" id="optionsContainer"></div>
+
+                        <div class="quiz-footer">
+                            <div style="display: flex; gap: 10px;">
+                                <button type="button" class="exam-btn btn-secondary" id="prevBtn">Previous</button>
+                                <button type="button" class="exam-btn btn-danger" id="quitExamBtn">Quit Exam</button>
+                            </div>
+                            <button type="button" class="exam-btn" id="nextBtn">Next Question</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCREEN 3: RESULT -->
+            <div class="exam-screen" id="resultScreen">
+                <div class="result-wrapper">
+                    <div class="result-header">
+                        <h1>Assessment Completed</h1>
+                        <div class="result-score-box" id="finalScoreDisplay">0%</div>
+                        <div id="resultStatusBadge" class="status-pass">Passed</div>
+                    </div>
+                    <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                        <button type="button" class="exam-btn btn-secondary" onclick="window.location.reload()">Retake Exam</button>
+                        <button type="button" class="exam-btn" onclick="window.location.href='/src/pages/certificate.html'" id="certBtn">View Certificate</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <footer class="codify-footer">
-        <div>
-            Built with precision for future developers • Developed by 
-            <span class="team-hover-wrapper">
-                <span class="team-trigger">Codify Team</span>
-                <div class="team-popover">
-                    <ul class="team-list">
-                        <li class="team-member"><span class="member-dot"></span>Mohammed Owais</li>
-                        <li class="team-member"><span class="member-dot"></span>M. Dhanush</li>
-                        <li class="team-member"><span class="member-dot"></span>MD. Feroz Basha</li>
-                        <li class="team-member"><span class="member-dot"></span>M. Basha</li>
-                        <li class="team-member"><span class="member-dot"></span>M. Prasad</li>
-                    </ul>
-                </div>
-            </span>
-        </div>
-    </footer>
-
-    <script src="/script.js"></script>
-    <script type="module" src="/nav-auth.js"></script>
-
     <script type="module">
-        import { supabase } from '/supabase-client.js';
+        import { supabase } from '../js/config/supabase-client.js';
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const COURSE_ID = urlParams.get('courseId') || 'python-101';
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timerInterval = null;
+        let timeLeft = 30 * 60;
+        let examStarted = false;
+        let tabSwitchCount = 0;
+        let currentUserEmail = 'student@codify.com';
+        let isAutoSubmitting = false;
 
-        // Exam Question Bank
-        const EXAM_BANK = {
-            'python-101': [
-                {
-                    q: "Which keyword is used to declare a function in Python?",
-                    options: ["function", "def", "fun", "create"],
-                    answer: 1
-                },
-                {
-                    q: "What is the correct file extension for Python scripts?",
-                    options: [".python", ".pyt", ".py", ".pt"],
-                    answer: 2
-                },
-                {
-                    q: "How do you insert comments in Python code?",
-                    options: ["// comment", "/* comment */", "# comment", ""],
-                    answer: 2
-                },
-                {
-                    q: "Which built-in collection type is ordered and immutable?",
-                    options: ["List", "Dictionary", "Set", "Tuple"],
-                    answer: 3
-                },
-                {
-                    q: "Which operator is used for exponentiation (power)?",
-                    options: ["^", "**", "//", "%%"],
-                    answer: 1
-                }
-            ]
-        };
+        const rulesScreen = document.getElementById('rulesScreen');
+        const quizScreen = document.getElementById('quizScreen');
+        const resultScreen = document.getElementById('resultScreen');
+        const warningModal = document.getElementById('warningModal');
 
-        const currentQuestions = EXAM_BANK[COURSE_ID] || EXAM_BANK['python-101'];
-        let currentUser = null;
+        function showWarningModal(title, msg, callback) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = msg;
+            warningModal.style.display = 'flex';
+            
+            const btn = document.getElementById('modalDismissBtn');
+            const handler = () => {
+                warningModal.style.display = 'none';
+                btn.removeEventListener('click', handler);
+                if (callback) callback();
+            };
+            btn.addEventListener('click', handler);
+        }
 
-        async function initExam() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) {
-                sessionStorage.setItem('redirectUrl', window.location.href);
-                window.location.href = '/login.html';
-                return;
+        // Left-click enabled, context menu blocked to prevent inspection
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+        document.addEventListener('cut', e => e.preventDefault());
+        document.addEventListener('paste', e => e.preventDefault());
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) || (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
             }
-            currentUser = user;
+        });
 
-            // Render Questions
-            const container = document.getElementById('questionsContainer');
-            container.innerHTML = '';
-
-            currentQuestions.forEach((qObj, index) => {
-                const card = document.createElement('div');
-                card.className = 'question-card';
-
-                let optionsHTML = '';
-                qObj.options.forEach((opt, optIdx) => {
-                    optionsHTML += `
-                        <label class="option-label">
-                            <input type="radio" name="question_${index}" value="${optIdx}" required>
-                            ${opt}
-                        </label>
-                    `;
+        // Strict Fullscreen re-locking loop if user attempts to exit
+        document.addEventListener('fullscreenchange', () => {
+            if (examStarted && !document.fullscreenElement && !isAutoSubmitting) {
+                showWarningModal('Fullscreen Required', 'You have exited fullscreen mode. Click below to return to fullscreen.', async () => {
+                    try {
+                        await document.documentElement.requestFullscreen();
+                    } catch (e) {
+                        console.log('Fullscreen re-request blocked');
+                    }
                 });
+            }
+        });
 
-                card.innerHTML = `
-                    <div class="question-number">Question ${index + 1} of ${currentQuestions.length}</div>
-                    <div class="question-title">${qObj.q}</div>
-                    <div class="options-list">${optionsHTML}</div>
-                `;
-                container.appendChild(card);
+        // Tab switch tracker
+        document.addEventListener('visibilitychange', () => {
+            if (examStarted && document.hidden && !isAutoSubmitting) {
+                tabSwitchCount++;
+                if (tabSwitchCount <= 2) {
+                    showWarningModal('Security Warning', `Violation (${tabSwitchCount}/2): Leaving the exam tab is prohibited. Next violation will automatically submit your exam.`);
+                } else {
+                    isAutoSubmitting = true;
+                    showWarningModal('Exam Terminated', 'Maximum tab switches exceeded. Exam automatically submitted.', () => {
+                        submitExam();
+                    });
+                }
+            }
+        });
+
+        async function initAuthAndWatermark() {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user && user.email) {
+                    currentUserEmail = user.email;
+                }
+            } catch (err) {
+                console.log('Using default session info');
+            }
+
+            const watermarkEl = document.getElementById('examWatermark');
+            watermarkEl.innerHTML = '';
+            for (let i = 0; i < 45; i++) {
+                const span = document.createElement('span');
+                span.textContent = `Secure Exam • ${currentUserEmail}`;
+                watermarkEl.appendChild(span);
+            }
+        }
+
+        async function loadAndRandomizeQuestions() {
+            try {
+                const response = await fetch('../data/html-questions.json');
+                if (!response.ok) throw new Error('Failed to fetch questions JSON');
+                const data = await response.json();
+                const shuffledPool = [...data.questions].sort(() => 0.5 - Math.random());
+                questions = shuffledPool.slice(0, 30);
+            } catch (err) {
+                console.warn('Fetch failed, using fallback questions:', err);
+                questions = [
+                    { id: 1, question: "What does HTML stand for?", options: ["Hyperlinks and Text Markup Language", "Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks Text Management Language"], correct_answer: 1 },
+                    { id: 2, question: "Who is making the Web standards?", options: ["The World Wide Web Consortium", "Microsoft", "Mozilla", "Google"], correct_answer: 0 },
+                    { id: 3, question: "Choose the correct HTML element for the largest heading:", options: ["<heading>", "<h6>", "<h1>", "<head>"], correct_answer: 2 }
+                ];
+            }
+        }
+
+        // DOM Ready listener guaranteeing immediate click response
+        document.addEventListener('DOMContentLoaded', () => {
+            initAuthAndWatermark();
+
+            const startBtn = document.getElementById('startExamBtn');
+            if (startBtn) {
+                startBtn.addEventListener('click', async () => {
+                    await loadAndRandomizeQuestions();
+                    if (!questions || questions.length === 0) return;
+
+                    try {
+                        if (document.documentElement.requestFullscreen) {
+                            await document.documentElement.requestFullscreen();
+                        }
+                    } catch (e) {
+                        console.log('Fullscreen unavailable');
+                    }
+
+                    const header = document.getElementById('mainHeader');
+                    if (header) header.style.display = 'none';
+
+                    rulesScreen.classList.remove('active');
+                    quizScreen.classList.add('active');
+                    examStarted = true;
+                    
+                    const watermark = document.getElementById('examWatermark');
+                    if (watermark) watermark.classList.add('active');
+
+                    buildNavigatorGrid();
+                    startTimer();
+                    renderQuestion();
+                });
+            }
+
+            const quitBtn = document.getElementById('quitExamBtn');
+            if (quitBtn) {
+                quitBtn.addEventListener('click', () => {
+                    showWarningModal('Quit Confirmation', 'Are you sure you want to quit the exam? Your progress will be evaluated immediately.', () => {
+                        submitExam();
+                    });
+                });
+            }
+        });
+
+        function buildNavigatorGrid() {
+            const navGrid = document.getElementById('navGridContainer');
+            navGrid.innerHTML = '';
+            questions.forEach((_, idx) => {
+                const pill = document.createElement('button');
+                pill.type = 'button';
+                pill.className = 'nav-pill';
+                pill.textContent = idx + 1;
+                pill.id = `nav-pill-${idx}`;
+                pill.addEventListener('click', () => {
+                    currentQuestionIndex = idx;
+                    renderQuestion();
+                });
+                navGrid.appendChild(pill);
             });
         }
 
-        window.gradeExam = async function(event) {
-            event.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Grading...';
+        function updateNavigatorGrid() {
+            questions.forEach((_, idx) => {
+                const pill = document.getElementById(`nav-pill-${idx}`);
+                if (!pill) return;
+                pill.classList.remove('current', 'answered');
+                if (idx === currentQuestionIndex) pill.classList.add('current');
+                if (userAnswers[idx] !== undefined) pill.classList.add('answered');
+            });
+        }
 
-            let correctCount = 0;
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('timerDisplay').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-            currentQuestions.forEach((qObj, index) => {
-                const selected = document.querySelector(`input[name="question_${index}"]:checked`);
-                if (selected && parseInt(selected.value) === qObj.answer) {
-                    correctCount++;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
                 }
+            }, 1000);
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            document.getElementById('questionTitle').textContent = q.question;
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((optText, idx) => {
+                const card = document.createElement('div');
+                card.className = 'option-card';
+                if (userAnswers[currentQuestionIndex] === idx) card.classList.add('selected');
+
+                const radio = document.createElement('div');
+                radio.className = 'option-radio';
+
+                const span = document.createElement('span');
+                span.textContent = optText;
+
+                card.appendChild(radio);
+                card.appendChild(span);
+
+                card.addEventListener('click', () => {
+                    userAnswers[currentQuestionIndex] = idx;
+                    renderQuestion();
+                });
+                optionsContainer.appendChild(card);
             });
 
-            const scorePercent = Math.round((correctCount / currentQuestions.length) * 100);
-            const passed = scorePercent >= 80;
+            document.getElementById('prevBtn').style.display = currentQuestionIndex > 0 ? 'inline-flex' : 'none';
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 'Submit Exam' : 'Next Question';
 
-            // Save Result to Supabase
-            try {
-                await supabase
-                    .from('exam_results')
-                    .upsert({
-                        user_id: currentUser.id,
-                        course_id: COURSE_ID,
-                        score: scorePercent,
-                        passed: passed
-                    }, { onConflict: 'user_id,course_id' });
+            updateNavigatorGrid();
+        }
 
-            } catch (err) {
-                console.error("Failed to save exam score:", err);
-            }
-
-            // Render Result Box UI
-            document.getElementById('examForm').style.display = 'none';
-            const resultBox = document.getElementById('resultBox');
-            const resultScore = document.getElementById('resultScore');
-            const resultMsg = document.getElementById('resultMsg');
-            const resultAction = document.getElementById('resultAction');
-
-            resultBox.style.display = 'block';
-            resultScore.textContent = `${scorePercent}%`;
-
-            if (passed) {
-                resultBox.className = 'result-box passed';
-                resultMsg.textContent = '🎉 Congratulations! You have passed the assessment and unlocked your verifiable certificate.';
-                resultAction.innerHTML = `
-                    <a href="/certificate.html?courseId=${COURSE_ID}" 
-                       style="background: linear-gradient(90deg, #0077ff, #00aaff); color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 12px; font-weight: 700; display: inline-block;">
-                       View Official Certificate
-                    </a>
-                `;
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
             } else {
-                resultBox.className = 'result-box failed';
-                resultMsg.textContent = 'You scored below the 80% passing threshold. Review the course topics and try again.';
-                resultAction.innerHTML = `
-                    <button onclick="window.location.reload()" 
-                            style="background: rgba(13, 27, 42, 0.8); border: 1px solid #00aaff; color: #00aaff; padding: 12px 24px; border-radius: 12px; font-weight: 700; cursor: pointer;">
-                            Retake Assessment
-                    </button>
-                `;
+                showWarningModal('Submit Confirmation', 'Are you ready to submit your exam answers?', () => {
+                    submitExam();
+                });
             }
-        };
+        });
 
-        document.addEventListener('DOMContentLoaded', initExam);
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        });
+
+        function submitExam() {
+            isAutoSubmitting = true;
+            examStarted = false;
+            clearInterval(timerInterval);
+            document.getElementById('examWatermark').classList.remove('active');
+            quizScreen.classList.remove('active');
+            resultScreen.classList.add('active');
+
+            const header = document.getElementById('mainHeader');
+            if (header) header.style.display = 'block';
+
+            if (document.exitFullscreen && document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            }
+
+            let correctCount = 0;
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct_answer) correctCount++;
+            });
+
+            const percentage = Math.round((correctCount / questions.length) * 100);
+            document.getElementById('finalScoreDisplay').textContent = `${percentage}%`;
+
+            const statusBadge = document.getElementById('resultStatusBadge');
+            const certBtn = document.getElementById('certBtn');
+
+            if (percentage >= 70) {
+                statusBadge.textContent = 'Passed Successfully';
+                statusBadge.className = 'status-pass';
+                certBtn.style.display = 'inline-flex';
+            } else {
+                statusBadge.textContent = 'Failed - Try Again';
+                statusBadge.className = 'status-fail';
+                certBtn.style.display = 'none';
+            }
+        }
     </script>
 </body>
 

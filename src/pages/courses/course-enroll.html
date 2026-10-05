@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="Enroll in C++ & OOP Masterclass on Codify. Learn core syntax, classes, objects, polymorphism, and advanced C++ features.">
+    <meta name="description" content="Enroll in masterclass courses on Codify. Learn core syntax, architectures, and practical skills.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,8 @@
 
     <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
     <link rel="stylesheet" href="/src/css/style.css">
-    <title>Enroll in C++ &amp; OOP Programming | Codify</title>
+    
+    <title>Course Enrollment | Codify</title>
 
     <style>
         html, body {
@@ -34,7 +35,6 @@
             min-height: 100vh;
         }
 
-        /* FORCE VISIBILITY OVERRIDE AGAINST EXTERNAL ANIMATION CLASSES */
         main, main section, .enroll-hero-card, .curriculum-preview-card {
             display: block !important;
             opacity: 1 !important;
@@ -241,7 +241,15 @@
             gap: 12px;
         }
         .highlight-icon {
-            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 170, 255, 0.1);
+            border-radius: 8px;
+            color: #00aaff;
+            flex-shrink: 0;
         }
         .highlight-info h4 {
             margin: 0;
@@ -620,33 +628,47 @@
         <!-- HERO ENROLL CARD -->
         <section class="enroll-hero-card">
             <div class="course-badge-row">
-                <span class="course-badge">C++ &amp; OOP Certification</span>
-                <span style="color: #64748b; font-size: 0.88rem; font-weight: 700;">• Intermediate Level</span>
+                <span class="course-badge" id="courseBadgeLabel">Certification Masterclass</span>
+                <span style="color: #64748b; font-size: 0.88rem; font-weight: 700;">• Complete Structured Track</span>
             </div>
 
-            <h1 class="enroll-title">C++ &amp; OOP <span>Masterclass</span></h1>
+            <h1 class="enroll-title" id="enrollMainTitle">Loading Masterclass...</h1>
 
-            <p class="enroll-description">
-                Master modern C++ and Object-Oriented Programming principles. Build robust, high-performance software using classes, inheritance, polymorphism, templates, and dynamic memory management.
+            <p class="enroll-description" id="enrollMainDesc">
+                Master programming concepts from core fundamentals to advanced patterns through structured curriculum tracks and hands-on modules.
             </p>
 
             <div class="course-highlights">
                 <div class="highlight-item">
-                    <span class="highlight-icon">⏱️</span>
+                    <div class="highlight-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
                     <div class="highlight-info">
                         <h4>Duration</h4>
-                        <p>10 Comprehensive Chapters</p>
+                        <p id="highlightChaptersCount">Comprehensive Chapters</p>
                     </div>
                 </div>
                 <div class="highlight-item">
-                    <span class="highlight-icon">⚡</span>
+                    <div class="highlight-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
                     <div class="highlight-info">
                         <h4>Modules</h4>
-                        <p>50 Interactive Topics</p>
+                        <p id="highlightModulesCount">Interactive Topics</p>
                     </div>
                 </div>
                 <div class="highlight-item">
-                    <span class="highlight-icon">🏆</span>
+                    <div class="highlight-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="6"></circle>
+                            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                        </svg>
+                    </div>
                     <div class="highlight-info">
                         <h4>Outcome</h4>
                         <p>Verified Certificate</p>
@@ -672,47 +694,8 @@
         <!-- CURRICULUM OVERVIEW CARD -->
         <section class="curriculum-preview-card">
             <h3>Curriculum Outline</h3>
-            <div class="curriculum-grid">
-                <div class="module-summary-pill">
-                    <span class="module-num">01</span>
-                    <span>Introduction to C++ & Environment</span>
-                </div>
-                <div class="module-summary-pill">
-                    <span class="module-num">02</span>
-                    <span>C++ Basics & Data Types</span>
-                </div>
-                <div class="module-summary-pill">
-                    <span class="module-num">03</span>
-                    <span>Operators & Expressions</span>
-                </div>
-                <div class="module-summary-pill">
-                    <span class="module-num">04</span>
-                    <span>Control Statements & Conditions</span>
-                </div>
-                <div class="module-summary-pill">
-                    <span class="module-num">05</span>
-                    <span>Loops & Pattern Programs</span>
-                </div>
-                <div class="module-summary-pill">
-                    <span class="module-num">06</span>
-                    <span>Functions, Overloading & Scope</span>
-                </div>
-                <div class="module-summary-pill">
-                    <span class="module-num">07</span>
-                    <span>Arrays, Strings & Pointers</span>
-                </div>
-                <div class="module-summary-pill">
-                    <span class="module-num">08</span>
-                    <span>Classes & Objects Core Concepts</span>
-                </div>
-                <div class="module-summary-pill">
-                    <span class="module-num">09</span>
-                    <span>Object-Oriented Programming Pillars</span>
-                </div>
-                <div class="module-summary-pill">
-                    <span class="module-num">10</span>
-                    <span>Advanced OOP & C++ Features</span>
-                </div>
+            <div class="curriculum-grid" id="curriculumGridContainer">
+                <!-- Dynamically populated from JSON syllabus -->
             </div>
         </section>
     </main>
@@ -774,17 +757,60 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        const COURSE_ID = 'cpp-101';
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseParam = urlParams.get('course') || 'c';
+
+        // Configuration Map matching course handles to IDs, Syllabus JSON files, and Index targets
+        const courseConfigMap = {
+            'c': { id: 'c-101', indexPage: 'course-index.html?course=c', jsonPath: '/src/data/c-syllabus.json' },
+            'python': { id: 'python-101', indexPage: 'course-index.html?course=python', jsonPath: '/src/data/python-syllabus.json' },
+            'cpp': { id: 'cpp-101', indexPage: 'course-index.html?course=cpp', jsonPath: '/src/data/cpp-syllabus.json' },
+            'java': { id: 'java-101', indexPage: 'course-index.html?course=java', jsonPath: '/src/data/java-syllabus.json' }
+        };
+
+        const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
+        const COURSE_ID = activeCourse.id;
+
         let currentUser = null;
         let isEnrolled = false;
 
-        async function checkEnrollmentStatus() {
+        async function initEnrollmentPage() {
             try {
+                // 1. Fetch Syllabus JSON Config to dynamically render course details
+                const response = await fetch(activeCourse.jsonPath);
+                if (!response.ok) throw new Error('Failed to load course configuration.');
+                const syllabusData = await response.json();
+
+                // Populate title, description, and badges dynamically
+                document.title = `Enroll in ${syllabusData.course_title.split(' ')[0]} Programming | Codify`;
+                document.getElementById('courseBadgeLabel').textContent = `${syllabusData.course_title.split(' ')[0]} Certification`;
+                document.getElementById('enrollMainTitle').innerHTML = `${syllabusData.course_title.split(' ')[0]} Programming <span>Masterclass</span>`;
+                document.getElementById('enrollMainDesc').textContent = syllabusData.description;
+
+                let totalTopics = 0;
+                let gridHtml = '';
+
+                syllabusData.chapters.forEach((ch, idx) => {
+                    const numStr = String(idx + 1).padStart(2, '0');
+                    // Use chapter title or summary name
+                    const summaryName = ch.chapter_title.replace(/^Chapter\s+\d+\s*[—–-]\s*/i, '');
+                    totalTopics += ch.topics.length;
+
+                    gridHtml += `
+                        <div class="module-summary-pill">
+                            <span class="module-num">${numStr}</span>
+                            <span>${summaryName}</span>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('highlightChaptersCount').textContent = `${syllabusData.chapters.length} Comprehensive Chapters`;
+                document.getElementById('highlightModulesCount').textContent = `${totalTopics} Interactive Topics`;
+                document.getElementById('curriculumGridContainer').innerHTML = gridHtml;
+
+                // 2. Check User Session & Existing Enrollment Status
                 const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-                if (sessionError || !session || !session.user) {
-                    console.log("No active authenticated session found.");
-                    return;
-                }
+                if (sessionError || !session || !session.user) return;
 
                 currentUser = session.user;
 
@@ -795,12 +821,7 @@
                     .eq('course_id', COURSE_ID)
                     .maybeSingle();
 
-                if (error) {
-                    console.error("Enrollment check query error:", error);
-                    return;
-                }
-
-                if (data) {
+                if (!error && data) {
                     isEnrolled = true;
                     const btn = document.getElementById('enrollActionBtn');
                     if (btn) {
@@ -814,7 +835,7 @@
                     }
                 }
             } catch (err) {
-                console.error("Enrollment check error:", err);
+                console.error("Initialization error:", err);
             }
         }
 
@@ -826,7 +847,7 @@
             }
 
             if (isEnrolled) {
-                window.location.href = 'cpp-index.html';
+                window.location.href = activeCourse.indexPage;
                 return;
             }
 
@@ -840,14 +861,14 @@
 
                 if (error && error.code !== '23505') throw error;
 
-                window.location.href = 'cpp-index.html';
+                window.location.href = activeCourse.indexPage;
             } catch (err) {
                 console.error("Enroll error:", err);
                 alert("Could not process enrollment. Please try again.");
             }
         };
 
-        document.addEventListener('DOMContentLoaded', checkEnrollmentStatus);
+        document.addEventListener('DOMContentLoaded', initEnrollmentPage);
 
         // Core Engineers Popover & Modal Handlers
         const teamDatabase = {

@@ -1,0 +1,267 @@
+{
+  "course_id": "cpp-101",
+  "course_title": "C++ & OOP Course Index & Syllabus",
+  "description": "Master C++ and Object-Oriented Programming from syntax fundamentals to advanced polymorphism through structured curriculum tracking on Codify.",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "chapter_title": "Chapter 1: Introduction to C++",
+      "topics": [
+        {
+          "title": "1.1 What is C++?",
+          "file": "chapter-1/1.1-what-is-cpp.md"
+        },
+        {
+          "title": "1.2 Features of C++",
+          "file": "chapter-1/1.2-features-of-cpp.md"
+        },
+        {
+          "title": "1.3 C++ vs C",
+          "file": "chapter-1/1.3-cpp-vs-c.md"
+        },
+        {
+          "title": "1.4 Setting Up Your C++ Environment",
+          "file": "chapter-1/1.4-setting-up-environment.md"
+        },
+        {
+          "title": "1.5 Your First C++ Program",
+          "file": "chapter-1/1.5-first-cpp-program.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 2,
+      "chapter_title": "Chapter 2: C++ Basics",
+      "topics": [
+        {
+          "title": "2.1 Variables & Constants",
+          "file": "chapter-2/2.1-variables-and-constants.md"
+        },
+        {
+          "title": "2.2 Data Types",
+          "file": "chapter-2/2.2-data-types.md"
+        },
+        {
+          "title": "2.3 Input & Output",
+          "file": "chapter-2/2.3-input-and-output.md"
+        },
+        {
+          "title": "2.4 Type Conversion",
+          "file": "chapter-2/2.4-type-conversion.md"
+        },
+        {
+          "title": "2.5 Comments & Basic Syntax",
+          "file": "chapter-2/2.5-comments-and-syntax.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "chapter_title": "Chapter 3: Operators",
+      "topics": [
+        {
+          "title": "3.1 Arithmetic Operators",
+          "file": "chapter-3/3.1-arithmetic-operators.md"
+        },
+        {
+          "title": "3.2 Relational & Logical Operators",
+          "file": "chapter-3/3.2-relational-logical-operators.md"
+        },
+        {
+          "title": "3.3 Assignment & Increment/Decrement Operators",
+          "file": "chapter-3/3.3-assignment-increment-decrement.md"
+        },
+        {
+          "title": "3.4 Bitwise & Conditional Operators",
+          "file": "chapter-3/3.4-bitwise-conditional-operators.md"
+        },
+        {
+          "title": "3.5 Operator Precedence & Expressions",
+          "file": "chapter-3/3.5-precedence-and-expressions.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "chapter_title": "Chapter 4: Control Statements",
+      "topics": [
+        {
+          "title": "4.1 Introduction to Conditions",
+          "file": "chapter-4/4.1-intro-to-conditions.md"
+        },
+        {
+          "title": "4.2 if, if-else & Nested if",
+          "file": "chapter-4/4.2-if-ifelse-nested.md"
+        },
+        {
+          "title": "4.3 else-if Ladder",
+          "file": "chapter-4/4.3-else-if-ladder.md"
+        },
+        {
+          "title": "4.4 switch Statement",
+          "file": "chapter-4/4.4-switch-statement.md"
+        },
+        {
+          "title": "4.5 break, continue & Conditional Operator",
+          "file": "chapter-4/4.5-break-continue-conditional.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "chapter_title": "Chapter 5: Loops",
+      "topics": [
+        {
+          "title": "5.1 Introduction to Loops",
+          "file": "chapter-5/5.1-intro-to-loops.md"
+        },
+        {
+          "title": "5.2 while Loop",
+          "file": "chapter-5/5.2-while-loop.md"
+        },
+        {
+          "title": "5.3 do-while Loop",
+          "file": "chapter-5/5.3-do-while-loop.md"
+        },
+        {
+          "title": "5.4 for Loop",
+          "file": "chapter-5/5.4-for-loop.md"
+        },
+        {
+          "title": "5.5 Nested Loops & Pattern Programs",
+          "file": "chapter-5/5.5-nested-loops-patterns.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "chapter_title": "Chapter 6: Functions",
+      "topics": [
+        {
+          "title": "6.1 Introduction to Functions",
+          "file": "chapter-6/6.1-intro-to-functions.md"
+        },
+        {
+          "title": "6.2 Function Declaration, Definition & Calling",
+          "file": "chapter-6/6.2-declaration-definition-calling.md"
+        },
+        {
+          "title": "6.3 Parameters & Return Values",
+          "file": "chapter-6/6.3-parameters-return-values.md"
+        },
+        {
+          "title": "6.4 Function Overloading",
+          "file": "chapter-6/6.4-function-overloading.md"
+        },
+        {
+          "title": "6.5 Recursion & Scope",
+          "file": "chapter-6/6.5-recursion-and-scope.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "chapter_title": "Chapter 7: Arrays, Strings & Pointers",
+      "topics": [
+        {
+          "title": "7.1 Arrays",
+          "file": "chapter-7/7.1-arrays.md"
+        },
+        {
+          "title": "7.2 Strings",
+          "file": "chapter-7/7.2-strings.md"
+        },
+        {
+          "title": "7.3 Pointers",
+          "file": "chapter-7/7.3-pointers.md"
+        },
+        {
+          "title": "7.4 References",
+          "file": "chapter-7/7.4-references.md"
+        },
+        {
+          "title": "7.5 Dynamic Memory",
+          "file": "chapter-7/7.5-dynamic-memory.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 8,
+      "chapter_title": "Chapter 8: Classes & Objects",
+      "topics": [
+        {
+          "title": "8.1 Introduction to Classes & Objects",
+          "file": "chapter-8/8.1-intro-classes-objects.md"
+        },
+        {
+          "title": "8.2 Class Members & Access Specifiers",
+          "file": "chapter-8/8.2-members-access-specifiers.md"
+        },
+        {
+          "title": "8.3 Constructors",
+          "file": "chapter-8/8.3-constructors.md"
+        },
+        {
+          "title": "8.4 Destructors",
+          "file": "chapter-8/8.4-destructors.md"
+        },
+        {
+          "title": "8.5 this Pointer",
+          "file": "chapter-8/8.5-this-pointer.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 9,
+      "chapter_title": "Chapter 9: Object-Oriented Programming",
+      "topics": [
+        {
+          "title": "9.1 Introduction to OOP",
+          "file": "chapter-9/9.1-intro-to-oop.md"
+        },
+        {
+          "title": "9.2 Encapsulation",
+          "file": "chapter-9/9.2-encapsulation.md"
+        },
+        {
+          "title": "9.3 Inheritance",
+          "file": "chapter-9/9.3-inheritance.md"
+        },
+        {
+          "title": "9.4 Polymorphism",
+          "file": "chapter-9/9.4-polymorphism.md"
+        },
+        {
+          "title": "9.5 Abstraction",
+          "file": "chapter-9/9.5-abstraction.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 10,
+      "chapter_title": "Chapter 10: Advanced OOP & C++ Features",
+      "topics": [
+        {
+          "title": "10.1 Function & Operator Overloading",
+          "file": "chapter-10/10.1-function-operator-overloading.md"
+        },
+        {
+          "title": "10.2 Virtual Functions & Runtime Polymorphism",
+          "file": "chapter-10/10.2-virtual-functions-polymorphism.md"
+        },
+        {
+          "title": "10.3 Multiple Inheritance",
+          "file": "chapter-10/10.3-multiple-inheritance.md"
+        },
+        {
+          "title": "10.4 Static Members & Friend Functions",
+          "file": "chapter-10/10.4-static-friend-functions.md"
+        },
+        {
+          "title": "10.5 Mini Project",
+          "file": "chapter-10/10.5-mini-project.md"
+        }
+      ]
+    }
+  ]
+}

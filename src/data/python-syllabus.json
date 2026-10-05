@@ -1,0 +1,267 @@
+{
+  "course_id": "python-101",
+  "course_title": "Python Course Index & Syllabus",
+  "description": "Master Python programming from syntax fundamentals to Object-Oriented concepts through structured curriculum tracking on Codify.",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "chapter_title": "Chapter 1: Introduction to Python",
+      "topics": [
+        {
+          "title": "1.1 What is Python?",
+          "file": "chapter-1/1.1-what-is-python.md"
+        },
+        {
+          "title": "1.2 Features & Applications of Python",
+          "file": "chapter-1/1.2-features-and-applications.md"
+        },
+        {
+          "title": "1.3 Python vs C++",
+          "file": "chapter-1/1.3-python-vs-cpp.md"
+        },
+        {
+          "title": "1.4 Installing Python & Setting Up the Environment",
+          "file": "chapter-1/1.4-installing-python.md"
+        },
+        {
+          "title": "1.5 Your First Python Program",
+          "file": "chapter-1/1.5-first-python-program.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 2,
+      "chapter_title": "Chapter 2: Python Basics",
+      "topics": [
+        {
+          "title": "2.1 Python Syntax, Indentation & Comments",
+          "file": "chapter-2/2.1-syntax-indentation-comments.md"
+        },
+        {
+          "title": "2.2 Variables & Constants",
+          "file": "chapter-2/2.2-variables-and-constants.md"
+        },
+        {
+          "title": "2.3 Data Types",
+          "file": "chapter-2/2.3-data-types.md"
+        },
+        {
+          "title": "2.4 Input, Output & Type Conversion",
+          "file": "chapter-2/2.4-io-type-conversion.md"
+        },
+        {
+          "title": "2.5 Operators & Expressions",
+          "file": "chapter-2/2.5-operators-and-expressions.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "chapter_title": "Chapter 3: Conditional Statements & Loops",
+      "topics": [
+        {
+          "title": "3.1 Introduction to Decision Making",
+          "file": "chapter-3/3.1-intro-decision-making.md"
+        },
+        {
+          "title": "3.2 if, elif & else",
+          "file": "chapter-3/3.2-if-elif-else.md"
+        },
+        {
+          "title": "3.3 Nested Conditions & Conditional Expressions",
+          "file": "chapter-3/3.3-nested-conditions.md"
+        },
+        {
+          "title": "3.4 for & while Loops",
+          "file": "chapter-3/3.4-for-and-while-loops.md"
+        },
+        {
+          "title": "3.5 break, continue, pass & Nested Loops",
+          "file": "chapter-3/3.5-control-flow-statements.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "chapter_title": "Chapter 4: Strings & Collections",
+      "topics": [
+        {
+          "title": "4.1 Strings & String Operations",
+          "file": "chapter-4/4.1-strings-operations.md"
+        },
+        {
+          "title": "4.2 Lists & List Methods",
+          "file": "chapter-4/4.2-lists-methods.md"
+        },
+        {
+          "title": "4.3 Tuples & Sets",
+          "file": "chapter-4/4.3-tuples-sets.md"
+        },
+        {
+          "title": "4.4 Dictionaries & Dictionary Methods",
+          "file": "chapter-4/4.4-dictionaries.md"
+        },
+        {
+          "title": "4.5 Comprehensions & Common Collection Programs",
+          "file": "chapter-4/4.5-comprehensions.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "chapter_title": "Chapter 5: Functions",
+      "topics": [
+        {
+          "title": "5.1 Introduction to Functions",
+          "file": "chapter-5/5.1-intro-functions.md"
+        },
+        {
+          "title": "5.2 Parameters, Arguments & Return Values",
+          "file": "chapter-5/5.2-parameters-arguments.md"
+        },
+        {
+          "title": "5.3 Default, Keyword & Variable-Length Arguments",
+          "file": "chapter-5/5.3-argument-types.md"
+        },
+        {
+          "title": "5.4 Scope, Lambda & Higher-Order Functions",
+          "file": "chapter-5/5.4-scope-lambda.md"
+        },
+        {
+          "title": "5.5 Recursion & Common Function Programs",
+          "file": "chapter-5/5.5-recursion.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "chapter_title": "Chapter 6: Files, Exceptions & Modules",
+      "topics": [
+        {
+          "title": "6.1 File Handling",
+          "file": "chapter-6/6.1-file-handling.md"
+        },
+        {
+          "title": "6.2 Working with JSON & CSV",
+          "file": "chapter-6/6.2-json-csv.md"
+        },
+        {
+          "title": "6.3 Exception Handling",
+          "file": "chapter-6/6.3-exception-handling.md"
+        },
+        {
+          "title": "6.4 Modules, Packages & import",
+          "file": "chapter-6/6.4-modules-packages.md"
+        },
+        {
+          "title": "6.5 pip & Using Python Libraries",
+          "file": "chapter-6/6.5-pip-libraries.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "chapter_title": "Chapter 7: Object-Oriented Programming",
+      "topics": [
+        {
+          "title": "7.1 Introduction to OOP, Classes & Objects",
+          "file": "chapter-7/7.1-intro-oop.md"
+        },
+        {
+          "title": "7.2 Constructors, self & Class Members",
+          "file": "chapter-7/7.2-constructors-self.md"
+        },
+        {
+          "title": "7.3 Encapsulation & Access Control",
+          "file": "chapter-7/7.3-encapsulation.md"
+        },
+        {
+          "title": "7.4 Inheritance & Method Overriding",
+          "file": "chapter-7/7.4-inheritance.md"
+        },
+        {
+          "title": "7.5 Polymorphism & Abstraction",
+          "file": "chapter-7/7.5-polymorphism.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 8,
+      "chapter_title": "Chapter 8: Advanced Python",
+      "topics": [
+        {
+          "title": "8.1 Iterators & Generators",
+          "file": "chapter-8/8.1-iterators-generators.md"
+        },
+        {
+          "title": "8.2 Decorators",
+          "file": "chapter-8/8.2-decorators.md"
+        },
+        {
+          "title": "8.3 map(), filter(), reduce(), zip() & enumerate()",
+          "file": "chapter-8/8.3-built-in-functions.md"
+        },
+        {
+          "title": "8.4 Regular Expressions",
+          "file": "chapter-8/8.4-regular-expressions.md"
+        },
+        {
+          "title": "8.5 Dates, Time, Math & Random Modules",
+          "file": "chapter-8/8.5-modules-datetime.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 9,
+      "chapter_title": "Chapter 9: Python Problem Solving",
+      "topics": [
+        {
+          "title": "9.1 Number & Mathematical Programs",
+          "file": "chapter-9/9.1-math-problems.md"
+        },
+        {
+          "title": "9.2 String & Character Problems",
+          "file": "chapter-9/9.2-string-problems.md"
+        },
+        {
+          "title": "9.3 List, Tuple & Dictionary Problems",
+          "file": "chapter-9/9.3-collection-problems.md"
+        },
+        {
+          "title": "9.4 Searching, Sorting & Frequency Problems",
+          "file": "chapter-9/9.4-sorting-searching.md"
+        },
+        {
+          "title": "9.5 Pattern, Recursion & Interview Problems",
+          "file": "chapter-9/9.5-patterns-interview.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 10,
+      "chapter_title": "Chapter 10: Python Mini Projects",
+      "topics": [
+        {
+          "title": "10.1 Calculator & Number Guessing Game",
+          "file": "chapter-10/10.1-calculator-game.md"
+        },
+        {
+          "title": "10.2 Quiz Application",
+          "file": "chapter-10/10.2-quiz-app.md"
+        },
+        {
+          "title": "10.3 Student Management System",
+          "file": "chapter-10/10.3-student-management.md"
+        },
+        {
+          "title": "10.4 Contact Book & To-Do List",
+          "file": "chapter-10/10.4-contact-todo.md"
+        },
+        {
+          "title": "10.5 Final Python Project",
+          "file": "chapter-10/10.5-final-project.md"
+        }
+      ]
+    }
+  ]
+}

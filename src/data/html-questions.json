@@ -1,0 +1,1326 @@
+{
+  "category": "HTML Fundamentals",
+  "total_questions": 120,
+  "questions": [
+    {
+      "id": 1,
+      "question": "What does HTML stand for?",
+      "options": [
+        "Hyperlinks and Text Markup Language",
+        "Hyper Text Markup Language",
+        "Home Tool Markup Language",
+        "Hyperlinks Text Management Language"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 2,
+      "question": "Who is making the Web standards?",
+      "options": [
+        "The World Wide Web Consortium",
+        "Microsoft",
+        "Mozilla",
+        "Google"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 3,
+      "question": "Choose the correct HTML element for the largest heading:",
+      "options": [
+        "<heading>",
+        "<h6>",
+        "<h1>",
+        "<head>"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 4,
+      "question": "What is the correct HTML element for inserting a line break?",
+      "options": [
+        "<br>",
+        "<lb>",
+        "<break>",
+        "<hr>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 5,
+      "question": "What is the correct HTML for adding a background color?",
+      "options": [
+        "<body background=\"yellow\">",
+        "<background>yellow</background>",
+        "<body style=\"background-color:yellow;\">",
+        "<body bg=\"yellow\">"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 6,
+      "question": "Choose the correct HTML element to define important text:",
+      "options": [
+        "<strong>",
+        "<b>",
+        "<i>",
+        "<important>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 7,
+      "question": "What is the correct HTML element for inserting an image?",
+      "options": [
+        "<image src=\"image.gif\" alt=\"MyImage\">",
+        "<img src=\"image.gif\" alt=\"MyImage\">",
+        "<img href=\"image.gif\" alt=\"MyImage\">",
+        "<img alt=\"MyImage\">image.gif</img>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 8,
+      "question": "Which HTML element defines the title of a document?",
+      "options": [
+        "<meta>",
+        "<title>",
+        "<head>",
+        "<link>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 9,
+      "question": "Which attribute is used to provide a unique identifier for an HTML element?",
+      "options": [
+        "class",
+        "id",
+        "name",
+        "uuid"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 10,
+      "question": "Which HTML element is used to specify a footer for a document or section?",
+      "options": [
+        "<bottom>",
+        "<section>",
+        "<footer>",
+        "<foot>"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 11,
+      "question": "Which HTML attribute specifies an alternate text for an image, if the image cannot be displayed?",
+      "options": [
+        "title",
+        "longdesc",
+        "alt",
+        "src"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 12,
+      "question": "Which HTML element defines navigation links?",
+      "options": [
+        "<navigate>",
+        "<nav>",
+        "<navigation>",
+        "<links>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 13,
+      "question": "How can you make a numbered list in HTML?",
+      "options": [
+        "<ul>",
+        "<ol>",
+        "<list>",
+        "<dl>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 14,
+      "question": "How can you make a bulleted list in HTML?",
+      "options": [
+        "<ol>",
+        "<ul>",
+        "<list>",
+        "<dl>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 15,
+      "question": "What is the correct HTML for creating a hyperlink?",
+      "options": [
+        "<a href=\"http://www.example.com\">Example</a>",
+        "<a url=\"http://www.example.com\">Example</a>",
+        "<a.href>http://www.example.com</a.href>",
+        "<a>http://www.example.com</a>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 16,
+      "question": "Which character is used to indicate an end tag?",
+      "options": [
+        "*",
+        "^",
+        "/",
+        "<"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 17,
+      "question": "How can you open a link in a new tab/browser window?",
+      "options": [
+        "target=\"_blank\"",
+        "target=\"new\"",
+        "target=\"open\"",
+        "target=\"_self\""
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 18,
+      "question": "Which HTML element is used to display a scalar measurement within a known range?",
+      "options": [
+        "<gauge>",
+        "<meter>",
+        "<measure>",
+        "<range>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 19,
+      "question": "Which HTML element is used to play video files?",
+      "options": [
+        "<movie>",
+        "<video>",
+        "<media>",
+        "<play>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 20,
+      "question": "Which HTML element is used to play audio files?",
+      "options": [
+        "<sound>",
+        "<audio>",
+        "<mp3>",
+        "<music>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 21,
+      "question": "What is the correct HTML element for defining emphasized text?",
+      "options": [
+        "<i>",
+        "<em>",
+        "<italic>",
+        "<emp>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 22,
+      "question": "Which doctype is correct for HTML5?",
+      "options": [
+        "<!DOCTYPE html>",
+        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 5.0//EN\">",
+        "<!DOCTYPE HTML5>",
+        "<!DOCTYPE HTML PUBLIC>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 23,
+      "question": "In HTML, which attribute is used to group input elements in a form?",
+      "options": [
+        "<fieldset>",
+        "<group>",
+        "<formgroup>",
+        "<section>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 24,
+      "question": "Which attribute specifies that an input field must be filled out before submitting the form?",
+      "options": [
+        "placeholder",
+        "validate",
+        "required",
+        "mandatory"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 25,
+      "question": "What is the correct HTML element for drawing graphics on the fly via scripting?",
+      "options": [
+        "<canvas>",
+        "<svg>",
+        "<graphics>",
+        "<draw>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 26,
+      "question": "Which HTML element is used to specify scalable vector graphics?",
+      "options": [
+        "<canvas>",
+        "<svg>",
+        "<vector>",
+        "<draw>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 27,
+      "question": "Which input type defines a slider control?",
+      "options": [
+        "search",
+        "slider",
+        "range",
+        "controls"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 28,
+      "question": "Which input type defines a color picker?",
+      "options": [
+        "color",
+        "rgb",
+        "palette",
+        "hex"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 29,
+      "question": "Which HTML element is used to create a drop-down list?",
+      "options": [
+        "<input type=\"dropdown\">",
+        "<list>",
+        "<select>",
+        "<dropdown>"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 30,
+      "question": "Which HTML element defines a multi-line text input control?",
+      "options": [
+        "<input type=\"textarea\">",
+        "<textinput>",
+        "<textarea>",
+        "<textblock>"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 31,
+      "question": "What does the <aside> element represent?",
+      "options": [
+        "Content aside from the page content (like a sidebar)",
+        "A footnote",
+        "A highlighted paragraph",
+        "An aside comment in text"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 32,
+      "question": "Which HTML element is used to wrap self-contained content, like an article or blog post?",
+      "options": [
+        "<section>",
+        "<article>",
+        "<main>",
+        "<div>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 33,
+      "question": "Which HTML element is used to show a progress completion bar?",
+      "options": [
+        "<meter>",
+        "<progress>",
+        "<bar>",
+        "<loading>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 34,
+      "question": "What is the purpose of the <head> tag in HTML?",
+      "options": [
+        "To hold metadata, title, and link stylesheets",
+        "To display the main heading of the web page",
+        "To show navigation items",
+        "To display footer notes"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 35,
+      "question": "Which HTML element is used to define a client-side image-map?",
+      "options": [
+        "<map>",
+        "<imagemap>",
+        "<area>",
+        "<usemap>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 36,
+      "question": "Which HTML element is used with <map> to define clickable areas?",
+      "options": [
+        "<shape>",
+        "<area>",
+        "<coords>",
+        "<target>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 37,
+      "question": "What is the correct HTML element for inserting a horizontal rule/line?",
+      "options": [
+        "<break>",
+        "<hr>",
+        "<line>",
+        "<r>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 38,
+      "question": "Which attribute specifies inline styles directly on an HTML element?",
+      "options": [
+        "class",
+        "styles",
+        "style",
+        "css"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 39,
+      "question": "How do you add a comment in an HTML file?",
+      "options": [
+        "// This is a comment",
+        "/* This is a comment */",
+        "<!-- This is a comment -->",
+        "' This is a comment"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 40,
+      "question": "Which HTML element is used to define a mathematical formula?",
+      "options": [
+        "<math>",
+        "<formula>",
+        "<calc>",
+        "<eq>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 41,
+      "question": "Which HTML element defines a description/definition list?",
+      "options": [
+        "<ul>",
+        "<ol>",
+        "<dl>",
+        "<list>"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 42,
+      "question": "In a definition list (<dl>), what tag defines the term/name?",
+      "options": [
+        "<dt>",
+        "<dd>",
+        "<di>",
+        "<term>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 43,
+      "question": "In a definition list (<dl>), what tag defines the description of the term?",
+      "options": [
+        "<dt>",
+        "<dd>",
+        "<desc>",
+        "<def>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 44,
+      "question": "Which input type creates a submit button for a form?",
+      "options": [
+        "button",
+        "submit",
+        "send",
+        "click"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 45,
+      "question": "Which input type creates a checkbox option?",
+      "options": [
+        "check",
+        "checkbox",
+        "box",
+        "tick"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 46,
+      "question": "Which input type creates radio buttons for mutually exclusive selections?",
+      "options": [
+        "radio",
+        "option",
+        "choice",
+        "single"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 47,
+      "question": "Which HTML element is used to group header content like headings or logos?",
+      "options": [
+        "<header>",
+        "<top>",
+        "<heading>",
+        "<hgroup>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 48,
+      "question": "What is the function of the <iframe> element?",
+      "options": [
+        "To display a web page within a web page",
+        "To style text formatting",
+        "To execute background JavaScript",
+        "To create secure borders around images"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 49,
+      "question": "Which attribute specifies the URL of the page the link goes to?",
+      "options": [
+        "src",
+        "href",
+        "link",
+        "url"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 50,
+      "question": "Which attribute specifies the path of an image source file?",
+      "options": [
+        "href",
+        "path",
+        "src",
+        "source"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 51,
+      "question": "What does the <caption> tag do when used with a <table> element?",
+      "options": [
+        "Defines the table header cells",
+        "Defines the table title or caption",
+        "Defines table footer rows",
+        "Sets table border thickness"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 52,
+      "question": "Which HTML element defines a table row?",
+      "options": [
+        "<td>",
+        "<th>",
+        "<tr>",
+        "<tablegrid>"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 53,
+      "question": "Which HTML element defines a standard table data cell?",
+      "options": [
+        "<tc>",
+        "<td>",
+        "<datacell>",
+        "<tr>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 54,
+      "question": "Which HTML element defines a table header cell?",
+      "options": [
+        "<td>",
+        "<th>",
+        "<tcore>",
+        "<headcell>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 55,
+      "question": "Which attribute is used to merge columns in a table?",
+      "options": [
+        "rowspan",
+        "colspan",
+        "mergecol",
+        "span"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 56,
+      "question": "Which attribute is used to merge rows in a table?",
+      "options": [
+        "colspan",
+        "rowspan",
+        "mergerow",
+        "span"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 57,
+      "question": "Which element is used to group header content in a table?",
+      "options": [
+        "<thead>",
+        "<tablehead>",
+        "<head>",
+        "<tgroup>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 58,
+      "question": "Which element is used to group body content in a table?",
+      "options": [
+        "<tbody>",
+        "<tablebody>",
+        "<body>",
+        "<tdata>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 59,
+      "question": "Which element is used to group footer content in a table?",
+      "options": [
+        "<tfoot>",
+        "<tablefoot>",
+        "<foot>",
+        "<tbottom>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 60,
+      "question": "What is the purpose of the <details> element?",
+      "options": [
+        "To specify additional details that the user can open and close",
+        "To show detailed error reports",
+        "To display hidden meta descriptions",
+        "To create accordion image galleries"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 61,
+      "question": "Which tag is used with <details> to provide a visible heading or toggle label?",
+      "options": [
+        "<label>",
+        "<summary>",
+        "<title>",
+        "<caption"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 62,
+      "question": "Which HTML element is used to highlight or mark text (yielding a yellow background by default)?",
+      "options": [
+        "<highlight>",
+        "<mark>",
+        "<note>",
+        "<select>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 63,
+      "question": "Which HTML element represents a self-contained unit of illustration, diagram, or photo?",
+      "options": [
+        "<image>",
+        "<figure>",
+        "<photo>",
+        "<media>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 64,
+      "question": "Which element provides a caption or legend for a <figure> element?",
+      "options": [
+        "<figcaption>",
+        "<figurecaption>",
+        "<caption>",
+        "<legend>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 65,
+      "question": "Which HTML element specifies a short quotation?",
+      "options": [
+        "<quote>",
+        "<q>",
+        "<blockquote>",
+        "<cite>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 66,
+      "question": "Which HTML element specifies a section that is quoted from another source?",
+      "options": [
+        "<q>",
+        "<blockquote>",
+        "<cite>",
+        "<block>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 67,
+      "question": "Which HTML element is used to define the title of a creative work (like a book, song, or movie)?",
+      "options": [
+        "<title>",
+        "<cite>",
+        "<work>",
+        "<ref>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 68,
+      "question": "Which HTML element is used for subscript text (e.g., H₂O)?",
+      "options": [
+        "<sub>",
+        "<sup",
+        "<down>",
+        "<small>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 69,
+      "question": "Which HTML element is used for superscript text (e.g., X²)?",
+      "options": [
+        "<sub>",
+        "<sup>",
+        "<up>",
+        "<power>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 70,
+      "question": "What is the purpose of the <time> element?",
+      "options": [
+        "To display a live countdown clock",
+        "To encode a machine-readable date and/or time",
+        "To schedule server cron jobs",
+        "To measure page loading speeds"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 71,
+      "question": "Which attribute defines character encoding for an HTML document?",
+      "options": [
+        "charset",
+        "encoding",
+        "code",
+        "type"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 72,
+      "question": "What is the standard character encoding used for modern HTML5 documents?",
+      "options": [
+        "ISO-8859-1",
+        "UTF-8",
+        "ASCII",
+        "Windows-1252"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 73,
+      "question": "Which meta tag ensures proper rendering and touch zooming on mobile devices?",
+      "options": [
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+        "<meta name=\"mobile\" content=\"true\">",
+        "<meta name=\"screen\" content=\"device-width\">",
+        "<meta name=\"zoom\" content=\"enabled\">"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 74,
+      "question": "Which HTML element is used to embed external plugins or legacy objects?",
+      "options": [
+        "<embed>",
+        "<object>",
+        "<plugin>",
+        "Both <embed> and <object>"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "id": 75,
+      "question": "What does the <data> element do?",
+      "options": [
+        "Links a given content with a machine-readable translation",
+        "Connects directly to a SQL database",
+        "Stores temporary session variables",
+        "Parses JSON data feeds"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 76,
+      "question": "Which element is used to represent computer code in a monospace font?",
+      "options": [
+        "<cod>",
+        "<code>",
+        "<monospace>",
+        "<pre>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 77,
+      "question": "Which HTML element preserves both spaces and line breaks exactly as typed?",
+      "options": [
+        "<code>",
+        "<pre>",
+        "<p>",
+        "<break>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 78,
+      "question": "Which element represents keyboard input entered by a user?",
+      "options": [
+        "<input>",
+        "<kbd>",
+        "<key>",
+        "<type>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 79,
+      "question": "Which element represents sample output from a computer program?",
+      "options": [
+        "<out>",
+        "<output>",
+        "<samp>",
+        "<print>"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 80,
+      "question": "Which element represents mathematical variables?",
+      "options": [
+        "<var>",
+        "<math>",
+        "<variable>",
+        "<val>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 81,
+      "question": "Which tag defines a thematic break or topic shift in an article?",
+      "options": [
+        "<break>",
+        "<hr>",
+        "<sep>",
+        "<div style=\"line\">"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 82,
+      "question": "What does the contenteditable attribute allow users to do?",
+      "options": [
+        "Edit the source code inside browser developer tools",
+        "Modify the content of an element directly on the rendered page",
+        "Edit CSS stylesheets in real-time",
+        "Save form data automatically to local storage"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 83,
+      "question": "Which attribute specifies that an element should be focused automatically upon page load?",
+      "options": [
+        "focused",
+        "autofocus",
+        "selected",
+        "active"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 84,
+      "question": "Which attribute disables an input field so that it cannot be clicked or modified?",
+      "options": [
+        "readonly",
+        "disabled",
+        "inactive",
+        "locked"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 85,
+      "question": "What is the difference between 'disabled' and 'readonly' input attributes?",
+      "options": [
+        "Disabled elements are not submitted with forms and cannot receive focus; readonly elements are submitted and can receive focus.",
+        "There is no difference.",
+        "Readonly fields can be edited with double-clicking.",
+        "Disabled fields are styled automatically by browsers with green borders."
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 86,
+      "question": "Which attribute specifies a hint or placeholder text describing the expected value of an input field?",
+      "options": [
+        "hint",
+        "placeholder",
+        "tooltip",
+        "description"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 87,
+      "question": "Which attribute limits the maximum number of characters allowed in an input field?",
+      "options": [
+        "maxlength",
+        "size",
+        "limit",
+        "length"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 88,
+      "question": "Which attribute specifies regular expressions that an input's value must match against?",
+      "options": [
+        "validate",
+        "pattern",
+        "match",
+        "regex"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 89,
+      "question": "Which input type is specifically designed for entering web addresses (URLs)?",
+      "options": [
+        "text",
+        "url",
+        "web",
+        "link"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 90,
+      "question": "Which input type brings up a telephone keypad on mobile devices?",
+      "options": [
+        "phone",
+        "tel",
+        "mobile",
+        "number"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 91,
+      "question": "What is the purpose of the <dialog> element?",
+      "options": [
+        "To create interactive popup dialog boxes or modal windows",
+        "To handle chatbot conversation threads",
+        "To write multi-user chat scripts",
+        "To display alert notification banners"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 92,
+      "question": "Which HTML element is used to group options in a drop-down list (<select>)?",
+      "options": [
+        "<optgroup>",
+        "<group>",
+        "<optiongroup>",
+        "<menu>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 93,
+      "question": "Which tag is used inside <select> or <optgroup> to define an individual choice?",
+      "options": [
+        "<item>",
+        "<choice>",
+        "<option>",
+        "<value>"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 94,
+      "question": "What does the <template> element do?",
+      "options": [
+        "Holds HTML content that is hidden when the page loads but can be instantiated via JavaScript",
+        "Applies master CSS stylesheets to standard pages",
+        "Renders server-side templates automatically",
+        "Provides boilerplate layout scaffolding"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 95,
+      "question": "What is the purpose of the <slot> element in Web Components?",
+      "options": [
+        "It acts as a placeholder inside a shadow DOM where custom markup can be inserted",
+        "It allocates memory space for script variables",
+        "It sets grid container columns",
+        "It creates audio playback slots"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 96,
+      "question": "Which global attribute is used to translate or specify the language of an element's content?",
+      "options": [
+        "language",
+        "lang",
+        "translate",
+        "locale"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 97,
+      "question": "Which global attribute is used to specify whether text direction is left-to-right or right-to-left?",
+      "options": [
+        "direction",
+        "dir",
+        "align",
+        "flow"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 98,
+      "question": "Which global attribute provides advisory popup tooltip text when hovering over an element?",
+      "options": [
+        "tooltip",
+        "title",
+        "alt",
+        "hover"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 99,
+      "question": "Which global attribute specifies that an element is not yet, or is no longer, relevant (hiding it from view)?",
+      "options": [
+        "hidden",
+        "invisible",
+        "display",
+        "off"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 100,
+      "question": "Which global attribute assigns one or more CSS class names to an element?",
+      "options": [
+        "class",
+        "className",
+        "classes",
+        "styleclass"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 101,
+      "question": "Can an element have multiple space-separated IDs in the id attribute?",
+      "options": [
+        "Yes, as many as needed",
+        "No, IDs must be completely unique per document",
+        "Yes, up to a maximum of 3 IDs",
+        "Only if they are prefixed with a hash symbol"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 102,
+      "question": "Can an element have multiple space-separated class names in the class attribute?",
+      "options": [
+        "No, only one class is allowed per element",
+        "Yes, elements can belong to multiple classes",
+        "Only if separated by commas instead of spaces",
+        "Only in HTML5 strict mode"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 103,
+      "question": "What is semantic HTML?",
+      "options": [
+        "Using HTML markup that reinforces the meaning/purpose of the content rather than its appearance",
+        "Writing HTML code entirely in lowercase letters",
+        "Using deprecated tags for backwards compatibility",
+        "A strict validation rule required by W3C"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 104,
+      "question": "Which of the following is a semantic HTML element?",
+      "options": [
+        "<div>",
+        "<span>",
+        "<article>",
+        "<b"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 105,
+      "question": "Which of the following is a non-semantic HTML element?",
+      "options": [
+        "<section>",
+        "<footer>",
+        "<div>",
+        "<article>"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "id": 106,
+      "question": "What is the primary difference between <div> and <span>?",
+      "options": [
+        "<div> is a block-level element, while <span> is an inline element",
+        "<span> can hold images, while <div> cannot",
+        "<div> is deprecated in HTML5, while <span> is current",
+        "There is no structural difference"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 107,
+      "question": "Which HTML element is used to link an external CSS stylesheet?",
+      "options": [
+        "<stylesheet>",
+        "<link>",
+        "<style>",
+        "<script>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 108,
+      "question": "Where should the <link rel=\"stylesheet\" ...> tag be placed in an HTML document?",
+      "options": [
+        "Inside the <body> section",
+        "Inside the <head> section",
+        "At the very bottom of the document",
+        "Inside the <footer> section"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 109,
+      "question": "Where should external JavaScript files be linked using the <script> tag for optimal page performance?",
+      "options": [
+        "At the bottom of the <body> section or with the defer/async attributes",
+        "Inside the <title> tag",
+        "Before the <!DOCTYPE html> declaration",
+        "Inside meta description attributes"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 110,
+      "question": "What does the 'async' attribute do on a script tag?",
+      "options": [
+        "Executes the script asynchronously as soon as it is downloaded",
+        "Delays script execution until the entire HTML document is fully parsed",
+        "Prevents the script from running on mobile devices",
+        "Loads the script in a background worker thread"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 111,
+      "question": "What does the 'defer' attribute do on a script tag?",
+      "options": [
+        "Downloads the script while parsing the HTML and executes it after parsing is complete",
+        "Stops script execution entirely",
+        "Executes the script before any HTML elements render",
+        "Compresses script file size on the fly"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 112,
+      "question": "What is the purpose of the <base> element?",
+      "options": [
+        "Specifies the base URL and/or target for all relative URLs in a document",
+        "Defines the root stylesheet directory",
+        "Establishes database connection endpoints",
+        "Sets base font sizes for the document"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 113,
+      "question": "Which HTML element is used to define scaler or range slider tick marks?",
+      "options": [
+        "<datalist>",
+        "<ticker>",
+        "<marks>",
+        "<sliderlist>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 114,
+      "question": "Which element can be used with <input> to provide auto-complete suggestions?",
+      "options": [
+        "<suggestions>",
+        "<datalist>",
+        "<autocomplete>",
+        "<options>"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "id": 115,
+      "question": "What is the purpose of the <output> element in a form?",
+      "options": [
+        "To represent the result of a calculation or user action",
+        "To print form responses to a physical printer",
+        "To export form entries into CSV files",
+        "To display console debugging logs"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 116,
+      "question": "Which attribute connects a <label> element directly to an input element?",
+      "options": [
+        "for",
+        "to",
+        "bind",
+        "target"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 117,
+      "question": "What is the correct way to link a label to an input with id='email'?",
+      "options": [
+        "<label for=\"email\">Email:</label>",
+        "<label bind=\"email\">Email:</label>",
+        "<label target=\"email\">Email:</label>",
+        "<label input=\"email\">Email:</label>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 118,
+      "question": "Which element is used to group a set of form controls together with an optional caption?",
+      "options": [
+        "<fieldset>",
+        "<group>",
+        "<formblock>",
+        "<section>"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 119,
+      "question": "What is the purpose of the <legend> tag when used inside a <fieldset>?",
+      "options": [
+        "Provides a caption or title for the fieldset group",
+        "Creates a legend explaining input icons",
+        "Lists error messages for form validation",
+        "Defines form submission instructions"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "id": 120,
+      "question": "Which HTML element represents an un-articulated or inline span of text with no specific semantic meaning, typically used for styling hooks?",
+      "options": [
+        "<div>",
+        "<span>",
+        "<text>",
+        "<block>"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

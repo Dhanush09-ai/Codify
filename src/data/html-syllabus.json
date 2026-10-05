@@ -1,0 +1,231 @@
+{
+  "course_id": "html-101",
+  "course_title": "HTML Course Index & Syllabus",
+  "description": "Master HTML fundamentals and web anatomy through structured modules and syllabus tracking on Codify.",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "chapter_title": "1. Introduction to Web & HTML",
+      "topics": [
+        {
+          "title": "1.1 How the Web Works",
+          "file": "chapter-1/1.1-how-the-web-works.md"
+        },
+        {
+          "title": "1.2 What is HTML?",
+          "file": "chapter-1/1.2-what-is-html.md"
+        },
+        {
+          "title": "1.3 Setting Up Your Environment",
+          "file": "chapter-1/1.3-setting-up-environment.md"
+        },
+        {
+          "title": "1.4 Your First Webpage",
+          "file": "chapter-1/1.4-your-first-webpage.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 2,
+      "chapter_title": "2. Document Anatomy & Structure",
+      "topics": [
+        {
+          "title": "2.1 Tags, Elements & Attributes",
+          "file": "chapter-2/2.1-tags-elements.md"
+        },
+        {
+          "title": "2.2 The Boilerplate",
+          "file": "chapter-2/2.2-boilerplate.md"
+        },
+        {
+          "title": "2.3 Metadata Essentials",
+          "file": "chapter-2/2.3-metadata.md"
+        },
+        {
+          "title": "2.4 Code Formatting & Comments",
+          "file": "chapter-2/2.4-formatting.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "chapter_title": "3. Text & Headings Hierarchy",
+      "topics": [
+        {
+          "title": "3.1 Headings Hierarchy",
+          "file": "chapter-3/3.1-headings.md"
+        },
+        {
+          "title": "3.2 Paragraphs & Line Breaks",
+          "file": "chapter-3/3.2-paragraphs.md"
+        },
+        {
+          "title": "3.3 Text Formatting",
+          "file": "chapter-3/3.3-text-formatting.md"
+        },
+        {
+          "title": "3.4 Preformatted Text & Code",
+          "file": "chapter-3/3.4-preformatted-code.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "chapter_title": "4. Hyperlinks & Site Navigation",
+      "topics": [
+        {
+          "title": "4.1 The Anchor Element",
+          "file": "chapter-4/4.1-anchor-element.md"
+        },
+        {
+          "title": "4.2 Absolute vs. Relative URLs",
+          "file": "chapter-4/4.2-absolute-relative-urls.md"
+        },
+        {
+          "title": "4.3 Link Behaviors",
+          "file": "chapter-4/4.3-link-behaviors.md"
+        },
+        {
+          "title": "4.4 Page Jumps & Email Links",
+          "file": "chapter-4/4.4-page-jumps.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "chapter_title": "5. Media & Visual Assets",
+      "topics": [
+        {
+          "title": "5.1 Displaying Images",
+          "file": "chapter-5/5.1-images.md"
+        },
+        {
+          "title": "5.2 Image Types & Best Practices",
+          "file": "chapter-5/5.2-image-types.md"
+        },
+        {
+          "title": "5.3 Audio Elements",
+          "file": "chapter-5/5.3-audio.md"
+        },
+        {
+          "title": "5.4 Video Elements",
+          "file": "chapter-5/5.4-video.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "chapter_title": "6. Lists & Data Organization",
+      "topics": [
+        {
+          "title": "6.1 Unordered Lists",
+          "file": "chapter-6/6.1-unordered-lists.md"
+        },
+        {
+          "title": "6.2 Ordered Lists",
+          "file": "chapter-6/6.2-ordered-lists.md"
+        },
+        {
+          "title": "6.3 Description Lists",
+          "file": "chapter-6/6.3-description-lists.md"
+        },
+        {
+          "title": "6.4 Nesting Lists",
+          "file": "chapter-6/6.4-nesting-lists.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "chapter_title": "7. HTML Tables & Tabular Data",
+      "topics": [
+        {
+          "title": "7.1 Table Basics",
+          "file": "chapter-7/7.1-table-basics.md"
+        },
+        {
+          "title": "7.2 Semantic Table Sections",
+          "file": "chapter-7/7.2-table-sections.md"
+        },
+        {
+          "title": "7.3 Merging Cells",
+          "file": "chapter-7/7.3-merging-cells.md"
+        },
+        {
+          "title": "7.4 Accessibility in Tables",
+          "file": "chapter-7/7.4-accessibility.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 8,
+      "chapter_title": "8. Forms & User Input Control",
+      "topics": [
+        {
+          "title": "8.1 The Form Container",
+          "file": "chapter-8/8.1-form-container.md"
+        },
+        {
+          "title": "8.2 Basic Inputs",
+          "file": "chapter-8/8.2-basic-inputs.md"
+        },
+        {
+          "title": "8.3 Accessible Form Design",
+          "file": "chapter-8/8.3-accessible-forms.md"
+        },
+        {
+          "title": "8.4 Advanced Inputs",
+          "file": "chapter-8/8.4-advanced-inputs.md"
+        },
+        {
+          "title": "8.5 Native Form Validation",
+          "file": "chapter-8/8.5-native-validation.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 9,
+      "chapter_title": "9. Modern Semantic HTML5 Layouts",
+      "topics": [
+        {
+          "title": "9.1 Why Semantics Matter",
+          "file": "chapter-9/9.1-why-semantics.md"
+        },
+        {
+          "title": "9.2 Page Layout Elements",
+          "file": "chapter-9/9.2-layout-elements.md"
+        },
+        {
+          "title": "9.3 Content Chunking",
+          "file": "chapter-9/9.3-content-chunking.md"
+        },
+        {
+          "title": "9.4 Figures & Captions",
+          "file": "chapter-9/9.4-figures.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 10,
+      "chapter_title": "10. Projects & Next Horizons",
+      "topics": [
+        {
+          "title": "10.1 Connecting to CSS",
+          "file": "chapter-10/10.1-connecting-css.md"
+        },
+        {
+          "title": "10.2 Connecting to JavaScript",
+          "file": "chapter-10/10.2-connecting-js.md"
+        },
+        {
+          "title": "10.3 Validation & Debugging",
+          "file": "chapter-10/10.3-validation.md"
+        },
+        {
+          "title": "10.4 Capstone Project",
+          "file": "chapter-10/10.4-capstone.md"
+        }
+      ]
+    }
+  ]
+}

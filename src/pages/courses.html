@@ -73,6 +73,7 @@
             display: flex; align-items: center;
             font-size: 1.5rem; font-weight: 800;
             text-decoration: none; cursor: pointer;
+            color: #fff;
         }
 
         .logo-icon { width: 32px; height: 32px; }
@@ -125,7 +126,125 @@
         }
         .codify-nav-links li a:hover, .codify-nav-links li a.active-link { color: #00aaff; }
 
-        /* Search Box Styles (Specific to Courses page) */
+        /* ==========================================================================
+           CODIFY PROFILE DROPDOWN STYLING
+           ========================================================================== */
+        .profile-menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-dropdown-list {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            width: 270px;
+            background: rgba(13, 27, 42, 0.98);
+            border: 1px solid rgba(0, 170, 255, 0.35);
+            border-radius: 16px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 170, 255, 0.15);
+            padding: 16px;
+            display: none;
+            flex-direction: column;
+            z-index: 3000;
+        }
+
+        .profile-dropdown-list.active {
+            display: flex;
+        }
+
+        .profile-dropdown-header {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+            margin-bottom: 8px;
+        }
+
+        .profile-dropdown-name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.2px;
+        }
+
+        .profile-dropdown-username {
+            font-size: 0.82rem;
+            color: #00aaff;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .profile-dropdown-email {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            margin-top: 2px;
+            word-break: break-all;
+        }
+
+        .profile-dropdown-items {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .profile-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .profile-dropdown-item svg {
+            width: 18px;
+            height: 18px;
+            color: #00aaff;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .profile-dropdown-item:hover {
+            background: rgba(0, 170, 255, 0.12);
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+
+        .profile-dropdown-item:hover svg {
+            transform: scale(1.1);
+        }
+
+        .profile-dropdown-divider {
+            height: 1px;
+            background: rgba(0, 170, 255, 0.15);
+            margin: 8px 0;
+        }
+
+        .profile-dropdown-item.danger {
+            color: #f87171;
+        }
+
+        .profile-dropdown-item.danger svg {
+            color: #ef4444;
+        }
+
+        .profile-dropdown-item.danger:hover {
+            background: rgba(239, 68, 68, 0.12);
+            color: #fca5a5;
+        }
+
+        /* Search Box Styles */
         .codify-search-box { position: relative; display: flex; align-items: center; }
         .codify-search-box input {
             background: rgba(13, 27, 42, 0.6); border: 1px solid rgba(0, 170, 255, 0.2);
@@ -160,6 +279,16 @@
             background: rgba(0, 170, 255, 0.12); border: 1px solid rgba(0, 170, 255, 0.35);
             color: #00aaff; padding: 8px 18px; border-radius: 20px;
             font-size: 0.9rem; font-weight: 700; margin-bottom: 24px;
+        }
+
+        .hero-badge svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .hero-title {
@@ -541,7 +670,8 @@
     <main>
         <section class="hero-section" aria-labelledby="heroHeading">
             <div class="hero-badge">
-                🎓 Hand-Crafted Curriculum
+                <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                Hand-Crafted Curriculum
             </div>
             <h1 class="hero-title" id="heroHeading">
                 Explore Our <span>Courses</span>
@@ -562,9 +692,9 @@
                     <p>C language is considered the mother language of all programming languages. Master foundational coding logic.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="/src/pages/courses/c/enroll.html" 
+                    <a href="/src/pages/courses/course-enroll.html?course=c" 
                        data-course-id="c-101" 
-                       data-index-url="/src/pages/courses/c/c-index.html" 
+                       data-index-url="/src/pages/courses/course-index.html?course=c" 
                        class="start-btn course-action-btn">Enroll Now</a>
                 </div>
             </div>
@@ -578,9 +708,9 @@
                     <p>Dive deep into Object-Oriented Programming, templates, and high-performance applications with C++.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="/src/pages/courses/cpp/cpp-enroll.html" 
+                    <a href="/src/pages/courses/course-enroll.html?course=cpp" 
                        data-course-id="cpp-101" 
-                       data-index-url="/src/pages/courses/cpp/cpp-index.html" 
+                       data-index-url="/src/pages/courses/course-index.html?course=cpp" 
                        class="start-btn course-action-btn">Enroll Now</a>
                 </div>
             </div>
@@ -610,9 +740,9 @@
                     <p>Build stunning modern websites. Master document markup, structure, and semantic web elements.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="/src/pages/courses/html/html-enroll.html" 
+                    <a href="/src/pages/courses/course-enroll.html?course=html" 
                        data-course-id="html-101" 
-                       data-index-url="/src/pages/courses/html/html-index.html" 
+                       data-index-url="/src/pages/courses/course-index.html?course=html" 
                        class="start-btn course-action-btn">Enroll Now</a>
                 </div>
             </div>
@@ -674,9 +804,9 @@
                     <p>Learn enterprise-ready programming with Java. Build robust backend applications and Android apps.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="/src/pages/courses/java/java-enroll.html" 
+                    <a href="/src/pages/courses/course-enroll.html?course=java" 
                        data-course-id="java-101" 
-                       data-index-url="/src/pages/courses/java/java-index.html" 
+                       data-index-url="/src/pages/courses/course-index.html?course=java" 
                        class="start-btn course-action-btn">Enroll Now</a>
                 </div>
             </div>
@@ -690,9 +820,9 @@
                     <p>Unlock Python. Perfect for Scripting, Web automation, Data Science, and Machine Learning.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="/src/pages/courses/python/python-enroll.html" 
+                    <a href="/src/pages/courses/course-enroll.html?course=python" 
                        data-course-id="python-101" 
-                       data-index-url="/src/pages/courses/python/python-index.html" 
+                       data-index-url="/src/pages/courses/course-index.html?course=python" 
                        class="start-btn course-action-btn">Enroll Now</a>
                 </div>
             </div>
@@ -756,7 +886,6 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        // 1. Mobile Menu Drawer & Overlay Toggle Handler
         class NavigationController {
             constructor() {
                 const oldToggle = document.getElementById('menuToggle');
@@ -818,7 +947,6 @@
             }
         }
 
-        // 2. SCALABLE ADVANCED SEARCH ENGINE
         class AdvancedSearchEngine {
             constructor() {
                 this.overlay = document.getElementById('searchOverlayModal');
@@ -833,13 +961,7 @@
 
                 this.database = [
                     { title: "Home Dashboard", url: "/index.html", category: "System", keywords: "welcome landing campus learn cs main", desc: "The foundational entryway launchpad containing information summary streams for Codify courses." },
-                    { title: "Course Curriculum Overview", url: "/src/pages/courses.html", category: "Dashboard", keywords: "tracks selection menu python java database system architecture modules", desc: "Comprehensive collection platform to navigate tracks, access evaluations, and launch learning nodes." },
-                    { title: "1.1 History of Python", url: "/src/pages/courses/python/chapter-1/1.1-history-of-python.html", category: "Python basics", keywords: "guido van rossum abc language programming origins 1991 standard general intent", desc: "Discover the chronological origin story and design paradigms established during Python's creation matrix." },
-                    { title: "1.2 Python Core Features", url: "/src/pages/courses/python/chapter-1/1.2-list-python-features.html", category: "Python basics", keywords: "batteries included open source platform independent high level dynamic interpretation object oriented readable syntax libraries", desc: "Analyze technical capabilities including automatic platform management vectors, object bindings, and implicit compilation workflows." },
-                    { title: "1.3 Applications of Python", url: "/src/pages/courses/python/chapter-1/1.3-list-and-explian-applications-of-python.html", category: "Python basics", keywords: "web development artificial intelligence data science machine learning automation scraping django framework statistics flask scripts api desktop apps", desc: "Breakdown structural systems leveraging computational toolkits across neural networking models, automation frameworks, and web architectures." },
-                    { title: "1.4 Explaining Python IDLE", url: "/src/pages/courses/python/chapter-1/1.4-explain-python-idle.html", category: "Python basics", keywords: "integrated development learning environment script window interactive shell debugger syntax check shortcut execution keys run module f5 save print statements text editor", desc: "Master configuration controls across standard interactive shells, syntax debugging highlights, and compilation output pipelines." },
-                    { title: "1.5 Running Python Scripts", url: "/src/pages/courses/python/chapter-1/1.5-explain-process-of-running-python-scripts.html", category: "Python basics", keywords: "compilation steps source code conversion interpreter execution layer dynamic pvm virtual machine engine runtimes compilation bytecode file format pyc path logic variables", desc: "Track low-level mechanics mapping operations from structural plaintext definitions into optimized bytecode maps interpreted inside hardware states." },
-                    { title: "1.6 Identifiers, Keywords & Indentation Rules", url: "/src/pages/courses/python/chapter-1/1.6-explain-identifier-keywords-indentation.html", category: "Python basics", keywords: "variable naming definitions case sensitive keywords blocks system scope space code structural indentation errors indentationerror tokens logic validation tester tools definitions functions class structure formatting parameters alignment", desc: "Examine strict semantic conventions regulating structural layout boundaries, namespace parameters, and naming safety formats within scope stacks." }
+                    { title: "Course Curriculum Overview", url: "/src/pages/courses.html", category: "Dashboard", keywords: "tracks selection menu python java database system architecture modules", desc: "Comprehensive collection platform to navigate tracks, access evaluations, and launch learning nodes." }
                 ];
 
                 if (this.overlay && this.input) this.init();
@@ -887,7 +1009,6 @@
 
             performSearch(query) {
                 const terms = query.split(' ').filter(t => t);
-                
                 let results = this.database.map(item => {
                     let score = 0;
                     let titleMatch = item.title.toLowerCase();
@@ -923,34 +1044,14 @@
                     li.innerHTML = `
                         <a href="${result.url}">
                             <div class="result-item-title">
-                                <span>${this.highlightText(result.title, query)}</span>
-                                <span class="result-item-category">${this.highlightText(result.category, query)}</span>
+                                <span>${result.title}</span>
+                                <span class="result-item-category">${result.category}</span>
                             </div>
-                            <div class="result-item-desc">${this.highlightText(result.desc, query)}</div>
+                            <div class="result-item-desc">${result.desc}</div>
                         </a>
                     `;
                     this.resultsList.appendChild(li);
                 });
-            }
-
-            highlightText(text, query) {
-                if (!query) return text;
-                const terms = query.split(' ').filter(t => t);
-                let highlighted = text;
-                terms.forEach(term => {
-                    const matchRegex = new RegExp(`(${term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
-                    highlighted = highlighted.replace(matchRegex, '<span class="search-match-hl">$1</span>');
-                });
-                return highlighted;
-            }
-
-            refreshItemFocus(itemsList) {
-                itemsList.forEach(item => item.classList.remove('selected'));
-                if (this.focusedIndex >= 0 && this.focusedIndex < itemsList.length) {
-                    const focusedItem = itemsList[this.focusedIndex];
-                    focusedItem.classList.add('selected');
-                    focusedItem.scrollIntoView({ block: 'nearest' });
-                }
             }
 
             handleKeydown(e) {
@@ -964,28 +1065,10 @@
                         this.closeSearch();
                         return;
                     }
-                    const searchItems = this.resultsList.querySelectorAll('.search-result-item');
-                    if (searchItems.length === 0) return;
-
-                    if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        this.focusedIndex = (this.focusedIndex + 1 >= searchItems.length) ? 0 : this.focusedIndex + 1;
-                        this.refreshItemFocus(searchItems);
-                    } else if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        this.focusedIndex = (this.focusedIndex - 1 < 0) ? searchItems.length - 1 : this.focusedIndex - 1;
-                        this.refreshItemFocus(searchItems);
-                    } else if (e.key === 'Enter') {
-                        if (this.focusedIndex >= 0 && this.focusedIndex < searchItems.length) {
-                            e.preventDefault();
-                            searchItems[this.focusedIndex].querySelector('a').click();
-                        }
-                    }
                 }
             }
         }
 
-        // 3. UI LAYOUT & AUTH MANAGERS
         function handleResponsiveAuthLayout() {
             const authGroup = document.getElementById('authNavGroup');
             const centerNav = document.getElementById('centerNav');
@@ -1031,18 +1114,6 @@
 
             document.querySelectorAll('.course-card').forEach(card => {
                 cardObserver.observe(card);
-                const rect = card.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom >= 0) {
-                    card.classList.add('scroll-active');
-                }
-            });
-            
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 768) {
-                    document.querySelectorAll('.course-card.scroll-active').forEach(card => {
-                        card.classList.remove('scroll-active');
-                    });
-                }
             });
         }
 
@@ -1060,11 +1131,12 @@
                     const courseId = (button.getAttribute('data-course-id') || '').toLowerCase().trim();
                     const indexUrl = button.getAttribute('data-index-url');
 
-                    // Check if current course matches enrollment ID directly or alias (e.g., 'java' vs 'java-101')
                     const isEnrolled = enrolledSet.has(courseId) || 
                                        (courseId === 'java-101' && enrolledSet.has('java')) ||
                                        (courseId === 'html-101' && enrolledSet.has('html')) ||
-                                       (courseId === 'python-101' && enrolledSet.has('python'));
+                                       (courseId === 'python-101' && enrolledSet.has('python')) ||
+                                       (courseId === 'c-101' && enrolledSet.has('c')) ||
+                                       (courseId === 'cpp-101' && enrolledSet.has('cpp'));
 
                     if (isEnrolled && indexUrl && indexUrl !== '#') {
                         button.innerText = 'Continue Learning';
@@ -1091,28 +1163,89 @@
                     if (user) {
                         const { data: profile } = await supabase
                             .from('profiles')
-                            .select('avatar_url, first_name')
+                            .select('avatar_url, first_name, surname, username')
                             .eq('id', user.id)
                             .maybeSingle();
 
                         const userMetaData = user.user_metadata || {};
                         const avatarUrl = profile?.avatar_url || userMetaData.avatar_url;
-                        const firstName = profile?.first_name || userMetaData.first_name || user.email || 'User';
+                        const firstName = profile?.first_name || userMetaData.first_name || 'User';
+                        const surname = profile?.surname || userMetaData.surname || '';
+                        const fullName = `${firstName} ${surname}`.trim();
+                        const username = profile?.username || userMetaData.username || user.email.split('@')[0];
+                        const email = user.email || 'mail@gmail.com';
                         const initial = firstName.charAt(0).toUpperCase();
 
-                        if (avatarUrl) {
-                            this.authNavGroup.innerHTML = `
-                                <a href="/src/pages/profile.html" class="nav-profile-dp" title="View Profile">
-                                    <img src="${avatarUrl}" alt="${firstName}'s Profile" width="38" height="38" loading="eager">
-                                </a>`;
-                        } else {
-                            this.authNavGroup.innerHTML = `
-                                <a href="/src/pages/profile.html" class="nav-profile-dp" title="View Profile">
-                                    <span>${initial}</span>
-                                </a>`;
+                        let avatarHtml = avatarUrl ? `<img src="${avatarUrl}" alt="${fullName}" width="38" height="38" loading="eager">` : `<span>${initial}</span>`;
+
+                        this.authNavGroup.innerHTML = `
+                            <div class="profile-menu-container" id="profileMenuContainer">
+                                <div class="nav-profile-dp" id="profileDpTrigger" title="Open Profile Menu">
+                                    ${avatarHtml}
+                                </div>
+                                <div class="profile-dropdown-list" id="profileDropdownList">
+                                    <div class="profile-dropdown-header">
+                                        <span class="profile-dropdown-name">${fullName}</span>
+                                        <span class="profile-dropdown-username">@${username}</span>
+                                        <span class="profile-dropdown-email">${email}</span>
+                                    </div>
+                                    <div class="profile-dropdown-items">
+                                        <a href="/src/pages/profile.html" class="profile-dropdown-item">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                            Profile Settings
+                                        </a>
+                                        <a href="/src/pages/certificate.html" class="profile-dropdown-item">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+                                            Achievements
+                                        </a>
+                                        <a href="/src/pages/exam-history.html" class="profile-dropdown-item">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                            Activity
+                                        </a>
+                                        <a href="/src/pages/profile.html#security" class="profile-dropdown-item">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                            Account Security
+                                        </a>
+                                    </div>
+                                    <div class="profile-dropdown-divider"></div>
+                                    <div class="profile-dropdown-items">
+                                        <a href="/src/auth/login.html" class="profile-dropdown-item">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 17l5-5-5-5"></path><path d="M21 12H9"></path><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"></path></svg>
+                                            Switch Account
+                                        </a>
+                                        <button type="button" id="logoutBtn" class="profile-dropdown-item danger">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                            Logout
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        const dpTrigger = document.getElementById('profileDpTrigger');
+                        const dropdownList = document.getElementById('profileDropdownList');
+                        
+                        if (dpTrigger && dropdownList) {
+                            dpTrigger.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                dropdownList.classList.toggle('active');
+                            });
+
+                            document.addEventListener('click', (e) => {
+                                if (!dropdownList.contains(e.target) && !dpTrigger.contains(e.target)) {
+                                    dropdownList.classList.remove('active');
+                                }
+                            });
                         }
 
-                        // Query directly from the new dedicated user_enrollments table
+                        const logoutBtn = document.getElementById('logoutBtn');
+                        if (logoutBtn) {
+                            logoutBtn.addEventListener('click', async () => {
+                                await supabase.auth.signOut();
+                                localStorage.removeItem('codify_enrollments');
+                                window.location.href = '/index.html';
+                            });
+                        }
+
                         const { data: enrollments, error: enrollErr } = await supabase
                             .from('user_enrollments')
                             .select('course_id')
@@ -1136,7 +1269,6 @@
             }
         }
 
-        // Initialize Everything
         document.addEventListener('DOMContentLoaded', () => {
             handleResponsiveAuthLayout();
             new NavigationController();
@@ -1145,20 +1277,12 @@
             initMobileScrollAnimation();
         });
 
-        let lastWidth = window.innerWidth;
-        window.addEventListener('resize', () => {
-            if (window.innerWidth !== lastWidth) {
-                lastWidth = window.innerWidth;
-                handleResponsiveAuthLayout();
-            }
-        });
-
         const teamDatabase = {
-            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Mohammed is responsible for the core architecture of Codify, focusing on front-end performance, database design, and overall system scalability.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
-            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'Dhanush specializes in interactive UI design and seamless API integrations, ensuring students have a smooth learning experience.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
-            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Feroz manages secure user authentication, database row-level security, and the backend tracking logic for course progress.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
-            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Basha focuses on creating structured, easy-to-understand interactive course material and maintaining the site styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
-            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Prasad rigorously tests platform features, catches bugs, and optimizes performance metrics to keep Codify running at 100%.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
+            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
+            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
+            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Authentication and security.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
+            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Curriculum layout and styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
+            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Performance testing and QA.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
         };
 
         const engModal = document.getElementById('engineerModal');
@@ -1187,7 +1311,6 @@
 
         if (closeEngBtn) closeEngBtn.addEventListener('click', closeEngineerModal);
         if (engModal) engModal.addEventListener('click', (e) => { if (e.target === engModal) closeEngineerModal(); });
-
     </script>
 </body>
 

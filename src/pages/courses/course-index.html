@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Master programming languages through structured curriculum tracking on Codify.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <title>Course Syllabus | Codify</title>
+    
+    <style>
+        html, body {
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            position: relative;
+            background-color: #0a0f1c;
+            color: #e0e6ed;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main, main section, .progress-card, .chapter-card, .topic-list, .topic-item {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+
+        main {
+            display: flex !important;
+            flex-direction: column !important;
+            flex: 1;
+            margin-top: 90px !important;
+            padding: 20px 24px 60px 24px !important;
+            max-width: 1100px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        .codify-main-header {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%;
+            background: rgba(10, 15, 28, 0.98); 
+            backdrop-filter: blur(12px);
+            z-index: 2000; 
+            border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+        }
+
+        .codify-header-container {
+            display: flex !important; 
+            justify-content: space-between !important; 
+            align-items: center !important;
+            padding: 10px 32px !important; 
+            width: 100% !important; 
+            box-sizing: border-box !important;
+        }
+
+        .codify-logo {
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            text-decoration: none; 
+            cursor: pointer;
+            color: #fff;
+        }
+        .logo-icon { width: 32px; height: 32px; }
+
+        .codify-nav-links {
+            list-style: none; 
+            display: flex; 
+            gap: 32px; 
+            margin: 0; 
+            padding: 0; 
+            white-space: nowrap;
+        }
+        .codify-nav-links li a {
+            text-decoration: none; 
+            color: #e0e6ed; 
+            font-size: 1.05rem; 
+            font-weight: 600; 
+            transition: color 0.3s ease;
+        }
+        .codify-nav-links li a:hover, 
+        .codify-nav-links li a.active-link { color: #00aaff; }
+
+        .codify-right-group { display: flex; align-items: center; gap: 16px; position: relative; }
+        .codify-auth-group { display: flex; align-items: center; gap: 12px; }
+
+        .codify-btn-outline {
+            text-decoration: none; 
+            background: transparent; 
+            border: 1px solid rgba(0, 170, 255, 0.4);
+            color: #e0e6ed; 
+            font-size: 0.9rem; 
+            font-weight: bold; 
+            padding: 8px 18px; 
+            border-radius: 12px; 
+            transition: all 0.3s ease;
+        }
+        .codify-btn-outline:hover { 
+            background: rgba(0, 170, 255, 0.1); 
+            border-color: #00aaff; 
+            color: #fff;
+        }
+
+        .index-title { color: #ffffff; font-size: 2.2rem; font-weight: 800; margin: 10px 0 24px 0; }
+        .index-title span { 
+            background: linear-gradient(90deg, #0077ff, #00aaff);  
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        .progress-card {
+            background: rgba(13, 27, 42, 0.6) !important; 
+            border: 1px solid rgba(0, 170, 255, 0.25) !important;
+            border-radius: 20px !important; 
+            padding: 24px 28px !important; 
+            margin-bottom: 30px !important; 
+            backdrop-filter: blur(16px);
+        }
+        .progress-top { 
+            display: flex !important; 
+            justify-content: space-between !important; 
+            align-items: center !important; 
+            margin-bottom: 14px !important; 
+        }
+        .progress-metrics { display: flex !important; gap: 12px !important; }
+        .metric-pill { font-size: 0.85rem; font-weight: 700; padding: 5px 12px; border-radius: 8px; }
+        .finished { 
+            background: rgba(16, 185, 129, 0.15); 
+            color: #34d399; 
+            border: 1px solid rgba(16, 185, 129, 0.3); 
+        }
+        .pending { 
+            background: rgba(245, 158, 11, 0.15); 
+            color: #fbbf24; 
+            border: 1px solid rgba(245, 158, 11, 0.3); 
+        }
+
+        .progress-bar-bg { 
+            height: 10px; 
+            background: rgba(10, 15, 28, 0.85); 
+            border-radius: 10px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+        .progress-bar-fill { 
+            height: 100%; 
+            width: 0%; 
+            background: linear-gradient(90deg, #10b981, #34d399); 
+            border-radius: 10px; 
+            transition: width 0.5s ease; 
+        }
+
+        .chapter-card {
+            background: rgba(13, 27, 42, 0.5) !important; 
+            border: 1px solid rgba(0, 170, 255, 0.2) !important;
+            border-radius: 20px !important; 
+            margin-bottom: 24px !important; 
+            overflow: hidden !important; 
+            backdrop-filter: blur(16px);
+        }
+        .chapter-header {
+            padding: 18px 24px; 
+            background: rgba(10, 15, 28, 0.7); 
+            font-weight: 800; 
+            color: #00aaff; 
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+        }
+        .topic-list { list-style: none; padding: 0; margin: 0; }
+        .topic-item {
+            display: flex !important; 
+            align-items: center !important; 
+            justify-content: space-between !important;
+            padding: 16px 24px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04); 
+            gap: 16px;
+        }
+        .topic-item:hover { background: rgba(0, 170, 255, 0.06); }
+        .topic-link { color: #e0e6ed; font-size: 1rem; text-decoration: none; font-weight: 600; flex: 1; }
+        .topic-link:hover { color: #00aaff; }
+
+        .status-pill { 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            padding: 5px 12px; 
+            border-radius: 8px; 
+            white-space: nowrap; 
+            transition: all 0.3s ease; 
+        }
+        .status-pill.done { 
+            background: rgba(16, 185, 129, 0.15); 
+            color: #34d399; 
+            border: 1px solid rgba(16, 185, 129, 0.3); 
+        }
+        .status-pill.open { 
+            background: rgba(148, 163, 184, 0.1); 
+            color: #94a3b8; 
+            border: 1px solid rgba(148, 163, 184, 0.2); 
+        }
+
+        .codify-footer {
+            margin-top: 50px !important;
+            border-top: 1px solid rgba(0, 170, 255, 0.15) !important;
+            padding: 24px 20px !important;
+            text-align: center !important;
+            color: #94a3b8 !important;
+            font-size: 0.9rem !important;
+            background: rgba(10, 15, 28, 0.95) !important;
+            position: relative !important;
+            z-index: 10 !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .codify-footer div { color: #94a3b8 !important; }
+        .team-hover-wrapper { position: relative; display: inline-block; cursor: pointer; }
+        .team-trigger { color: #00aaff !important; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; padding: 4px 8px; border-radius: 6px; }
+        .team-popover {
+            position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(8px);
+            width: 320px; background: rgba(13, 27, 42, 0.98); border: 1px solid rgba(0, 170, 255, 0.35);
+            border-radius: 16px; padding: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s ease; z-index: 100;
+        }
+        .team-hover-wrapper:hover .team-popover { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+        .popover-header { font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; color: #00aaff; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid rgba(0, 170, 255, 0.15); padding-bottom: 6px; }
+        .team-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+        .team-member { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #e0e6ed; font-weight: 600; cursor: pointer; padding: 6px 8px; border-radius: 6px; }
+        .team-member:hover { background: rgba(0, 170, 255, 0.15); color: #ffffff; }
+        .member-dot { width: 6px; height: 6px; background: #00aaff; border-radius: 50%; }
+        .student-id { color: #00aaff; font-size: 0.75rem; font-weight: 800; margin-left: auto; }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(5, 10, 20, 0.85); backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center; z-index: 9999; padding: 20px;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal-card {
+            background: #0d1b2a; border: 1.5px solid #00aaff; border-radius: 24px; max-width: 450px; width: 100%; padding: 32px; text-align: center; position: relative;
+        }
+        .modal-close-btn { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer; }
+        .eng-avatar { width: 80px; height: 80px; background: rgba(0, 170, 255, 0.15); border: 2px solid #00aaff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #00aaff; margin: 0 auto 15px auto; font-weight: bold; }
+        .eng-name { margin: 0; color: #fff; font-size: 1.6rem; font-weight: 800; }
+        .eng-id { color: #00aaff; font-weight: 700; margin: 5px 0 15px 0; font-size: 0.95rem; }
+        .eng-role { background: rgba(13, 27, 42, 0.8); border: 1px solid rgba(0, 170, 255, 0.3); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; color: #e0e6ed; font-weight: bold; display: inline-block; }
+        .eng-bio-box { background: rgba(10, 15, 28, 0.5); padding: 20px; border-radius: 12px; border: 1px solid rgba(0, 170, 255, 0.15); margin: 20px 0; }
+        .eng-bio-box p { margin: 0; color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
+        .eng-actions { display: flex; gap: 12px; justify-content: center; }
+        .eng-actions a { flex: 1; padding: 10px; font-size: 0.95rem; }
+    </style>
+</head>
+
+<body>
+
+    <header class="codify-main-header">
+        <div class="codify-header-container">
+            <div class="codify-left-group">
+                <a href="/index.html" class="codify-logo">
+                    <img src="/src/assets/logos/main-logo.svg" alt="Codify Logo" class="logo-icon">
+                    <span class="logo-text">Codify</span>
+                </a>
+            </div>
+            <nav class="codify-center-nav" aria-label="Main navigation menu">
+                <ul class="codify-nav-links">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/src/pages/courses.html" class="active-link">Courses</a></li>
+                    <li><a href="/src/pages/courses/exam.html">Quizzes &amp; Exams</a></li>
+                    <li><a href="/src/pages/certificate.html">Certificates</a></li>
+                    <li><a href="/src/pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="codify-right-group">
+                <div class="codify-auth-group" id="authNavGroup">
+                    <a href="/src/auth/login.html" class="codify-btn-outline">Login</a>
+                    <a href="/src/auth/signup.html" class="codify-btn-outline">Signup</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="index-title" id="coursePageTitle">Loading Course Syllabus...</h1>
+
+        <section class="progress-card">
+            <div class="progress-top">
+                <strong style="color: #ffffff; font-size: 1.1rem;">Your Course Matrix</strong>
+                <div class="progress-metrics">
+                    <span class="metric-pill finished" id="finishedMetric">0 Finished</span>
+                    <span class="metric-pill pending" id="pendingMetric">0 Incomplete</span>
+                </div>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+        </section>
+
+        <!-- DYNAMIC CHAPTERS CONTAINER -->
+        <div id="syllabusContainer"></div>
+    </main>
+
+    <footer class="codify-footer">
+        <div>
+            Built with precision for future developers • Developed by
+            <span class="team-hover-wrapper" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="team-trigger">Codify Team</span>
+
+                <div class="team-popover" role="tooltip">
+                    <div class="popover-header">Core Engineers</div>
+                    <ul class="team-list">
+                        <li class="team-member" onclick="openEngineerModal('owais')" style="font-weight: 700;">
+                            <span class="member-dot"></span>Mohammed Owais <span class="student-id">(24030-CM-193)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('dhanush')">
+                            <span class="member-dot"></span>M. Dhanush <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('feroz')">
+                            <span class="member-dot"></span>MD. Feroz Basha <span class="student-id">(24030-CM-190)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('basha')">
+                            <span class="member-dot"></span>M. Basha <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('prasad')">
+                            <span class="member-dot"></span>M. Prasad <span class="student-id">(24030-CM-196)</span>
+                        </li>
+                    </ul>
+                </div>
+            </span>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="engineerModal" aria-hidden="true">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div id="engAvatar" class="eng-avatar"></div>
+                <h2 id="engName" class="eng-name">Name</h2>
+                <p id="engId" class="eng-id">ID</p>
+                <span id="engRole" class="eng-role">Role</span>
+            </div>
+            <div class="eng-bio-box">
+                <p id="engBio">Bio goes here...</p>
+            </div>
+            <div class="eng-actions">
+                <a href="#" id="engEmail" class="codify-btn-outline">✉️ Email</a>
+                <a href="#" id="engGithub" class="codify-btn-outline" target="_blank">💻 GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/js/auth/nav-auth.js"></script>
+    <script type="module" src="/src/js/config/supabase-client.js"></script>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseParam = urlParams.get('course') || 'c';
+
+        const courseConfigMap = {
+            'c': { id: 'c-101', enrollPage: 'course-enroll.html?course=c', jsonPath: '/src/data/c-syllabus.json' },
+            'python': { id: 'python-101', enrollPage: 'course-enroll.html?course=python', jsonPath: '/src/data/python-syllabus.json' },
+            'cpp': { id: 'cpp-101', enrollPage: 'course-enroll.html?course=cpp', jsonPath: '/src/data/cpp-syllabus.json' },
+            'java': { id: 'java-101', enrollPage: 'course-enroll.html?course=java', jsonPath: '/src/data/java-syllabus.json' },
+            'html': { id: 'html-101', enrollPage: 'course-enroll.html?course=html', jsonPath: '/src/data/html-syllabus.json' }
+        };
+
+        const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
+        const COURSE_ID = activeCourse.id;
+
+        function normalizePath(path) {
+            if (!path) return '';
+            return path.replace(/^\/+/, '').trim();
+        }
+
+        async function verifyEnrollmentGuard(user) {
+            const { data: enrollment, error } = await supabase
+                .from('user_enrollments')
+                .select('id')
+                .eq('user_id', user.id)
+                .eq('course_id', COURSE_ID)
+                .maybeSingle();
+
+            if (!enrollment || error) {
+                window.location.replace(activeCourse.enrollPage);
+                return false;
+            }
+            return true;
+        }
+
+        async function initPage() {
+            try {
+                const response = await fetch(activeCourse.jsonPath);
+                if (!response.ok) throw new Error('Failed to fetch course syllabus configuration');
+                const syllabusData = await response.json();
+
+                document.title = `${syllabusData.course_title.split(' ')[0]} Syllabus | Codify`;
+                document.getElementById('coursePageTitle').innerHTML = `${syllabusData.course_title.split(' ')[0]} Programming <span>Course Index &amp; Syllabus</span>`;
+
+                const container = document.getElementById('syllabusContainer');
+                let htmlContent = '';
+                let totalTopicsCount = 0;
+
+                syllabusData.chapters.forEach(chapter => {
+                    htmlContent += `
+                        <section class="chapter-card">
+                            <div class="chapter-header">${chapter.chapter_title}</div>
+                            <ul class="topic-list">
+                    `;
+                    chapter.topics.forEach(topic => {
+                        totalTopicsCount++;
+                        // Fixed: Navigate correctly to course-lesson.html with course and file parameters
+                        htmlContent += `
+                            <li class="topic-item">
+                                <a href="course-lesson.html?course=${courseParam}&file=${topic.file}" class="topic-link">${topic.title}</a>
+                                <span class="status-pill open" data-topic="${topic.file}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="9"></circle></svg> Incomplete</span>
+                            </li>
+                        `;
+                    });
+                    htmlContent += `</ul></section>`;
+                });
+
+                container.innerHTML = htmlContent;
+
+                const { data: { session } } = await supabase.auth.getSession();
+                const user = session?.user;
+
+                if (!user) {
+                    window.location.replace('/src/auth/login.html');
+                    return;
+                }
+
+                const isEnrolled = await verifyEnrollmentGuard(user);
+                if (!isEnrolled) return;
+
+                const { data: progress, error } = await supabase
+                    .from('user_progress')
+                    .select('lesson_id, completed')
+                    .eq('user_id', user.id)
+                    .eq('course_id', COURSE_ID);
+
+                if (error) throw error;
+
+                let finishedCount = 0;
+
+                if (progress && progress.length > 0) {
+                    const completedSet = new Set(
+                        progress.filter(p => p.completed).map(p => normalizePath(p.lesson_id))
+                    );
+
+                    document.querySelectorAll('.status-pill[data-topic]').forEach(badge => {
+                        const topicKey = normalizePath(badge.getAttribute('data-topic'));
+                        const isDone = Array.from(completedSet).some(comp => comp.includes(topicKey) || topicKey.includes(comp));
+
+                        if (isDone) {
+                            finishedCount++;
+                            badge.className = 'status-pill done';
+                            badge.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Finished';
+                        } else {
+                            badge.className = 'status-pill open';
+                            badge.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="9"></circle></svg> Incomplete';
+                        }
+                    });
+                }
+
+                const pendingCount = Math.max(0, totalTopicsCount - finishedCount);
+                const percentage = Math.round((finishedCount / totalTopicsCount) * 100);
+
+                const finishedEl = document.getElementById('finishedMetric');
+                const pendingEl = document.getElementById('pendingMetric');
+                const progressFill = document.getElementById('progressBarFill');
+
+                if (finishedEl) finishedEl.textContent = `${finishedCount} Finished`;
+                if (pendingEl) pendingEl.textContent = `${pendingCount} Incomplete`;
+                if (progressFill) progressFill.style.width = `${percentage}%`;
+
+            } catch (err) {
+                console.error('Initialization error:', err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initPage);
+
+        // Core Engineers Popover & Modal Handlers
+        const teamDatabase = {
+            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
+            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
+            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Authentication and security.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
+            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Curriculum layout and styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
+            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Performance testing and QA.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
+        };
+
+        const engModal = document.getElementById('engineerModal');
+        window.openEngineerModal = function (key) {
+            const eng = teamDatabase[key];
+            if (!eng || !engModal) return;
+            document.getElementById('engAvatar').textContent = eng.initials;
+            document.getElementById('engName').textContent = eng.name;
+            document.getElementById('engId').textContent = `Student ID: ${eng.id}`;
+            document.getElementById('engRole').textContent = eng.role;
+            document.getElementById('engBio').textContent = eng.bio;
+            document.getElementById('engEmail').href = eng.email;
+            document.getElementById('engGithub').href = eng.github;
+            engModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+
+        document.getElementById('closeEngineerModal')?.addEventListener('click', () => {
+            if (engModal) {
+                engModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Interactive programming modules and documentation on Codify.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/global-lesson.css">
+    <link rel="stylesheet" href="/src/css/global.css">
+
+    <title>Lesson | Codify</title>
+
+    <!-- Locked, stable Marked.js Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+
+    <style id="authGuardStyle">
+        html.auth-checking body {
+            display: none !important;
+        }
+    </style>
+    <script>
+        document.documentElement.classList.add('auth-checking');
+    </script>
+
+    <style>
+        /* Live Code Sandbox Preview Modal (Exclusive for HTML / Web interactive previews) */
+        .preview-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 10, 20, 0.88);
+            backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .preview-modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .preview-modal-card {
+            background: #0d1b2a;
+            border: 1.5px solid #00aaff;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 170, 255, 0.3);
+        }
+
+        .preview-modal-header {
+            padding: 12px 20px;
+            background: #161b22;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+            color: #00aaff;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .preview-close-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .preview-close-btn:hover {
+            color: #ff5f56;
+        }
+
+        .preview-frame {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
+
+    <!-- TOP HEADER -->
+    <header class="codify-main-header">
+        <div class="codify-header-container">
+            <div class="codify-left-group">
+                <div class="codify-logo" onclick="window.location.href='/index.html'" role="button" tabindex="0"
+                    aria-label="Codify Homepage">
+                    <img src="/src/assets/logos/main-logo.svg" alt="Codify Logo" class="logo-icon">
+                    <span class="logo-text">Codify</span>
+                </div>
+            </div>
+
+            <nav class="codify-center-nav" id="centerNav" aria-label="Main navigation menu">
+                <ul class="codify-nav-links" id="navLinks">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/src/pages/courses.html" class="active-link" aria-current="page">Courses</a></li>
+                    <li><a href="/src/pages/courses/exam.html">Quizzes &amp; Exams</a></li>
+                    <li><a href="/src/pages/certificate.html">Certificates</a></li>
+                    <li><a href="/src/pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="codify-right-group">
+                <div class="codify-search-box">
+                    <input type="text" id="siteSearchTrigger" placeholder="Search everything... (⌘K)" autocomplete="off">
+                    <span class="search-kbd"><kbd>⌘K</kbd></span>
+                </div>
+
+                <button class="mobile-search-trigger" id="mobileSearchBtn" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                </button>
+
+                <div class="codify-auth-group" id="authNavGroup">
+                    <a href="/src/auth/login.html" class="codify-btn-outline" title="Login">Login</a>
+                    <a href="/src/auth/signup.html" class="codify-btn-outline" title="Signup">Signup</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB BAR -->
+    <header class="codify-breadcrumb-bar">
+        <button class="breadcrumb-sidebar-trigger" id="sidebarToggleMobile" aria-label="Toggle Course Index">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="3" x2="9" y2="21"></line>
+            </svg>
+        </button>
+        <div class="breadcrumb-vertical-divider"></div>
+
+        <nav aria-label="breadcrumb">
+            <ol class="codify-breadcrumbs">
+                <li><a href="/src/pages/courses.html">Courses</a></li>
+                <li class="breadcrumb-chevron">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </li>
+                <li><a href="#" id="breadcrumbCourseLink">Course Syllabus</a></li>
+                <li class="breadcrumb-chevron">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </li>
+                <li><span class="current-crumb" id="breadcrumbCurrent">Loading Topic...</span></li>
+            </ol>
+        </nav>
+    </header>
+
+    <div class="page-wrapper">
+        <!-- SIDEBAR TREE (POPULATED DYNAMICALLY FROM JSON) -->
+        <aside class="sidebar-nav" id="sidebarNav">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title" id="sidebarCourseTitle">Curriculum</h2>
+            </div>
+            <ul class="tree-root" id="sidebarTreeRoot">
+                <!-- Dynamically injected chapters & leaves -->
+            </ul>
+        </aside>
+
+        <!-- MARKDOWN LESSON WORKSPACE -->
+        <main class="content-workspace">
+            <article class="content-body">
+                <header class="content-header-group">
+                    <h1 class="topic-title" id="pageMainHeading">Loading Topic...</h1>
+                    <div class="content-nav-row top-nav-row">
+                        <a href="#" class="codify-btn-outline nav-btn" id="prevTopicBtnTop">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="m15 18-6-6 6-6" />
+                            </svg> Previous Topic
+                        </a>
+                        <a href="#" class="codify-btn-outline nav-btn" id="nextTopicBtnTop">
+                            Next Topic <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </a>
+                    </div>
+                </header>
+
+                <div id="markdownOutputContainer">
+                    <p style="color: #00aaff; text-align: center;">Rendering lesson module stream...</p>
+                </div>
+
+                <!-- DYNAMIC QUIZ MOUNT CONTAINER -->
+                <div id="dynamicQuizMount"></div>
+
+                <!-- FAST LOADING LESSON COMPLETION CARD -->
+                <div class="lesson-complete-card">
+                    <div class="complete-text">
+                        <h3>Finished this topic?</h3>
+                        <p>Marking this topic as finished updates your course completion matrix.</p>
+                    </div>
+                    <button id="markCompleteBtn" class="mark-btn" onclick="toggleLessonCompletion()">
+                        <span id="completeBtnText">Mark as Completed</span>
+                    </button>
+                </div>
+
+                <!-- FAST LOADING BOTTOM NAVIGATION ROW -->
+                <div class="content-nav-row bottom-nav-row">
+                    <a href="#" class="codify-btn-outline nav-btn" id="prevTopicBtnBtm">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg> Previous Topic
+                    </a>
+                    <a href="#" class="codify-btn-outline nav-btn" id="nextTopicBtnBtm">
+                        Next Topic <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <!-- FOOTER WITH CORE ENGINEERS POPOVER -->
+    <footer class="codify-footer">
+        <div>
+            Built with precision for future developers • Developed by
+            <span class="team-hover-wrapper" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="team-trigger">Codify Team</span>
+
+                <div class="team-popover" role="tooltip">
+                    <div class="popover-header">Core Engineers</div>
+                    <ul class="team-list">
+                        <li class="team-member interactive" onclick="openEngineerModal('owais')" style="font-weight: 700;">
+                            <span class="member-dot"></span>Mohammed Owais <span class="student-id">(24030-CM-193)</span>
+                        </li>
+                        <li class="team-member interactive" onclick="openEngineerModal('dhanush')">
+                            <span class="member-dot"></span>M. Dhanush <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member interactive" onclick="openEngineerModal('feroz')">
+                            <span class="member-dot"></span>MD. Feroz Basha <span class="student-id">(24030-CM-190)</span>
+                        </li>
+                        <li class="team-member interactive" onclick="openEngineerModal('basha')">
+                            <span class="member-dot"></span>M. Basha <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member interactive" onclick="openEngineerModal('prasad')">
+                            <span class="member-dot"></span>M. Prasad <span class="student-id">(24030-CM-196)</span>
+                        </li>
+                    </ul>
+                </div>
+            </span>
+        </div>
+    </footer>
+
+    <!-- ENGINEER MODAL -->
+    <div class="modal-overlay" id="engineerModal" aria-hidden="true">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div id="engAvatar" class="eng-avatar"></div>
+                <h2 id="engName" class="eng-name">Name</h2>
+                <p id="engId" class="eng-id">ID</p>
+                <span id="engRole" class="eng-role">Role</span>
+            </div>
+            <div class="eng-bio-box">
+                <p id="engBio">Bio goes here...</p>
+            </div>
+            <div class="eng-actions">
+                <a href="#" id="engEmail" class="codify-btn-outline">✉️ Email</a>
+                <a href="#" id="engGithub" class="codify-btn-outline" target="_blank">💻 GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH HUD MODAL -->
+    <div class="search-overlay-modal" id="searchOverlayModal" aria-hidden="true">
+        <div class="search-modal-card">
+            <div class="search-modal-header">
+                <svg class="search-icon-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                </svg>
+                <input type="text" id="modalSearchInput" placeholder="Type keywords..." autocomplete="off">
+                <button class="search-modal-close" id="modalSearchClose" aria-label="Close Search">✕</button>
+            </div>
+            <div class="search-results-viewport">
+                <div class="search-results-status" id="searchResultsStatus">Start typing to search your course parameters...</div>
+                <ul class="search-results-list" id="searchResultsList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFESSIONAL LIGHTBOX MODAL WITH ZOOM, PAN & HUD TOAST -->
+    <div class="lightbox-modal" id="globalLightbox" role="dialog" aria-hidden="true">
+        <span class="lightbox-close" id="closeLightbox" title="Close Lightbox">&times;</span>
+        <div class="lightbox-viewport" id="lightboxViewport">
+            <img class="lightbox-img" id="lightboxTargetImg" src="" alt="Active course diagram blueprint view">
+        </div>
+        <div class="lightbox-hud-box" id="lightboxHudBox">
+            <button class="hud-dismiss-btn" id="dismissHudBtn" title="Dismiss Hints">✕</button>
+            <div class="hud-item">
+                <span class="hud-icon">🖱️</span>
+                <span><strong>Mouse / Trackpad:</strong> Scroll to Zoom. Click &amp; Drag to Pan.</span>
+            </div>
+            <div class="hud-divider"></div>
+            <div class="hud-item">
+                <span class="hud-icon">⌨️</span>
+                <span><strong>Shortcuts:</strong> Zoom In <kbd>+</kbd> | Zoom Out <kbd>-</kbd> | Reset View <kbd>0</kbd></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CODE RUNNER SANDBOX MODAL -->
+    <div class="preview-modal-overlay" id="codePreviewModal" aria-hidden="true">
+        <div class="preview-modal-card">
+            <div class="preview-modal-header">
+                <span>⚡ Live Sandbox Output</span>
+                <button class="preview-close-btn" id="closePreviewBtn" title="Close Preview">✕</button>
+            </div>
+            <iframe class="preview-frame" id="codeSandboxFrame" sandbox="allow-scripts allow-modals"></iframe>
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseParam = urlParams.get('course') || 'c';
+        const fileParam = urlParams.get('file');
+
+        // Course Map configuration mapping handles to database IDs, config files, and folder directories
+        const courseConfigMap = {
+            'c': { id: 'c-101', enrollPage: 'course-enroll.html?course=c', indexPage: 'course-index.html?course=c', jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
+            'python': { id: 'python-101', enrollPage: 'course-enroll.html?course=python', indexPage: 'course-index.html?course=python', jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
+            'cpp': { id: 'cpp-101', enrollPage: 'course-enroll.html?course=cpp', indexPage: 'course-index.html?course=cpp', jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
+            'java': { id: 'java-101', enrollPage: 'course-enroll.html?course=java', indexPage: 'course-index.html?course=java', jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
+            'html': { id: 'html-101', enrollPage: 'course-enroll.html?course=html', indexPage: 'course-index.html?course=html', jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
+        };
+
+        const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
+        const COURSE_ID = activeCourse.id;
+
+        function revealPage() {
+            document.documentElement.classList.remove('auth-checking');
+            const style = document.getElementById('authGuardStyle');
+            if (style) style.remove();
+        }
+
+        async function checkAccess() {
+            const safetyTimer = setTimeout(() => { revealPage(); }, 4000);
+
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                const user = session?.user;
+
+                if (!user) {
+                    clearTimeout(safetyTimer);
+                    const returnUrl = encodeURIComponent(window.location.href);
+                    window.location.replace(`/src/auth/login.html?redirect=${returnUrl}`);
+                    return;
+                }
+
+                const { data: enrollment } = await supabase
+                    .from('user_enrollments')
+                    .select('id')
+                    .eq('user_id', user.id)
+                    .eq('course_id', COURSE_ID)
+                    .maybeSingle();
+
+                if (!enrollment) {
+                    clearTimeout(safetyTimer);
+                    window.location.replace(activeCourse.enrollPage);
+                    return;
+                }
+
+                clearTimeout(safetyTimer);
+                revealPage();
+            } catch (err) {
+                clearTimeout(safetyTimer);
+                revealPage();
+            }
+        }
+
+        checkAccess();
+    </script>
+
+    <script type="module" src="/src/js/auth/nav-auth.js"></script>
+    <script type="module" src="/src/js/config/supabase-client.js"></script>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        marked.setOptions({ gfm: true, breaks: true });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseParam = urlParams.get('course') || 'c';
+        const fileParam = urlParams.get('file');
+
+        const courseConfigMap = {
+            'c': { id: 'c-101', indexPage: 'course-index.html?course=c', jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
+            'python': { id: 'python-101', indexPage: 'course-index.html?course=python', jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
+            'cpp': { id: 'cpp-101', indexPage: 'course-index.html?course=cpp', jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
+            'java': { id: 'java-101', indexPage: 'course-index.html?course=java', jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
+            'html': { id: 'html-101', indexPage: 'course-index.html?course=html', jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
+        };
+
+        const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
+        const COURSE_ID = activeCourse.id;
+
+        function applyCyberStyles(container) {
+            container.querySelectorAll('table').forEach(table => {
+                if (!table.parentElement.classList.contains('table-container')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'table-container';
+                    table.className = 'modern-table';
+                    table.parentNode.insertBefore(wrapper, table);
+                    wrapper.appendChild(table);
+                }
+            });
+
+            container.querySelectorAll('blockquote').forEach(bq => {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'cyber-alert info';
+                alertDiv.innerHTML = `<div class="alert-icon">💡</div><div class="alert-text">${bq.innerHTML}</div>`;
+                bq.parentNode.replaceChild(alertDiv, bq);
+            });
+
+            container.querySelectorAll('pre').forEach(pre => {
+                const codeElem = pre.querySelector('code');
+                const rawCode = codeElem ? codeElem.textContent : pre.textContent;
+                const langClass = codeElem ? codeElem.className : '';
+                const lang = (langClass.replace('language-', '') || 'code').toLowerCase().trim();
+
+                if (lang === 'output' || lang === 'console') return;
+                const isPlainText = (lang === 'text');
+
+                let staticOutputText = "Program finished with exit code 0.";
+                let nextSibling = pre.nextElementSibling;
+                while (nextSibling && nextSibling.tagName === 'P' && nextSibling.textContent.trim() === '') {
+                    nextSibling = nextSibling.nextElementSibling;
+                }
+
+                if (nextSibling && nextSibling.tagName === 'PRE') {
+                    const nextCode = nextSibling.querySelector('code');
+                    const nextLang = nextCode ? nextCode.className.toLowerCase() : '';
+                    if (nextLang.includes('output') || nextLang.includes('console')) {
+                        staticOutputText = nextCode ? nextCode.textContent.trim() : nextSibling.textContent.trim();
+                        nextSibling.style.display = 'none';
+                    }
+                }
+
+                const macWindow = document.createElement('div');
+                macWindow.className = 'mac-code-window';
+                macWindow.innerHTML = `
+                    <div class="mac-header">
+                        <div class="mac-left-group">
+                            <div class="mac-traffic-lights">
+                                <div class="mac-dot mac-red"></div>
+                                <div class="mac-dot mac-yellow"></div>
+                                <div class="mac-dot mac-green"></div>
+                            </div>
+                        </div>
+                        <span class="mac-lang-tag">${lang}</span>
+                        <div class="mac-actions">
+                            <button class="code-icon-btn btn-copy" title="Copy Code"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                            ${!isPlainText ? `
+                            <button class="code-icon-btn btn-download" title="Download Snippet"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
+                            <button class="code-icon-btn btn-run" title="Run Code"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></button>
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="mac-body"><pre><code>${codeElem ? codeElem.innerHTML : rawCode}</code></pre></div>
+                    <div class="mac-output-drawer">
+                        <div class="output-header"><span>⚡ Terminal Output</span></div>
+                        <pre class="output-body">${staticOutputText}</pre>
+                    </div>
+                `;
+
+                const copyBtn = macWindow.querySelector('.btn-copy');
+                if (copyBtn) {
+                    copyBtn.onclick = () => {
+                        navigator.clipboard.writeText(rawCode).then(() => {
+                            copyBtn.classList.add('copied');
+                            setTimeout(() => copyBtn.classList.remove('copied'), 2000);
+                        });
+                    };
+                }
+
+                const dlBtn = macWindow.querySelector('.btn-download');
+                if (dlBtn) {
+                    dlBtn.onclick = () => {
+                        const blob = new Blob([rawCode], { type: 'text/plain;charset=utf-8' });
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = `codify-snippet.${lang}`;
+                        link.click();
+                        URL.revokeObjectURL(link.href);
+                    };
+                }
+
+                const runBtn = macWindow.querySelector('.btn-run');
+                const outputDrawer = macWindow.querySelector('.mac-output-drawer');
+                if (runBtn && outputDrawer) {
+                    runBtn.onclick = () => outputDrawer.classList.toggle('active');
+                }
+
+                pre.parentNode.replaceChild(macWindow, pre);
+            });
+        }
+
+        function compileMarkdownQuiz(markdownText) {
+            const quizMatch = markdownText.match(/(?:##|###)\s*(?:Topic\s+Quiz|Quiz)[\s\S]*$/i);
+            const mount = document.getElementById('dynamicQuizMount');
+            if (!quizMatch || !mount) {
+                if (mount) mount.innerHTML = '';
+                return markdownText;
+            }
+
+            const quizRawBlock = quizMatch[0];
+            const cleanMarkdown = markdownText.replace(quizRawBlock, '');
+            const questionBlocks = quizRawBlock.split(/\n(?=\d+\.\s+)/).slice(1);
+            if (questionBlocks.length === 0) return cleanMarkdown;
+
+            let quizHTML = `<div class="interactive-quiz-container">`;
+            questionBlocks.forEach((qBlock, idx) => {
+                const firstOptionIndex = qBlock.search(/\n\s*-\s*\[[ x]\]/i);
+                let rawPrompt = firstOptionIndex !== -1 ? qBlock.substring(0, firstOptionIndex).trim() : qBlock.trim();
+                let rawOptions = firstOptionIndex !== -1 ? qBlock.substring(firstOptionIndex).trim() : '';
+
+                rawPrompt = rawPrompt.replace(/^\d+\.\s+/, '').trim();
+                rawPrompt = rawPrompt.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+                const optionLines = rawOptions.split('\n').filter(line => /-\s*\[[ x]\]/i.test(line));
+
+                quizHTML += `
+                    <div class="quiz-question-block ${idx === 0 ? 'active-question' : ''}" id="qb-${idx + 1}">
+                        <div class="quiz-header"><span class="quiz-tracker">Question ${idx + 1} of${questionBlocks.length}</span></div>
+                        <div class="quiz-prompt">${rawPrompt}</div>
+                        <div class="quiz-options">
+                `;
+
+                optionLines.forEach(opt => {
+                    const isCorrect = /-\s*\[x\]/i.test(opt);
+                    let optText = opt.replace(/^-\s*\[[ x]\]\s*/i, '').trim().replace(/`([^`]+)`/g, '<code>$1</code>');
+                    quizHTML += `<button class="q-option" onclick="handleAnswer(this, ${isCorrect}, ${idx + 1})">${optText}</button>`;
+                });
+
+                quizHTML += `</div><button class="next-question-btn" id="next-${idx + 1}" onclick="nextQuestion(${idx + 1})">Next Question ➔</button></div>`;
+            });
+
+            quizHTML += `<div class="quiz-completion" id="qb-complete"><h3 style="color: #00aaff; font-size: 2rem;">Module Complete! 🎉</h3></div></div>`;
+            mount.innerHTML = quizHTML;
+            return cleanMarkdown;
+        }
+
+        function toggleBranch(branch, forceOpen = false) {
+            const leaves = branch.querySelector('.tree-leaves');
+            if (!leaves) return;
+            if (forceOpen || !branch.classList.contains('expanded')) {
+                branch.classList.add('expanded');
+                leaves.style.maxHeight = leaves.scrollHeight + 'px';
+            } else {
+                branch.classList.remove('expanded');
+                leaves.style.maxHeight = '0px';
+            }
+        }
+
+        async function loadSyllabusAndLesson() {
+            try {
+                const res = await fetch(activeCourse.jsonPath);
+                if (!res.ok) throw new Error('Failed to load syllabus config');
+                const syllabus = await res.json();
+
+                document.getElementById('sidebarCourseTitle').textContent = `${syllabus.course_title.split(' ')[0]} Curriculum`;
+                document.getElementById('breadcrumbCourseLink').textContent = `${syllabus.course_title.split(' ')[0]} Syllabus`;
+                document.getElementById('breadcrumbCourseLink').href = activeCourse.indexPage;
+
+                let treeHtml = '';
+                let flatTopics = [];
+
+                syllabus.chapters.forEach((ch, cIdx) => {
+                    treeHtml += `
+                        <li class="tree-branch">
+                            <div class="tree-node">
+                                <span class="tree-arrow"><svg width="14" height="14" viewBox="0 0 15 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"></path></svg></span>
+                                <span class="chapter-title">${ch.chapter_title}</span>
+                            </div>
+                            <ul class="tree-leaves">
+                    `;
+                    ch.topics.forEach(top => {
+                        flatTopics.push({ title: top.title, file: top.file });
+                        treeHtml += `<li><a href="course-lesson.html?course=${courseParam}&file=${top.file}" class="topic-link" data-title="${top.title}">${top.title}</a></li>`;
+                    });
+                    treeHtml += `</ul></li>`;
+                });
+
+                document.getElementById('sidebarTreeRoot').innerHTML = treeHtml;
+
+                document.querySelectorAll('.tree-node').forEach(node => {
+                    node.onclick = (e) => {
+                        e.stopPropagation();
+                        toggleBranch(node.closest('.tree-branch'));
+                    };
+                });
+
+                const defaultFile = flatTopics.length > 0 ? flatTopics[0].file : '';
+                const targetFile = fileParam || defaultFile;
+                const targetUrl = `${window.location.origin}${activeCourse.baseDir}${targetFile}`;
+
+                const mdRes = await fetch(targetUrl);
+                if (!mdRes.ok) throw new Error(`Could not fetch markdown file: ${targetFile}`);
+
+                let mdText = await mdRes.text();
+                mdText = compileMarkdownQuiz(mdText);
+
+                const container = document.getElementById('markdownOutputContainer');
+                container.innerHTML = marked.parse(mdText);
+                applyCyberStyles(container);
+
+                let activeIdx = flatTopics.findIndex(t => t.file.includes(targetFile));
+                document.querySelectorAll('.tree-leaves a').forEach((l, idx) => {
+                    if (idx === activeIdx) {
+                        l.classList.add('active');
+                        toggleBranch(l.closest('.tree-branch'), true);
+                        const title = l.getAttribute('data-title');
+                        document.getElementById('breadcrumbCurrent').textContent = title;
+                        document.getElementById('pageMainHeading').textContent = title;
+                        document.title = `${title} | Codify`;
+                    }
+                });
+
+                const prevHref = activeIdx > 0 ? `course-lesson.html?course=${courseParam}&file=${flatTopics[activeIdx - 1].file}` : activeCourse.indexPage;
+                const nextHref = activeIdx >= 0 && activeIdx < flatTopics.length - 1 ? `course-lesson.html?course=${courseParam}&file=${flatTopics[activeIdx + 1].file}` : activeCourse.indexPage;
+
+                ['prevTopicBtnTop', 'prevTopicBtnBtm'].forEach(id => document.getElementById(id).href = prevHref);
+                ['nextTopicBtnTop', 'nextTopicBtnBtm'].forEach(id => document.getElementById(id).href = nextHref);
+
+            } catch (err) {
+                console.error("Lesson load error:", err);
+                document.getElementById('markdownOutputContainer').innerHTML = `<h2 style="color: #ff5252;">Module Load Error</h2><p>${err.message}</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSyllabusAndLesson);
+
+        // Sidebar mobile toggle
+        const sidebarToggleMobile = document.getElementById('sidebarToggleMobile');
+        const sidebar = document.getElementById('sidebarNav');
+        const backdrop = document.getElementById('navBackdrop');
+        if (sidebarToggleMobile && sidebar) {
+            sidebarToggleMobile.onclick = () => {
+                sidebar.classList.toggle('mobile-active');
+                backdrop.classList.toggle('active');
+            };
+        }
+        if (backdrop) backdrop.onclick = () => { sidebar.classList.remove('mobile-active'); backdrop.classList.remove('active'); };
+
+        // Quiz sequential handlers
+        window.handleAnswer = (btn, isCorrect, qNum) => {
+            const allBtns = btn.parentElement.querySelectorAll('.q-option');
+            allBtns.forEach(b => b.classList.add('locked'));
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            document.getElementById('next-' + qNum).style.display = 'block';
+        };
+        window.nextQuestion = (curr) => {
+            document.getElementById('qb-' + curr).classList.remove('active-question');
+            document.getElementById('qb-' + (curr + 1)).classList.add('active-question');
+        };
+        window.finishQuiz = (total) => {
+            document.getElementById('qb-' + total).classList.remove('active-question');
+            document.getElementById('qb-complete').classList.add('active');
+        };
+
+        // Progress Tracking & Completion
+        let isCompleted = false;
+        async function initProgress() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user || !fileParam) return;
+
+            const { data } = await supabase.from('user_progress').select('completed').eq('user_id', user.id).eq('course_id', COURSE_ID).eq('lesson_id', fileParam).maybeSingle();
+            if (data?.completed) {
+                isCompleted = true;
+                const btn = document.getElementById('markCompleteBtn');
+                btn.classList.add('is-completed');
+                document.getElementById('completeBtnText').textContent = '✓ Completed';
+            }
+
+            window.toggleLessonCompletion = async () => {
+                isCompleted = !isCompleted;
+                const btn = document.getElementById('markCompleteBtn');
+                const btnText = document.getElementById('completeBtnText');
+                if (isCompleted) {
+                    btn.classList.add('is-completed');
+                    btnText.textContent = '✓ Completed';
+                    await supabase.from('user_progress').upsert({ user_id: user.id, course_id: COURSE_ID, lesson_id: fileParam, completed: true });
+                } else {
+                    btn.classList.remove('is-completed');
+                    btnText.textContent = 'Mark as Completed';
+                    await supabase.from('user_progress').delete().eq('user_id', user.id).eq('course_id', COURSE_ID).eq('lesson_id', fileParam);
+                }
+            };
+        }
+        document.addEventListener('DOMContentLoaded', initProgress);
+    </script>
+</body>
+
+</html>

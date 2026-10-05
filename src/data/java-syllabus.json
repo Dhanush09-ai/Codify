@@ -1,0 +1,267 @@
+{
+  "course_id": "java-101",
+  "course_title": "Java Course Index & Syllabus",
+  "description": "Master Java programming from syntax fundamentals to Object-Oriented concepts through structured curriculum tracking on Codify.",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "chapter_title": "Chapter 1 — Introduction to Java",
+      "topics": [
+        {
+          "title": "1.1 What is Java?",
+          "file": "chapter-1/1.1-what-is-java.md"
+        },
+        {
+          "title": "1.2 Features and Uses of Java",
+          "file": "chapter-1/1.2-features-and-uses-of-java.md"
+        },
+        {
+          "title": "1.3 JDK, JRE and JVM",
+          "file": "chapter-1/1.3-jdk-jre-jvm.md"
+        },
+        {
+          "title": "1.4 Setting Up Java and VS Code",
+          "file": "chapter-1/1.4-setting-up-java-vscode.md"
+        },
+        {
+          "title": "1.5 Your First Java Program",
+          "file": "chapter-1/1.5-your-first-java-program.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 2,
+      "chapter_title": "Chapter 2 — Java Basics",
+      "topics": [
+        {
+          "title": "2.1 Structure of a Java Program",
+          "file": "chapter-2/2.1-structure-of-java-program.md"
+        },
+        {
+          "title": "2.2 Variables, Constants and Data Types",
+          "file": "chapter-2/2.2-variables-constants-datatypes.md"
+        },
+        {
+          "title": "2.3 Input and Output",
+          "file": "chapter-2/2.3-input-and-output.md"
+        },
+        {
+          "title": "2.4 Type Casting and Type Conversion",
+          "file": "chapter-2/2.4-type-casting-conversion.md"
+        },
+        {
+          "title": "2.5 Comments and Naming Rules",
+          "file": "chapter-2/2.5-comments-and-naming-rules.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "chapter_title": "Chapter 3 — Operators",
+      "topics": [
+        {
+          "title": "3.1 Arithmetic and Assignment Operators",
+          "file": "chapter-3/3.1-arithmetic-assignment-operators.md"
+        },
+        {
+          "title": "3.2 Relational and Logical Operators",
+          "file": "chapter-3/3.2-relational-logical-operators.md"
+        },
+        {
+          "title": "3.3 Increment and Decrement Operators",
+          "file": "chapter-3/3.3-increment-decrement-operators.md"
+        },
+        {
+          "title": "3.4 Ternary Operator",
+          "file": "chapter-3/3.4-ternary-operator.md"
+        },
+        {
+          "title": "3.5 Operator Precedence",
+          "file": "chapter-3/3.5-operator-precedence.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "chapter_title": "Chapter 4 — Conditional Statements",
+      "topics": [
+        {
+          "title": "4.1 if Statement",
+          "file": "chapter-4/4.1-if-statement.md"
+        },
+        {
+          "title": "4.2 if-else and else-if",
+          "file": "chapter-4/4.2-if-else-and-else-if.md"
+        },
+        {
+          "title": "4.3 Nested if",
+          "file": "chapter-4/4.3-nested-if.md"
+        },
+        {
+          "title": "4.4 switch Statement",
+          "file": "chapter-4/4.4-switch-statement.md"
+        },
+        {
+          "title": "4.5 Conditional Practice",
+          "file": "chapter-4/4.5-conditional-practice.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "chapter_title": "Chapter 5 — Loops",
+      "topics": [
+        {
+          "title": "5.1 Introduction to Loops",
+          "file": "chapter-5/5.1-introduction-to-loops.md"
+        },
+        {
+          "title": "5.2 for Loop",
+          "file": "chapter-5/5.2-for-loop.md"
+        },
+        {
+          "title": "5.3 while and do-while",
+          "file": "chapter-5/5.3-while-and-do-while.md"
+        },
+        {
+          "title": "5.4 break, continue and Nested Loops",
+          "file": "chapter-5/5.4-break-continue-nested-loops.md"
+        },
+        {
+          "title": "5.5 Loop Practice",
+          "file": "chapter-5/5.5-loop-practice.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "chapter_title": "Chapter 6 — Methods",
+      "topics": [
+        {
+          "title": "6.1 What are Methods?",
+          "file": "chapter-6/6.1-what-are-methods.md"
+        },
+        {
+          "title": "6.2 Creating and Calling Methods",
+          "file": "chapter-6/6.2-creating-calling-methods.md"
+        },
+        {
+          "title": "6.3 Parameters and Arguments",
+          "file": "chapter-6/6.3-parameters-and-arguments.md"
+        },
+        {
+          "title": "6.4 Return Values and void",
+          "file": "chapter-6/6.4-return-values-and-void.md"
+        },
+        {
+          "title": "6.5 Method Overloading",
+          "file": "chapter-6/6.5-method-overloading.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "chapter_title": "Chapter 7 — Arrays",
+      "topics": [
+        {
+          "title": "7.1 Introduction to Arrays",
+          "file": "chapter-7/7.1-introduction-to-arrays.md"
+        },
+        {
+          "title": "7.2 Creating, Initializing and Accessing Arrays",
+          "file": "chapter-7/7.2-creating-accessing-arrays.md"
+        },
+        {
+          "title": "7.3 Array Traversal and Input",
+          "file": "chapter-7/7.3-array-traversal-input.md"
+        },
+        {
+          "title": "7.4 Basic Array Operations",
+          "file": "chapter-7/7.4-basic-array-operations.md"
+        },
+        {
+          "title": "7.5 2D Arrays",
+          "file": "chapter-7/7.5-2d-arrays.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 8,
+      "chapter_title": "Chapter 8 — Strings",
+      "topics": [
+        {
+          "title": "8.1 Introduction to Strings",
+          "file": "chapter-8/8.1-introduction-to-strings.md"
+        },
+        {
+          "title": "8.2 Creating and Taking String Input",
+          "file": "chapter-8/8.2-creating-taking-string-input.md"
+        },
+        {
+          "title": "8.3 String Length, Characters and Concatenation",
+          "file": "chapter-8/8.3-length-characters-concatenation.md"
+        },
+        {
+          "title": "8.4 Comparing and Modifying Strings",
+          "file": "chapter-8/8.4-comparing-modifying-strings.md"
+        },
+        {
+          "title": "8.5 Common String Methods",
+          "file": "chapter-8/8.5-common-string-methods.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 9,
+      "chapter_title": "Chapter 9 — Java Basics in More Detail",
+      "topics": [
+        {
+          "title": "9.1 Scope of Variables",
+          "file": "chapter-9/9.1-scope-of-variables.md"
+        },
+        {
+          "title": "9.2 Local, Instance and Static Variables — Basic Introduction",
+          "file": "chapter-9/9.2-local-instance-static-variables.md"
+        },
+        {
+          "title": "9.3 final Keyword",
+          "file": "chapter-9/9.3-final-keyword.md"
+        },
+        {
+          "title": "9.4 Wrapper Classes — Basic Introduction",
+          "file": "chapter-9/9.4-wrapper-classes.md"
+        },
+        {
+          "title": "9.5 Common Java Errors and Debugging",
+          "file": "chapter-9/9.5-common-errors-debugging.md"
+        }
+      ]
+    },
+    {
+      "chapter_number": 10,
+      "chapter_title": "Chapter 10 — Basic Java Concepts",
+      "topics": [
+        {
+          "title": "10.1 Packages and import",
+          "file": "chapter-10/10.1-packages-and-import.md"
+        },
+        {
+          "title": "10.2 Java Documentation and Math Class",
+          "file": "chapter-10/10.2-documentation-and-math-class.md"
+        },
+        {
+          "title": "10.3 Command-Line Arguments",
+          "file": "chapter-10/10.3-command-line-arguments.md"
+        },
+        {
+          "title": "10.4 Recursion — Basic Introduction",
+          "file": "chapter-10/10.4-recursion-basic-intro.md"
+        },
+        {
+          "title": "10.5 Introduction to Object-Oriented Programming",
+          "file": "chapter-10/10.5-intro-to-oop.md"
+        }
+      ]
+    }
+  ]
+}
