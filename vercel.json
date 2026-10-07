@@ -2,24 +2,28 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/home/activity",
-      "destination": "/src/pages/account/activity.html"
-    },
-    {
-      "source": "/home/profile",
-      "destination": "/src/pages/account/profile.html"
-    },
-    {
-      "source": "/home/settings",
-      "destination": "/src/pages/account-settings.html"
-    },
-    {
       "source": "/contact",
       "destination": "/src/pages/contact.html"
     },
     {
       "source": "/courses",
       "destination": "/src/pages/courses.html"
+    },
+    {
+      "source": "/activity",
+      "destination": "/src/pages/account/activity.html"
+    },
+    {
+      "source": "/profile",
+      "destination": "/src/pages/account/profile.html"
+    },
+    {
+      "source": "/settings",
+      "destination": "/src/pages/account-settings.html"
+    },
+    {
+      "source": "/certificate",
+      "destination": "/src/pages/certificate.html"
     }
   ]
 }
