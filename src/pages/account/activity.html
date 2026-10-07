@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/global.css">
+    <title>Learning Activity & History | Codify</title>
+    <style>
+        .activity-container {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .activity-card {
+            background: rgba(13, 27, 42, 0.85);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 170, 255, 0.15);
+            backdrop-filter: blur(16px);
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .activity-header h1 {
+            margin: 0 0 6px 0;
+            font-size: 1.85rem;
+            background: linear-gradient(90deg, #ffffff, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .activity-header p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .streak-badge {
+            background: rgba(0, 170, 255, 0.12);
+            border: 1px solid rgba(0, 170, 255, 0.4);
+            color: #00aaff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.2);
+        }
+
+        .stats-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 640px) {
+            .stats-summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-box {
+            background: rgba(10, 15, 28, 0.7);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            border-color: rgba(0, 170, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .stat-box h3 {
+            margin: 0 0 6px 0;
+            font-size: 1.6rem;
+            color: #38bdf8;
+            font-weight: 800;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .stat-box p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        /* Live Progress Trend Graph & Scrollable Tooltip Styles */
+        .chart-card {
+            background: rgba(10, 15, 28, 0.7);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: visible;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-header h4 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 160px;
+            padding-top: 25px;
+            gap: 12px;
+        }
+
+        .chart-bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: flex-end;
+            gap: 8px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .chart-bar {
+            width: 100%;
+            max-width: 38px;
+            background: linear-gradient(180deg, #00aaff 0%, rgba(0, 119, 255, 0.35) 100%);
+            border-radius: 6px 6px 0 0;
+            transition: all 0.25s ease;
+        }
+
+        .chart-bar-group:hover .chart-bar,
+        .chart-bar-group.active .chart-bar {
+            background: linear-gradient(180deg, #38bdf8 0%, rgba(0, 170, 255, 0.65) 100%);
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.5);
+        }
+
+        /* Scrollable & Hover-Stable Tooltip */
+        .chart-tooltip {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            background: #0d1b2a;
+            border: 1.5px solid #00aaff;
+            border-radius: 14px;
+            padding: 14px 16px;
+            width: 220px;
+            text-align: left;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 170, 255, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+
+        .chart-bar-group:hover .chart-tooltip,
+        .chart-tooltip:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .tooltip-title {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #00aaff;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.25);
+            padding-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tooltip-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            max-height: 130px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            scrollbar-width: thin;
+            scrollbar-color: #00aaff rgba(10, 15, 28, 0.5);
+        }
+
+        .tooltip-list::-webkit-scrollbar { width: 4px; }
+        .tooltip-list::-webkit-scrollbar-thumb { background: #00aaff; border-radius: 4px; }
+
+        .tooltip-item {
+            background: rgba(10, 15, 28, 0.9);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 8px;
+            padding: 6px 10px;
+        }
+
+        .tooltip-item-track {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #38bdf8;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .tooltip-item-lesson {
+            font-size: 0.75rem;
+            color: #e0e6ed;
+            word-break: break-all;
+        }
+
+        .chart-label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            color: #00aaff;
+            font-weight: 800;
+            margin-top: 36px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.25);
+        }
+
+        .activity-feed {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            background: rgba(10, 15, 28, 0.7);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: all 0.25s ease;
+        }
+
+        .activity-item:hover {
+            border-color: rgba(0, 170, 255, 0.5);
+            background: rgba(0, 170, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.15);
+        }
+
+        .activity-info h4 {
+            margin: 0 0 4px 0;
+            font-size: 1rem;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .activity-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .activity-status {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 10px;
+            white-space: nowrap;
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- STANDARD UNIFIED TOP NAVBAR -->
+    <header class="codify-main-header">
+        <div class="codify-header-container">
+            <div class="codify-left-group">
+                <div class="codify-logo" onclick="window.location.href='/index.html'" role="button" tabindex="0" aria-label="Codify Homepage">
+                    <img src="/src/assets/logos/main-logo.svg" alt="Codify Logo" class="logo-icon">
+                    <span class="logo-text">Codify</span>
+                </div>
+            </div>
+
+            <nav class="codify-center-nav" id="centerNav" aria-label="Main navigation menu">
+                <ul class="codify-nav-links" id="navLinks">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/src/pages/courses.html">Courses</a></li>
+                    <li><a href="/src/pages/courses/exam.html">Quizzes &amp; Exams</a></li>
+                    <li><a href="/src/pages/certificate.html">Certificates</a></li>
+                    <li><a href="/src/pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="codify-right-group">
+                <div class="codify-auth-group" id="authNavGroup"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="activity-container">
+        <div class="activity-card">
+            <div class="activity-header">
+                <div>
+                    <h1>Learning Activity &amp; History</h1>
+                    <p>Your comprehensive study timeline, completed lessons, and engagement metrics.</p>
+                </div>
+                <div class="streak-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                    Active Student
+                </div>
+            </div>
+
+            <!-- Summary Metrics Cards -->
+            <div class="stats-summary-grid">
+                <div class="stat-box">
+                    <h3 id="totalCompletedCount">0</h3>
+                    <p>Total Lessons Finished</p>
+                </div>
+                <div class="stat-box">
+                    <h3 id="activeCoursesCount">0</h3>
+                    <p>Enrolled Tracks</p>
+                </div>
+                <div class="stat-box">
+                    <h3 id="certificatesCount">0</h3>
+                    <p>Certificates Earned</p>
+                </div>
+            </div>
+
+            <!-- Live Weekly Progress Graph -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h4>Weekly Activity Trend (Last 7 Days)</h4>
+                    <span style="font-size: 0.8rem; color: #00aaff; font-weight: 700;">Hover bars for details</span>
+                </div>
+                <div class="chart-bars" id="weeklyChartBars">
+                    <!-- Populated dynamically via script with scrollable tooltips -->
+                </div>
+            </div>
+
+            <!-- Complete Chronological Lesson Logs -->
+            <div class="section-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Complete Chronological Lesson Timeline
+            </div>
+            <ul class="activity-feed" id="activityFeedList">
+                <div class="empty-state">Loading your complete activity stream...</div>
+            </ul>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="codify-footer">
+        <div>
+            Built with precision for future developers • Developed by
+            <span class="team-hover-wrapper" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="team-trigger">Codify Team</span>
+                <div class="team-popover" role="tooltip">
+                    <div class="popover-header">Core Engineers</div>
+                    <ul class="team-list">
+                        <li class="team-member" onclick="openEngineerModal('owais')" style="font-weight: 700;">
+                            <span class="member-dot"></span>Mohammed Owais <span class="student-id">(24030-CM-193)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('dhanush')">
+                            <span class="member-dot"></span>M. Dhanush <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('feroz')">
+                            <span class="member-dot"></span>MD. Feroz Basha <span class="student-id">(24030-CM-190)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('basha')">
+                            <span class="member-dot"></span>M. Basha <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('prasad')">
+                            <span class="member-dot"></span>M. Prasad <span class="student-id">(24030-CM-196)</span>
+                        </li>
+                    </ul>
+                </div>
+            </span>
+        </div>
+    </footer>
+
+    <!-- ENGINEER MODAL -->
+    <div class="modal-overlay" id="engineerModal" aria-hidden="true">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div id="engAvatar" class="eng-avatar"></div>
+                <h2 id="engName" class="eng-name">Name</h2>
+                <p id="engId" class="eng-id">ID</p>
+                <span id="engRole" class="eng-role">Role</span>
+            </div>
+            <div class="eng-bio-box">
+                <p id="engBio">Bio goes here...</p>
+            </div>
+            <div class="eng-actions">
+                <a href="#" id="engEmail" class="codify-btn-outline">✉️ Email</a>
+                <a href="#" id="engGithub" class="codify-btn-outline" target="_blank">💻 GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/js/auth/nav-auth.js"></script>
+    <script type="module" src="/src/js/config/supabase-client.js"></script>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        async function loadExtendedActivity() {
+            const feedList = document.getElementById('activityFeedList');
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) {
+                    window.location.href = '/src/auth/login.html';
+                    return;
+                }
+
+                // Fetch ALL completed progress logs
+                const { data: progressLogs, error } = await supabase
+                    .from('user_progress')
+                    .select('course_id, lesson_id, completed, completed_at')
+                    .eq('user_id', user.id)
+                    .eq('completed', true)
+                    .order('completed_at', { ascending: false });
+
+                if (error) throw error;
+
+                // Update summary counters
+                const totalCount = progressLogs ? progressLogs.length : 0;
+                document.getElementById('totalCompletedCount').textContent = totalCount;
+
+                const { count: enrollCount } = await supabase.from('user_enrollments').select('*', { count: 'exact', head: true }).eq('user_id', user.id);
+                document.getElementById('activeCoursesCount').textContent = enrollCount || 0;
+
+                const { count: certCount } = await supabase.from('certificates').select('*', { count: 'exact', head: true }).eq('user_id', user.id);
+                document.getElementById('certificatesCount').textContent = certCount || 0;
+
+                // Compute rolling 7-day window ending today
+                const chartContainer = document.getElementById('weeklyChartBars');
+                chartContainer.innerHTML = '';
+
+                const past7Days = [];
+                for (let i = 6; i >= 0; i--) {
+                    const d = new Date();
+                    d.setDate(d.getDate() - i);
+                    const dateStr = d.toISOString().split('T')[0]; // YYYY-MM-DD
+                    const dayName = d.toLocaleDateString('en-US', { weekday: 'short' }); // Mon, Tue, etc.
+                    past7Days.push({ dateStr, dayName, topics: [] });
+                }
+
+                // Map progress logs to their respective days
+                if (progressLogs) {
+                    progressLogs.forEach(log => {
+                        if (log.completed_at) {
+                            const logDate = log.completed_at.split('T')[0];
+                            const matchDay = past7Days.find(item => item.dateStr === logDate);
+                            if (matchDay) {
+                                matchDay.topics.push({
+                                    track: log.course_id ? log.course_id.toUpperCase() : 'General',
+                                    lesson: log.lesson_id
+                                });
+                            }
+                        }
+                    });
+                }
+
+                const maxCount = Math.max(...past7Days.map(item => item.topics.length), 4);
+
+                past7Days.forEach(day => {
+                    const count = day.topics.length;
+                    const heightPct = Math.max(Math.round((count / maxCount) * 100), 12);
+                    
+                    const group = document.createElement('div');
+                    group.className = 'chart-bar-group';
+
+                    let topicsHtml = day.topics.length > 0 
+                        ? day.topics.map(t => `
+                            <li class="tooltip-item">
+                                <div class="tooltip-item-track">${t.track}</div>
+                                <div class="tooltip-item-lesson">${t.lesson}</div>
+                            </li>
+                        `).join('') 
+                        : '<li style="font-size: 0.75rem; color: #94a3b8; text-align: center; padding: 6px;">No lessons completed</li>';
+
+                    group.innerHTML = `
+                        <span style="font-size: 0.7rem; color: #00aaff; font-weight: 700;">${count > 0 ? count : ''}</span>
+                        <div class="chart-bar" style="height: ${heightPct}%;"></div>
+                        <span class="chart-label">${day.dayName}</span>
+                        <div class="chart-tooltip">
+                            <div class="tooltip-title">
+                                <span>${day.dayName}</span>
+                                <span style="color: #38bdf8;">${count} finished</span>
+                            </div>
+                            <ul class="tooltip-list">${topicsHtml}</ul>
+                        </div>
+                    `;
+                    chartContainer.appendChild(group);
+                });
+
+                if (!progressLogs || progressLogs.length === 0) {
+                    feedList.innerHTML = `<div class="empty-state">No completed lessons found yet. Dive into your courses to start building your timeline!</div>`;
+                    return;
+                }
+
+                // Render all logs sequentially
+                feedList.innerHTML = '';
+                progressLogs.forEach(log => {
+                    const dateFormatted = log.completed_at ? new Date(log.completed_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Recent';
+                    const li = document.createElement('li');
+                    li.className = 'activity-item';
+                    li.innerHTML = `
+                        <div class="activity-info">
+                            <h4>Course Track: ${log.course_id ? log.course_id.toUpperCase() : 'General'}</h4>
+                            <p>Finished lesson module: <code>${log.lesson_id}</code></p>
+                            <p style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Completed on ${dateFormatted}</p>
+                        </div>
+                        <span class="activity-status">✓ Completed</span>
+                    `;
+                    feedList.appendChild(li);
+                });
+
+            } catch (err) {
+                console.error('Activity load error:', err);
+                feedList.innerHTML = `<div class="empty-state">Unable to load activity history at the moment.</div>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadExtendedActivity);
+
+        // Core Engineers Popover & Modal Handlers
+        const teamDatabase = {
+            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
+            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
+            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Authentication and security.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
+            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Curriculum layout and styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
+            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Performance testing and QA.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
+        };
+
+        const engModal = document.getElementById('engineerModal');
+        window.openEngineerModal = function (key) {
+            const eng = teamDatabase[key];
+            if (!eng || !engModal) return;
+            document.getElementById('engAvatar').textContent = eng.initials;
+            document.getElementById('engName').textContent = eng.name;
+            document.getElementById('engId').textContent = `Student ID: ${eng.id}`;
+            document.getElementById('engRole').textContent = eng.role;
+            document.getElementById('engBio').textContent = eng.bio;
+            document.getElementById('engEmail').href = eng.email;
+            document.getElementById('engGithub').href = eng.github;
+            engModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+
+        document.getElementById('closeEngineerModal')?.addEventListener('click', () => {
+            if (engModal) {
+                engModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+
+</html>

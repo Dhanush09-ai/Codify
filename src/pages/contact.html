@@ -4,201 +4,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="../assets/logos/main-logo.svg">
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Contact Us | Codify</title>
-
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/global.css">
+    <title>Contact &amp; Support | Codify</title>
     <style>
-        /* Base Reset & Layout Scope */
-        body {
-            background-color: #0a0f1c;
-            color: #e0e6ed;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-            overflow-x: hidden;
-            font-family: 'Nunito', sans-serif;
-        }
-
-        /* Prevent Auth Group Flickering */
-        .codify-auth-group {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
-        }
-
-        .codify-auth-group.ready {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Navigation Profile DP */
-        .nav-profile-dp {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #00aaff;
-            background: linear-gradient(135deg, #0077ff, #00aaff);
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
-            transition: transform 0.25s ease;
-        }
-
-        .nav-profile-dp:hover {
-            transform: scale(1.08);
-        }
-
-        .nav-profile-dp img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Force Main Container Visibility */
-        main {
-            display: flex !important;
-            flex-direction: column !important;
+        .contact-container {
             flex: 1;
-            opacity: 1 !important;
-            visibility: visible !important;
-            margin-top: 100px !important;
-            position: relative !important;
-            z-index: 5 !important;
-            padding: 20px;
-            min-height: calc(100vh - 200px);
-        }
-
-        /* Ambient Glow Effect */
-        .page-glow {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0, 170, 255, 0.12) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Hero Header */
-        .contact-hero {
-            display: block !important;
-            text-align: center;
-            max-width: 700px;
-            margin: 20px auto 40px auto;
-        }
-
-        .contact-hero h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 12px;
-        }
-
-        .contact-hero h1 span {
-            background: linear-gradient(90deg, #0077ff, #00aaff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-hero p {
-            color: #94a3b8;
-            font-size: 1.05rem;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        /* Contact Layout Grid */
-        .contact-grid {
-            display: grid !important;
-            grid-template-columns: 1fr 1.3fr;
-            gap: 32px;
-            max-width: 1000px;
+            max-width: 900px;
             width: 100%;
-            margin: 0 auto 60px auto;
+            margin: 40px auto;
+            padding: 0 20px;
             box-sizing: border-box;
         }
 
-        /* Info Card Panel */
-        .info-panel {
-            background: rgba(13, 27, 42, 0.5);
-            border: 1px solid rgba(0, 170, 255, 0.18);
-            border-radius: 20px;
-            padding: 32px;
+        .contact-card {
+            background: rgba(13, 27, 42, 0.85);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 170, 255, 0.15);
             backdrop-filter: blur(16px);
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
         }
 
-        .info-panel h2 {
+        .contact-header {
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+            margin-bottom: 28px;
+        }
+
+        .contact-header h1 {
+            margin: 0 0 6px 0;
+            font-size: 1.85rem;
+            background: linear-gradient(90deg, #ffffff, #00aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .contact-header p {
             margin: 0;
-            color: #ffffff;
-            font-size: 1.4rem;
-            border-bottom: 1px solid rgba(0, 170, 255, 0.15);
-            padding-bottom: 12px;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
-
-        .info-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: rgba(0, 170, 255, 0.12);
-            border: 1px solid rgba(0, 170, 255, 0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: #00aaff;
-        }
-
-        .info-details h4 {
-            margin: 0 0 4px 0;
-            color: #ffffff;
+            color: #94a3b8;
             font-size: 0.95rem;
         }
 
-        .info-details p {
-            margin: 0;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-info-panel {
+            background: rgba(10, 15, 28, 0.7);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 18px;
+            padding: 24px;
+        }
+
+        .contact-info-panel h3 {
+            margin: 0 0 12px 0;
+            color: #00aaff;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .contact-info-panel p {
             color: #94a3b8;
             font-size: 0.9rem;
-            line-height: 1.4;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
         }
 
-        .info-details a {
+        .channel-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: #e0e6ed;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .channel-item svg {
             color: #00aaff;
-            text-decoration: none;
-        }
-
-        .info-details a:hover {
-            text-decoration: underline;
-        }
-
-        /* Form Panel */
-        .form-panel {
-            background: rgba(13, 27, 42, 0.5);
-            border: 1px solid rgba(0, 170, 255, 0.18);
-            border-radius: 20px;
-            padding: 32px;
-            backdrop-filter: blur(16px);
+            flex-shrink: 0;
         }
 
         .form-group {
@@ -207,308 +105,469 @@
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #cfd8dc;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #94a3b8;
             margin-bottom: 8px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
         }
 
-        .form-input {
+        .contact-input {
             width: 100%;
-            background: rgba(10, 15, 28, 0.6);
+            background: rgba(10, 15, 28, 0.7);
             border: 1px solid rgba(0, 170, 255, 0.2);
             border-radius: 12px;
-            padding: 12px 16px;
-            color: #fff;
+            padding: 13px 16px;
+            color: #e0e6ed;
             font-size: 0.95rem;
             box-sizing: border-box;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             font-family: inherit;
         }
 
-        .form-input:focus {
+        .contact-input:focus {
             outline: none;
             border-color: #00aaff;
-            box-shadow: 0 0 12px rgba(0, 170, 255, 0.25);
-            background: rgba(10, 15, 28, 0.85);
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
+            background: rgba(10, 15, 28, 0.95);
+            color: #fff;
         }
 
-        textarea.form-input {
+        textarea.contact-input {
             resize: vertical;
             min-height: 120px;
         }
 
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(90deg, #0077ff, #00aaff);
-            color: #ffffff;
+        /* CUSTOM CODIFY THEMED DROPDOWN */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+        }
+
+        .custom-select-trigger {
+            background: rgba(10, 15, 28, 0.7);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 12px;
+            padding: 13px 16px;
+            color: #94a3b8;
             font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.25s ease;
+        }
+
+        .custom-select-wrapper.open .custom-select-trigger,
+        .custom-select-trigger:hover {
+            border-color: #00aaff;
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
+            background: rgba(10, 15, 28, 0.95);
+            color: #fff;
+        }
+
+        .custom-select-trigger svg {
+            transition: transform 0.3s ease;
+            color: #00aaff;
+        }
+
+        .custom-select-wrapper.open .custom-select-trigger svg {
+            transform: rotate(180deg);
+        }
+
+        .custom-options {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #0d1b2a;
+            border: 1.5px solid #00aaff;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 170, 255, 0.25);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            z-index: 99;
+            overflow: hidden;
+        }
+
+        .custom-select-wrapper.open .custom-options {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .custom-option {
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.1);
+        }
+
+        .custom-option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-option:hover {
+            background: rgba(0, 170, 255, 0.15);
+            color: #ffffff;
+            padding-left: 20px;
+        }
+
+        .custom-option.selected {
+            color: #00aaff;
             font-weight: 700;
-            padding: 14px;
+            background: rgba(0, 170, 255, 0.1);
+        }
+
+        .btn-submit-ticket {
+            background: linear-gradient(90deg, #0077ff, #00aaff);
             border: none;
+            color: #fff;
+            padding: 14px 28px;
+            font-size: 0.95rem;
+            font-weight: 800;
             border-radius: 12px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 170, 255, 0.25);
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            box-shadow: 0 4px 20px rgba(0, 170, 255, 0.3);
+            width: 100%;
         }
 
-        .submit-btn:hover {
+        .btn-submit-ticket:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 170, 255, 0.45);
+            box-shadow: 0 6px 25px rgba(0, 170, 255, 0.5);
         }
 
-        /* Alert Toast */
-        .status-alert {
-            padding: 12px 16px;
-            border-radius: 10px;
+        .alert-box {
+            padding: 14px 18px;
+            border-radius: 12px;
             font-size: 0.9rem;
-            margin-bottom: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
             display: none;
-            border: 1px solid transparent;
         }
-
-        @media (max-width: 768px) {
-            .contact-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
-        /* THIS OVERRIDES EVERYTHING BELOW IT TO GRID */
-main section,
-.contact-hero,
-.contact-grid {
-    display: grid !important; 
-    opacity: 1 !important;
-    visibility: visible !important;
-    position: relative !important;
-    z-index: 5 !important;
-}
     </style>
 </head>
 
 <body>
 
+    <!-- STANDARD UNIFIED TOP NAVBAR -->
     <header class="codify-main-header">
         <div class="codify-header-container">
             <div class="codify-left-group">
-                <div class="codify-logo" onclick="window.location.href='../../index.html'">
-                    Codify
+                <div class="codify-logo" onclick="window.location.href='/index.html'" role="button" tabindex="0" aria-label="Codify Homepage">
+                    <img src="/src/assets/logos/main-logo.svg" alt="Codify Logo" class="logo-icon">
+                    <span class="logo-text">Codify</span>
                 </div>
             </div>
 
-            <nav class="codify-center-nav" aria-label="Main menu links">
+            <nav class="codify-center-nav" id="centerNav" aria-label="Main navigation menu">
                 <ul class="codify-nav-links" id="navLinks">
-                    <li><a href="../../index.html">Home</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="courses/exam.html">Quizzes & Exams</a></li>
-                    <li><a href="certificate.html">Certificates</a></li>
-                    <li><a href="contact.html" class="active-link">Contact</a></li>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/src/pages/courses.html">Courses</a></li>
+                    <li><a href="/src/pages/courses/exam.html">Quizzes &amp; Exams</a></li>
+                    <li><a href="/src/pages/certificate.html">Certificates</a></li>
+                    <li><a href="/src/pages/contact.html" class="active">Contact</a></li>
                 </ul>
             </nav>
 
             <div class="codify-right-group">
-                <div class="codify-auth-group" id="authNavGroup">
-                    <a href="../auth/login.html" class="codify-btn-outline">Login</a>
-                    <a href="../auth/signup.html" class="codify-btn-outline">Signup</a>
-                </div>
-
-                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                <div class="codify-auth-group" id="authNavGroup"></div>
             </div>
         </div>
     </header>
 
-    <div class="page-glow"></div>
-
-    <main>
-        <section class="contact-hero">
-            <h1>Get in <span>Touch</span></h1>
-            <p>Have questions, feedback, or need assistance with your courses? Drop us a message and our core team will get back to you!</p>
-        </section>
-
-        <section class="contact-grid">
-            
-            <div class="info-panel">
-                <h2>Contact Information</h2>
-
-                <div class="info-item">
-                    <div class="info-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                    </div>
-                    <div class="info-details">
-                        <h4>Email Support</h4>
-                        <p><a href="mailto:support@codify.com">support@codify.com</a></p>
-                    </div>
-                </div>
-
-                <div class="info-item">
-                    <div class="info-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                    </div>
-                    <div class="info-details">
-                        <h4>Response Time</h4>
-                        <p>We usually reply within 24–48 hours on business days.</p>
-                    </div>
-                </div>
-
-                <div class="info-item">
-                    <div class="info-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                    </div>
-                    <div class="info-details">
-                        <h4>Engineering Hub</h4>
-                        <p>Hyderabad, Telangana, India</p>
-                    </div>
-                </div>
+    <main class="contact-container">
+        <div class="contact-card">
+            <div class="contact-header">
+                <h1>Contact &amp; Support</h1>
+                <p>Have questions about your curriculum, courses, or platform features? Reach out to our team.</p>
             </div>
 
-            <div class="form-panel">
-                <div id="statusAlert" class="status-alert"></div>
+            <div id="contactAlert" class="alert-box"></div>
 
-                <form id="contactForm" onsubmit="handleContactSubmit(event)">
-                    <div class="form-group">
-                        <label for="contactName">YOUR NAME</label>
-                        <input type="text" id="contactName" class="form-input" placeholder="e.g. Alex Mercer" required>
+            <div class="contact-grid">
+                <!-- Direct Support Channels -->
+                <div class="contact-info-panel">
+                    <h3>Support Channels</h3>
+                    <p>Our core technical engineers and support staff are ready to help resolve any issues quickly.</p>
+                    
+                    <div class="channel-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        codify.admin@gmail.com
                     </div>
-
-                    <div class="form-group">
-                        <label for="contactEmail">EMAIL ADDRESS</label>
-                        <input type="email" id="contactEmail" class="form-input" placeholder="name@domain.com" required>
+                    <div class="channel-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        +91 85007 02689
                     </div>
-
-                    <div class="form-group">
-                        <label for="contactMessage">MESSAGE</label>
-                        <textarea id="contactMessage" class="form-input" placeholder="How can we help you today?" required></textarea>
+                    <div class="channel-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        Response Time: Within 24 hours
                     </div>
+                </div>
 
-                    <button type="submit" class="submit-btn">
-                        Send Message
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                        </svg>
-                    </button>
-                </form>
+                <!-- Support Ticket Form -->
+                <div>
+                    <form id="contactForm" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="contactName">Your Name</label>
+                            <input type="text" id="contactName" class="contact-input" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email Address</label>
+                            <input type="email" id="contactEmail" class="contact-input" placeholder="user@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject / Category</label>
+                            <div class="custom-select-wrapper" id="customSelect">
+                                <div class="custom-select-trigger" id="selectTrigger">
+                                    <span id="selectedLabel">Select an inquiry type</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                                <div class="custom-options">
+                                    <div class="custom-option" data-value="bug">Platform Bug / Issue</div>
+                                    <div class="custom-option" data-value="course">Course Curriculum Question</div>
+                                    <div class="custom-option" data-value="account">Account &amp; Security Support</div>
+                                    <div class="custom-option" data-value="other">General Feedback</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="contactSubject" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" class="contact-input" placeholder="Describe how we can assist you..." required></textarea>
+                        </div>
+                        <button type="button" id="submitTicketBtn" class="btn-submit-ticket">Send Support Ticket</button>
+                    </form>
+                </div>
             </div>
-
-        </section>
+        </div>
     </main>
 
+    <!-- FOOTER -->
     <footer class="codify-footer">
         <div>
-            Built with precision for future developers • Developed by 
-            <span class="team-hover-wrapper">
+            Built with precision for future developers • Developed by
+            <span class="team-hover-wrapper" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="team-trigger">Codify Team</span>
-
-                <div class="team-popover">
+                <div class="team-popover" role="tooltip">
                     <div class="popover-header">Core Engineers</div>
                     <ul class="team-list">
-                        <li class="team-member"><span class="member-dot"></span>Mohammed Owais</li>
-                        <li class="team-member"><span class="member-dot"></span>M. Dhanush</li>
-                        <li class="team-member"><span class="member-dot"></span>MD. Feroz Basha</li>
-                        <li class="team-member"><span class="member-dot"></span>M. Basha</li>
-                        <li class="team-member"><span class="member-dot"></span>M. Prasad</li>
+                        <li class="team-member" onclick="openEngineerModal('owais')" style="font-weight: 700;">
+                            <span class="member-dot"></span>Mohammed Owais <span class="student-id">(24030-CM-193)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('dhanush')">
+                            <span class="member-dot"></span>M. Dhanush <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('feroz')">
+                            <span class="member-dot"></span>MD. Feroz Basha <span class="student-id">(24030-CM-190)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('basha')">
+                            <span class="member-dot"></span>M. Basha <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('prasad')">
+                            <span class="member-dot"></span>M. Prasad <span class="student-id">(24030-CM-196)</span>
+                        </li>
                     </ul>
                 </div>
             </span>
         </div>
     </footer>
 
-    <script src="../js/script.js"></script>
-    <script type="module" src="../js/auth/nav-auth.js"></script>
-    
+    <!-- ENGINEER MODAL -->
+    <div class="modal-overlay" id="engineerModal" aria-hidden="true">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div id="engAvatar" class="eng-avatar"></div>
+                <h2 id="engName" class="eng-name">Name</h2>
+                <p id="engId" class="eng-id">ID</p>
+                <span id="engRole" class="eng-role">Role</span>
+            </div>
+            <div class="eng-bio-box">
+                <p id="engBio">Bio goes here...</p>
+            </div>
+            <div class="eng-actions">
+                <a href="#" id="engEmail" class="codify-btn-outline">✉️ Email</a>
+                <a href="#" id="engGithub" class="codify-btn-outline" target="_blank">💻 GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/js/auth/nav-auth.js"></script>
+    <script type="module" src="/src/js/config/supabase-client.js"></script>
+
     <script type="module">
-        import { supabase } from '../js/config/supabase-client.js';
+        import { supabase } from '/src/js/config/supabase-client.js';
 
-        // 1. FAST LOCAL SESSION CHECK FOR PROFILE DP IN HEADER
-        document.addEventListener('DOMContentLoaded', async () => {
-            const authNavGroup = document.getElementById('authNavGroup');
-
-            const { data: { session } } = await supabase.auth.getSession();
-            const user = session?.user;
-
-            if (user) {
-                const meta = user.user_metadata || {};
-                const avatarUrl = meta.avatar_url;
-                const firstName = meta.first_name || user.email.split('@')[0];
-                const initial = firstName.charAt(0).toUpperCase();
-
-                if (authNavGroup) {
-                    authNavGroup.innerHTML = avatarUrl ? `
-                        <a href="../profile/profile.html" class="nav-profile-dp" title="View Profile">
-                            <img src="${avatarUrl}" alt="${firstName}'s Profile">
-                        </a>` : `
-                        <a href="../profile/profile.html" class="nav-profile-dp" title="View Profile">
-                            <span>${initial}</span>
-                        </a>`;
-                }
-
-                // Autofill email input field for logged-in user
+        async function initContactUser() {
+    try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+            // Auto-fill email
+            if (user.email) {
                 const emailInput = document.getElementById('contactEmail');
                 if (emailInput) emailInput.value = user.email;
             }
 
-            if (authNavGroup) authNavGroup.classList.add('ready');
+            // Auto-fill full name from user metadata
+            const fullName = user.user_metadata?.full_name || user.user_metadata?.name || '';
+            if (fullName) {
+                const nameInput = document.getElementById('contactName');
+                if (nameInput) nameInput.value = fullName;
+            } else {
+                // Fallback: query the profiles table if full name is stored there
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('full_name')
+                    .eq('id', user.id)
+                    .single();
+                
+                if (profile && profile.full_name) {
+                    const nameInput = document.getElementById('contactName');
+                    if (nameInput) nameInput.value = profile.full_name;
+                }
+            }
+        }
+    } catch (e) {
+        console.error('Error auto-filling user details:', e);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initContactUser);
+        const alertBox = document.getElementById('contactAlert');
+
+        function showContactAlert(msg, isError = false) {
+            alertBox.style.display = 'block';
+            alertBox.style.background = isError ? 'rgba(239, 68, 68, 0.15)' : 'rgba(16, 185, 129, 0.15)';
+            alertBox.style.borderColor = isError ? 'rgba(239, 68, 68, 0.3)' : 'rgba(16, 185, 129, 0.3)';
+            alertBox.style.color = isError ? '#f87171' : '#34d399';
+            alertBox.innerHTML = msg;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Custom Dropdown Logic
+        const customSelect = document.getElementById('customSelect');
+        const selectTrigger = document.getElementById('selectTrigger');
+        const selectedLabel = document.getElementById('selectedLabel');
+        const hiddenSubjectInput = document.getElementById('contactSubject');
+        const options = document.querySelectorAll('.custom-option');
+
+        selectTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            customSelect.classList.toggle('open');
         });
 
-        // 2. UNIFIED CONTACT FORM SUBMISSION TO SUPABASE
-        window.handleContactSubmit = async function(event) {
-            event.preventDefault();
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                options.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedLabel.textContent = option.textContent;
+                selectedLabel.style.color = '#ffffff';
+                hiddenSubjectInput.value = option.getAttribute('data-value');
+                customSelect.classList.remove('open');
+            });
+        });
 
-            const alertBox = document.getElementById('statusAlert');
-            const submitBtn = event.target.querySelector('button[type="submit"]');
+        window.addEventListener('click', () => {
+            customSelect.classList.remove('open');
+        });
 
-            const name = document.getElementById('contactName').value.trim();
-            const email = document.getElementById('contactEmail').value.trim();
-            const message = document.getElementById('contactMessage').value.trim();
+        document.getElementById('submitTicketBtn').addEventListener('click', async () => {
+    const name = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim().toLowerCase();
+    const subject = hiddenSubjectInput.value;
+    const message = document.getElementById('contactMessage').value.trim();
 
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.7';
+    if (!name || !email || !subject || !message) {
+        showContactAlert('Please fill out all required fields before submitting.', true);
+        return;
+    }
 
-            try {
-                // Send record to Supabase table
-                const { error } = await supabase
-                    .from('contact_messages')
-                    .insert([{ name, email, message }]);
+    // 1. Strict Regex Format Check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailRegex) {
+        showContactAlert('Please enter a valid email address format.', true);
+        document.getElementById('contactEmail').focus();
+        return;
+    }
 
-                if (error) throw error;
+    // 2. Block Common Disposable / Fake Email Domains
+    const disposableDomains = [
+        'mailinator.com', 'tempmail.com', '10minutemail.com', 
+        'guerrillamail.com', 'trashmail.com', 'sharklasers.com', 'fakemail.com'
+    ];
+    const domain = email.split('@')[1];
+    if (disposableDomains.includes(domain)) {
+        showContactAlert('Temporary or disposable email addresses are not accepted. Please use a real email.', true);
+        document.getElementById('contactEmail').focus();
+        return;
+    }
 
-                // Success Feedback
-                alertBox.style.display = 'block';
-                alertBox.style.background = 'rgba(16, 185, 129, 0.15)';
-                alertBox.style.borderColor = 'rgba(16, 185, 129, 0.3)';
-                alertBox.style.color = '#34d399';
-                alertBox.innerHTML = '<strong>✓ Message Delivered!</strong> Thank you for reaching out. Our team will get back to you shortly.';
+    try {
+        const { data: { user } } = await supabase.auth.getUser();
 
-                event.target.reset();
-            } catch (err) {
-                // Error Feedback
-                alertBox.style.display = 'block';
-                alertBox.style.background = 'rgba(239, 68, 68, 0.15)';
-                alertBox.style.borderColor = 'rgba(239, 68, 68, 0.3)';
-                alertBox.style.color = '#f87171';
-                alertBox.innerHTML = `❌ Failed to send message: ${err.message}`;
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-            }
+        const { error } = await supabase
+            .from('support_tickets')
+            .insert([{
+                user_id: user ? user.id : null,
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            }]);
+
+        if (error) throw error;
+
+        showContactAlert('✓ Support ticket successfully sent and saved! Our engineering team will get back to you shortly.', false);
+        document.getElementById('contactForm').reset();
+        selectedLabel.textContent = 'Select an inquiry type';
+        selectedLabel.style.color = '#94a3b8';
+        hiddenSubjectInput.value = '';
+        document.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+        
+        initContactUser();
+    } catch (err) {
+        showContactAlert(`Error saving ticket: ${err.message}`, true);
+    }
+});
+        document.addEventListener('DOMContentLoaded', initContactUser);
+
+        // Core Engineers Popover & Modal Handlers
+        const teamDatabase = {
+            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
+            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
+            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Authentication and security.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
+            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Curriculum layout and styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
+            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Performance testing and QA.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
         };
+
+        const engModal = document.getElementById('engineerModal');
+        window.openEngineerModal = function (key) {
+            const eng = teamDatabase[key];
+            if (!eng || !engModal) return;
+            document.getElementById('engAvatar').textContent = eng.initials;
+            document.getElementById('engName').textContent = eng.name;
+            document.getElementById('engId').textContent = `Student ID: ${eng.id}`;
+            document.getElementById('engRole').textContent = eng.role;
+            document.getElementById('engBio').textContent = eng.bio;
+            document.getElementById('engEmail').href = eng.email;
+            document.getElementById('engGithub').href = eng.github;
+            engModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+
+        document.getElementById('closeEngineerModal')?.addEventListener('click', () => {
+            if (engModal) {
+                engModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
     </script>
 </body>
 

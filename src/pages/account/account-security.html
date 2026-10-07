@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logos/main-logo.svg">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/global.css">
+    <title>Account Settings & Security | Codify</title>
+    <style>
+        /* Security Guard Modal Overlay */
+        .security-gate-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 10, 20, 0.92);
+            backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .security-gate-card {
+            background: #0d1b2a;
+            border: 1.5px solid #00aaff;
+            border-radius: 24px;
+            max-width: 440px;
+            width: 100%;
+            padding: 36px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 170, 255, 0.35);
+            position: relative;
+        }
+
+        .security-gate-card h2 {
+            margin: 0 0 8px 0;
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .security-gate-card p {
+            color: #94a3b8;
+            font-size: 0.92rem;
+            margin: 0 0 24px 0;
+            line-height: 1.5;
+        }
+
+        .settings-container {
+            flex: 1;
+            max-width: 860px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+            display: none; /* Hidden until security verification passes */
+        }
+
+        .settings-container.unlocked {
+            display: block;
+        }
+
+        .settings-card {
+            background: rgba(13, 27, 42, 0.75);
+            border: 1px solid rgba(0, 170, 255, 0.25);
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(16px);
+        }
+
+        .settings-header {
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.15);
+            margin-bottom: 28px;
+        }
+
+        .settings-header h1 {
+            margin: 0 0 6px 0;
+            font-size: 1.75rem;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .settings-header p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            color: #00aaff;
+            font-weight: 800;
+            margin-top: 32px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .settings-form-group {
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .settings-form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .settings-input {
+            width: 100%;
+            background: rgba(10, 15, 28, 0.6);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            border-radius: 12px;
+            padding: 13px 16px;
+            color: #e0e6ed;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        .settings-input:focus {
+            outline: none;
+            border-color: #00aaff;
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
+            background: rgba(10, 15, 28, 0.95);
+            color: #fff;
+        }
+
+        .btn-action-primary {
+            background: linear-gradient(90deg, #0077ff, #00aaff);
+            border: none;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 170, 255, 0.3);
+            width: 100%;
+        }
+
+        .btn-action-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 170, 255, 0.5);
+        }
+
+        .gate-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+
+        .gate-link-btn {
+            background: none;
+            border: none;
+            color: #00aaff;
+            cursor: pointer;
+            font-weight: 700;
+            padding: 0;
+            text-decoration: underline;
+        }
+
+        .danger-zone-box {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 36px;
+            text-align: left;
+        }
+
+        .danger-zone-box h3 {
+            margin: 0 0 8px 0;
+            color: #f87171;
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .danger-zone-box p {
+            margin: 0 0 18px 0;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .btn-danger-action {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #f87171;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-danger-action:hover {
+            background: #ef4444;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .alert-box {
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SECURITY GATEWAY VERIFICATION MODAL -->
+    <div class="security-gate-overlay" id="securityGateModal">
+        <div class="security-gate-card">
+            <h2>Security Verification</h2>
+            <p id="gateSubtitle">Please authenticate your session to access Account Settings.</p>
+
+            <div id="gateAlert" class="alert-box"></div>
+
+            <!-- Password Mode -->
+            <div id="gatePasswordMode">
+                <div class="settings-form-group">
+                    <label for="gatePasswordInput">Account Password</label>
+                    <input type="password" id="gatePasswordInput" class="settings-input" placeholder="••••••••">
+                </div>
+                <button type="button" id="verifyPasswordGateBtn" class="btn-action-primary">Unlock Settings</button>
+                <div class="gate-links">
+                    <button type="button" id="switchToOtpBtn" class="gate-link-btn">Use Email OTP Instead</button>
+                    <button type="button" id="forgotPasswordGateBtn" class="gate-link-btn">Forgot Password?</button>
+                </div>
+            </div>
+
+            <!-- OTP Code Mode -->
+            <div id="gateOtpMode" style="display: none;">
+                <div class="settings-form-group">
+                    <label for="gateOtpInput">Enter 6-Digit OTP Code</label>
+                    <input type="text" id="gateOtpInput" class="settings-input" placeholder="123456" maxlength="6" style="text-align: center; letter-spacing: 4px; font-weight: 800;">
+                </div>
+                <button type="button" id="verifyOtpGateBtn" class="btn-action-primary">Verify OTP Code</button>
+                <div class="gate-links">
+                    <button type="button" id="switchToPasswordBtn" class="gate-link-btn">Use Password Instead</button>
+                    <button type="button" id="resendGateOtpBtn" class="gate-link-btn">Resend OTP</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STANDARD UNIFIED TOP NAVBAR -->
+    <header class="codify-main-header">
+        <div class="codify-header-container">
+            <div class="codify-left-group">
+                <div class="codify-logo" onclick="window.location.href='/index.html'" role="button" tabindex="0" aria-label="Codify Homepage">
+                    <img src="/src/assets/logos/main-logo.svg" alt="Codify Logo" class="logo-icon">
+                    <span class="logo-text">Codify</span>
+                </div>
+            </div>
+
+            <nav class="codify-center-nav" id="centerNav" aria-label="Main navigation menu">
+                <ul class="codify-nav-links" id="navLinks">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/src/pages/courses.html">Courses</a></li>
+                    <li><a href="/src/pages/courses/exam.html">Quizzes &amp; Exams</a></li>
+                    <li><a href="/src/pages/certificate.html">Certificates</a></li>
+                    <li><a href="/src/pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="codify-right-group">
+                <div class="codify-auth-group" id="authNavGroup"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ACCOUNT SETTINGS MAIN CONTENT -->
+    <main class="settings-container" id="settingsMainContainer">
+        <div class="settings-card">
+            <div class="settings-header">
+                <h1>Account Settings & Security</h1>
+                <p>Manage your account credentials, login credentials, and session access.</p>
+            </div>
+
+            <div id="settingsAlert" class="alert-box"></div>
+
+            <!-- Email Management Section -->
+            <div class="section-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                Email Address
+            </div>
+            <form id="emailUpdateForm" onsubmit="return false;">
+                <div class="settings-form-group">
+                    <label for="currentEmail">Current Email</label>
+                    <input type="email" id="currentEmail" class="settings-input" disabled>
+                </div>
+                <div class="settings-form-group">
+                    <label for="newEmailInput">New Email Address</label>
+                    <input type="email" id="newEmailInput" class="settings-input" placeholder="Enter new email">
+                </div>
+                <button type="button" id="updateEmailBtn" class="btn-action-primary">Update Email Address</button>
+            </form>
+
+            <!-- Password Change Section -->
+            <div class="section-title" style="margin-top: 40px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                Password & Authentication
+            </div>
+            <form id="passwordUpdateForm" onsubmit="return false;">
+                <div class="settings-form-group">
+                    <label for="currentPasswordInput">Current Password</label>
+                    <input type="password" id="currentPasswordInput" class="settings-input" placeholder="••••••••">
+                </div>
+                <div class="settings-form-group">
+                    <label for="newPasswordInput">New Password</label>
+                    <input type="password" id="newPasswordInput" class="settings-input" placeholder="••••••••">
+                </div>
+                <button type="button" id="updatePasswordBtn" class="btn-action-primary">Update Password</button>
+            </form>
+
+            <!-- Danger Zone -->
+            <div class="danger-zone-box">
+                <h3>Session Management</h3>
+                <p>Sign out of your account across all active browser sessions.</p>
+                <button type="button" id="globalSignOutBtn" class="btn-danger-action">Sign Out All Sessions</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="codify-footer">
+        <div>
+            Built with precision for future developers • Developed by
+            <span class="team-hover-wrapper" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="team-trigger">Codify Team</span>
+                <div class="team-popover" role="tooltip">
+                    <div class="popover-header">Core Engineers</div>
+                    <ul class="team-list">
+                        <li class="team-member" onclick="openEngineerModal('owais')" style="font-weight: 700;">
+                            <span class="member-dot"></span>Mohammed Owais <span class="student-id">(24030-CM-193)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('dhanush')">
+                            <span class="member-dot"></span>M. Dhanush <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('feroz')">
+                            <span class="member-dot"></span>MD. Feroz Basha <span class="student-id">(24030-CM-190)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('basha')">
+                            <span class="member-dot"></span>M. Basha <span class="student-id">(24030-CM-189)</span>
+                        </li>
+                        <li class="team-member" onclick="openEngineerModal('prasad')">
+                            <span class="member-dot"></span>M. Prasad <span class="student-id">(24030-CM-196)</span>
+                        </li>
+                    </ul>
+                </div>
+            </span>
+        </div>
+    </footer>
+
+    <!-- ENGINEER MODAL -->
+    <div class="modal-overlay" id="engineerModal" aria-hidden="true">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div id="engAvatar" class="eng-avatar"></div>
+                <h2 id="engName" class="eng-name">Name</h2>
+                <p id="engId" class="eng-id">ID</p>
+                <span id="engRole" class="eng-role">Role</span>
+            </div>
+            <div class="eng-bio-box">
+                <p id="engBio">Bio goes here...</p>
+            </div>
+            <div class="eng-actions">
+                <a href="#" id="engEmail" class="codify-btn-outline">✉️ Email</a>
+                <a href="#" id="engGithub" class="codify-btn-outline" target="_blank">💻 GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/js/auth/nav-auth.js"></script>
+    <script type="module" src="/src/js/config/supabase-client.js"></script>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        let currentUser = null;
+        const gateAlert = document.getElementById('gateAlert');
+        const settingsAlert = document.getElementById('settingsAlert');
+
+        function showGateAlert(msg, isError = true) {
+            gateAlert.style.display = 'block';
+            gateAlert.style.background = isError ? 'rgba(239, 68, 68, 0.15)' : 'rgba(16, 185, 129, 0.15)';
+            gateAlert.style.borderColor = isError ? 'rgba(239, 68, 68, 0.3)' : 'rgba(16, 185, 129, 0.3)';
+            gateAlert.style.color = isError ? '#f87171' : '#34d399';
+            gateAlert.innerHTML = msg;
+        }
+
+        function showSettingsAlert(msg, isError = false) {
+            settingsAlert.style.display = 'block';
+            settingsAlert.style.background = isError ? 'rgba(239, 68, 68, 0.15)' : 'rgba(16, 185, 129, 0.15)';
+            settingsAlert.style.borderColor = isError ? 'rgba(239, 68, 68, 0.3)' : 'rgba(16, 185, 129, 0.3)';
+            settingsAlert.style.color = isError ? '#f87171' : '#34d399';
+            settingsAlert.innerHTML = msg;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function initPageSession() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session || !session.user) {
+                window.location.href = '/src/auth/login.html';
+                return;
+            }
+            currentUser = session.user;
+            document.getElementById('currentEmail').value = currentUser.email || '';
+        }
+
+        // 1. Password Verification Gate
+        document.getElementById('verifyPasswordGateBtn').addEventListener('click', async () => {
+            const pwd = document.getElementById('gatePasswordInput').value;
+            if (!pwd) {
+                showGateAlert('Please enter your account password.');
+                return;
+            }
+
+            try {
+                const { error } = await supabase.auth.signInWithPassword({
+                    email: currentUser.email,
+                    password: pwd
+                });
+                if (error) throw error;
+
+                // Unlock Settings View
+                document.getElementById('securityGateModal').style.display = 'none';
+                document.getElementById('settingsMainContainer').classList.add('unlocked');
+            } catch (err) {
+                showGateAlert(`Incorrect password: ${err.message}`);
+            }
+        });
+
+        // 2. Switch to OTP Mode
+        document.getElementById('switchToOtpBtn').addEventListener('click', async () => {
+            document.getElementById('gatePasswordMode').style.display = 'none';
+            document.getElementById('gateOtpMode').style.display = 'block';
+            document.getElementById('gateSubtitle').innerText = `Sending OTP verification code to ${currentUser.email}...`;
+
+            try {
+                const { error } = await supabase.auth.signInWithOtp({ email: currentUser.email });
+                if (error) throw error;
+                showGateAlert(`✓ OTP code sent successfully to your email!`, false);
+            } catch (err) {
+                showGateAlert(`Could not send OTP: ${err.message}`);
+            }
+        });
+
+        document.getElementById('switchToPasswordBtn').addEventListener('click', () => {
+            document.getElementById('gateOtpMode').style.display = 'none';
+            document.getElementById('gatePasswordMode').style.display = 'block';
+            document.getElementById('gateSubtitle').innerText = 'Please authenticate your session to access Account Settings.';
+            gateAlert.style.display = 'none';
+        });
+
+        // 3. Verify OTP Code
+        document.getElementById('verifyOtpGateBtn').addEventListener('click', async () => {
+            const token = document.getElementById('gateOtpInput').value.trim();
+            if (!token || token.length !== 6) {
+                showGateAlert('Please enter a valid 6-digit OTP code.');
+                return;
+            }
+
+            try {
+                const { error } = await supabase.auth.verifyOtp({
+                    email: currentUser.email,
+                    token: token,
+                    type: 'email'
+                });
+                if (error) throw error;
+
+                document.getElementById('securityGateModal').style.display = 'none';
+                document.getElementById('settingsMainContainer').classList.add('unlocked');
+            } catch (err) {
+                showGateAlert(`Invalid OTP: ${err.message}`);
+            }
+        });
+
+        // 4. Forgot Password from Gate
+        document.getElementById('forgotPasswordGateBtn').addEventListener('click', async () => {
+            try {
+                const { error } = await supabase.auth.resetPasswordForEmail(currentUser.email, {
+                    redirectTo: `${window.location.origin}/src/auth/login.html`
+                });
+                if (error) throw error;
+                showGateAlert(`✓ Password reset link sent to ${currentUser.email}. Check your inbox!`, false);
+            } catch (err) {
+                showGateAlert(`Error: ${err.message}`);
+            }
+        });
+
+        // 5. Unlocked Settings Actions
+        document.getElementById('updateEmailBtn').addEventListener('click', async () => {
+            const newEmail = document.getElementById('newEmailInput').value.trim();
+            if (!newEmail || !newEmail.includes('@')) {
+                showSettingsAlert('Please enter a valid new email address.', true);
+                return;
+            }
+
+            try {
+                const { error } = await supabase.auth.updateUser({ email: newEmail });
+                if (error) throw error;
+                showSettingsAlert(`Confirmation link sent to ${newEmail}. Please verify to complete email change.`);
+            } catch (err) {
+                showSettingsAlert(`Error: ${err.message}`, true);
+            }
+        });
+
+        document.getElementById('updatePasswordBtn').addEventListener('click', async () => {
+            const currentPassword = document.getElementById('currentPasswordInput').value;
+            const newPassword = document.getElementById('newPasswordInput').value;
+
+            if (!currentPassword || !newPassword || newPassword.length < 6) {
+                showSettingsAlert('Please enter your current password and a new password (min 6 chars).', true);
+                return;
+            }
+
+            try {
+                const { error: signinErr } = await supabase.auth.signInWithPassword({
+                    email: currentUser.email,
+                    password: currentPassword
+                });
+                if (signinErr) throw new Error('Current password is incorrect.');
+
+                const { error: updateErr } = await supabase.auth.updateUser({ password: newPassword });
+                if (updateErr) throw updateErr;
+
+                showSettingsAlert('Password updated successfully!');
+                document.getElementById('currentPasswordInput').value = '';
+                document.getElementById('newPasswordInput').value = '';
+            } catch (err) {
+                showSettingsAlert(`Error: ${err.message}`, true);
+            }
+        });
+
+        document.getElementById('globalSignOutBtn').addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            localStorage.removeItem('codify_enrollments');
+            window.location.href = '/index.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', initPageSession);
+
+        // Core Engineers Popover & Modal Handlers
+        const teamDatabase = {
+            'owais': { name: 'Mohammed Owais', initials: 'MO', id: '24030-CM-193', role: 'Lead Engineer & Architect', bio: 'Architecture and platform development.', email: 'mailto:owais@codify.com', github: 'https://github.com/mohammedowais' },
+            'dhanush': { name: 'M. Dhanush', initials: 'MD', id: '24030-CM-189', role: 'Full-Stack Developer', bio: 'UI design and APIs.', email: 'mailto:dhanush@codify.com', github: 'https://github.com/dhanush' },
+            'feroz': { name: 'MD. Feroz Basha', initials: 'FB', id: '24030-CM-190', role: 'Backend & Authentication Lead', bio: 'Authentication and security.', email: 'mailto:feroz@codify.com', github: 'https://github.com/feroz' },
+            'basha': { name: 'M. Basha', initials: 'MB', id: '24030-CM-189', role: 'Content & UI Developer', bio: 'Curriculum layout and styling.', email: 'mailto:basha@codify.com', github: 'https://github.com/basha' },
+            'prasad': { name: 'M. Prasad', initials: 'MP', id: '24030-CM-196', role: 'Systems Tester & QA', bio: 'Performance testing and QA.', email: 'mailto:prasad@codify.com', github: 'https://github.com/prasad' }
+        };
+
+        const engModal = document.getElementById('engineerModal');
+        window.openEngineerModal = function (key) {
+            const eng = teamDatabase[key];
+            if (!eng || !engModal) return;
+            document.getElementById('engAvatar').textContent = eng.initials;
+            document.getElementById('engName').textContent = eng.name;
+            document.getElementById('engId').textContent = `Student ID: ${eng.id}`;
+            document.getElementById('engRole').textContent = eng.role;
+            document.getElementById('engBio').textContent = eng.bio;
+            document.getElementById('engEmail').href = eng.email;
+            document.getElementById('engGithub').href = eng.github;
+            engModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+
+        document.getElementById('closeEngineerModal')?.addEventListener('click', () => {
+            if (engModal) {
+                engModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+
+</html>
