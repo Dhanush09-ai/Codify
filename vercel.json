@@ -1,12 +1,25 @@
 {
-  "cleanUrls": false,
-  "headers": [
+  "cleanUrls": true,
+  "rewrites": [
     {
-      "source": "/(.*)\\.md",
-      "headers": [
-        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
-      ]
+      "source": "/home/activity",
+      "destination": "/src/pages/account/activity.html"
+    },
+    {
+      "source": "/home/profile",
+      "destination": "/src/pages/account/profile.html"
+    },
+    {
+      "source": "/home/settings",
+      "destination": "/src/pages/account-settings.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/src/pages/contact.html"
+    },
+    {
+      "source": "/courses",
+      "destination": "/src/pages/courses.html"
     }
   ]
 }
