@@ -416,6 +416,52 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
+        // --- CLEAN URL AUTO-PARSER INTERCEPTOR ---
+        (async function() {
+            const pathSegments = window.location.pathname.split('/').filter(Boolean);
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Checks if path is structured like /courses/cpp/1.2 and file query is missing
+            if (pathSegments.length >= 3 && pathSegments[0] === 'courses' && !urlParams.has('file')) {
+                const track = pathSegments[1]; 
+                const lessonNum = pathSegments[2]; 
+
+                try {
+                    const syllabusMap = {
+                        'c': '/src/data/c-syllabus.json',
+                        'python': '/src/data/python-syllabus.json',
+                        'cpp': '/src/data/cpp-syllabus.json',
+                        'java': '/src/data/java-syllabus.json',
+                        'html': '/src/data/html-syllabus.json'
+                    };
+
+                    const res = await fetch(syllabusMap[track] || syllabusMap['c']);
+                    if (res.ok) {
+                        const syllabus = await res.json();
+                        let foundFile = null;
+                        for (const chapter of syllabus.chapters) {
+                            const match = chapter.topics.find(topic => topic.file.includes(lessonNum));
+                            if (match) {
+                                foundFile = match.file;
+                                break;
+                            }
+                        }
+                        if (foundFile) {
+                            // Inject query params into history state so the rest of the page loads normally
+                            const newQuery = `?course=${track}&file=${encodeURIComponent(foundFile)}`;
+                            window.history.replaceState({}, '', window.location.pathname + newQuery);
+                        }
+                    }
+                } catch (err) {
+                    console.error("Clean URL resolution error:", err);
+                }
+            }
+        })();
+    </script>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
         marked.setOptions({ gfm: true, breaks: true });
 
         const urlParams = new URLSearchParams(window.location.search);

@@ -27,7 +27,7 @@
     },
     {
       "source": "/courses/:track/:lesson",
-      "destination": "/src/pages/courses/view.html"
+      "destination": "/src/pages/courses/course-lesson.html"
     }
   ]
 }
