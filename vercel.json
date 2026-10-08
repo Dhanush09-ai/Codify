@@ -17,13 +17,13 @@
       "source": "/activity",
       "destination": "/src/pages/account/activity.html"
     },
-    {
-      "source": "/settings",
-      "destination": "/src/pages/account-settings.html"
+{
+      "source": "/courses/cpp/:lesson",
+      "destination": "/src/pages/courses/course-lesson.html?course=cpp&file=chapter-1/$1.md"
     },
     {
-      "source": "/courses/:path*",
-      "destination": "/src/pages/courses/course-lesson.html"
+      "source": "/courses/c/:lesson",
+      "destination": "/src/pages/courses/course-lesson.html?course=c&file=chapter-1/$1.md"
     }
   ]
 }
