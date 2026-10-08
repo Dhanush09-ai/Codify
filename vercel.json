@@ -26,11 +26,7 @@
       "destination": "/src/pages/account-settings.html"
     },
     {
-      "source": "/courses/:track",
-      "destination": "/src/pages/courses/course-index.html"
-    },
-    {
-      "source": "/courses/:path*",
+      "source": "/courses/:match*",
       "destination": "/src/pages/courses/course-lesson.html"
     }
   ]
