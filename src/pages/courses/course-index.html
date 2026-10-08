@@ -381,27 +381,26 @@
         (function() {
             const pathSegments = window.location.pathname.split('/').filter(Boolean);
             if (pathSegments.length >= 2 && pathSegments[0] === 'courses') {
-                window.__RESOLVED_COURSE = pathSegments[1]; // e.g., 'cpp'
+                window.__RESOLVED_COURSE = pathSegments[1];[cite: 14]
             } else {
                 const urlParams = new URLSearchParams(window.location.search);
-                window.__RESOLVED_COURSE = urlParams.get('course') || 'c';
+                window.__RESOLVED_COURSE = urlParams.get('course') || 'c';[cite: 14]
             }
         })();
     </script>
 
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
-
-        const urlParams = new URLSearchParams(window.location.search);
+        
         // Use the silent in-memory resolver instead of URL search params
-        const courseParam = window.__RESOLVED_COURSE || 'c';
+        const courseParam = window.__RESOLVED_COURSE || 'c';[cite: 14]
 
         const courseConfigMap = {
-            'c': { id: 'c-101', enrollPage: 'course-enroll.html?course=c', jsonPath: '/src/data/c-syllabus.json' },
-            'python': { id: 'python-101', enrollPage: 'course-enroll.html?course=python', jsonPath: '/src/data/python-syllabus.json' },
-            'cpp': { id: 'cpp-101', enrollPage: 'course-enroll.html?course=cpp', jsonPath: '/src/data/cpp-syllabus.json' },
-            'java': { id: 'java-101', enrollPage: 'course-enroll.html?course=java', jsonPath: '/src/data/java-syllabus.json' },
-            'html': { id: 'html-101', enrollPage: 'course-enroll.html?course=html', jsonPath: '/src/data/html-syllabus.json' }
+            'c': { id: 'c-101', enrollPage: '/src/pages/courses/c/c-enroll.html', jsonPath: '/src/data/c-syllabus.json' },
+            'python': { id: 'python-101', enrollPage: '/src/pages/courses/python/python-enroll.html', jsonPath: '/src/data/python-syllabus.json' },
+            'cpp': { id: 'cpp-101', enrollPage: '/src/pages/courses/cpp/cpp-enroll.html', jsonPath: '/src/data/cpp-syllabus.json' },
+            'java': { id: 'java-101', enrollPage: '/src/pages/courses/java/java-enroll.html', jsonPath: '/src/data/java-syllabus.json' },
+            'html': { id: 'html-101', enrollPage: '/src/pages/courses/html/html-enroll.html', jsonPath: '/src/data/html-syllabus.json' }
         };
 
         const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
@@ -441,29 +440,29 @@
                 let totalTopicsCount = 0;
 
                 syllabusData.chapters.forEach(chapter => {
-    htmlContent += `
-        <section class="chapter-card">
-            <div class="chapter-header">${chapter.chapter_title}</div>
-            <ul class="topic-list">
-    `;
-    chapter.topics.forEach(topic => {
-        totalTopicsCount++;
-        
-        // Extract the clean lesson number/ID (e.g., extracts "1.1" from "chapter-1/1.1-how-the-web-works.md")
-        const lessonId = topic.id || topic.file.split('/').pop().split('-')[0];
+                    htmlContent += `
+                        <section class="chapter-card">
+                            <div class="chapter-header">${chapter.chapter_title}</div>
+                            <ul class="topic-list">
+                    `;
+                    chapter.topics.forEach(topic => {
+                        totalTopicsCount++;
+                        
+                        // Extract the clean lesson number/ID (e.g., extracts "1.1" from "chapter-1/1.1-how-the-web-works.md")[cite: 14]
+                        const lessonId = topic.id || topic.file.split('/').pop().split('-')[0];[cite: 14]
 
-        // UPDATE THE HREF HERE TO USE CLEAN URLS:
-        htmlContent += `
-            <li class="topic-item">
-                <a href="/courses/${courseParam}/${lessonId}" class="topic-link">${topic.title}</a>
-                <span class="status-pill open" data-topic="${topic.file}">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="9"></circle></svg> Incomplete
-                </span>
-            </li>
-        `;
-    });
-    htmlContent += `</ul></section>`;
-});
+                        // Generate clean URLs for each lesson[cite: 14]:
+                        htmlContent += `
+                            <li class="topic-item">
+                                <a href="/courses/${courseParam}/${lessonId}" class="topic-link">${topic.title}</a>[cite: 14]
+                                <span class="status-pill open" data-topic="${topic.file}">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="9"></circle></svg> Incomplete
+                                </span>
+                            </li>
+                        `;
+                    });
+                    htmlContent += `</ul></section>`;
+                });
 
                 container.innerHTML = htmlContent;
 
