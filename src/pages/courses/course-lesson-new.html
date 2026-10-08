@@ -18,7 +18,6 @@
 
     <title>Lesson | Codify</title>
 
-    <!-- Locked, stable Marked.js Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
 
     <style id="authGuardStyle">
@@ -31,7 +30,7 @@
     </script>
 
     <style>
-        /* Live Code Sandbox Preview Modal (Exclusive for HTML / Web interactive previews) */
+        /* Live Code Sandbox Preview Modal */
         .preview-modal-overlay {
             position: fixed;
             top: 0;
@@ -107,7 +106,6 @@
 
     <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-    <!-- TOP HEADER -->
     <header class="codify-main-header">
         <div class="codify-header-container">
             <div class="codify-left-group">
@@ -151,7 +149,6 @@
         </div>
     </header>
 
-    <!-- BREADCRUMB BAR -->
     <header class="codify-breadcrumb-bar">
         <button class="breadcrumb-sidebar-trigger" id="sidebarToggleMobile" aria-label="Toggle Course Index">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -182,17 +179,13 @@
     </header>
 
     <div class="page-wrapper">
-        <!-- SIDEBAR TREE (POPULATED DYNAMICALLY FROM JSON) -->
         <aside class="sidebar-nav" id="sidebarNav">
             <div class="sidebar-header">
                 <h2 class="sidebar-title" id="sidebarCourseTitle">Curriculum</h2>
             </div>
-            <ul class="tree-root" id="sidebarTreeRoot">
-                <!-- Dynamically injected chapters & leaves -->
-            </ul>
+            <ul class="tree-root" id="sidebarTreeRoot"></ul>
         </aside>
 
-        <!-- MARKDOWN LESSON WORKSPACE -->
         <main class="content-workspace">
             <article class="content-body">
                 <header class="content-header-group">
@@ -215,10 +208,8 @@
                     <p style="color: #00aaff; text-align: center;">Rendering lesson module stream...</p>
                 </div>
 
-                <!-- DYNAMIC QUIZ MOUNT CONTAINER -->
                 <div id="dynamicQuizMount"></div>
 
-                <!-- FAST LOADING LESSON COMPLETION CARD -->
                 <div class="lesson-complete-card">
                     <div class="complete-text">
                         <h3>Finished this topic?</h3>
@@ -229,7 +220,6 @@
                     </button>
                 </div>
 
-                <!-- FAST LOADING BOTTOM NAVIGATION ROW -->
                 <div class="content-nav-row bottom-nav-row">
                     <a href="#" class="codify-btn-outline nav-btn" id="prevTopicBtnBtm">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -246,13 +236,11 @@
         </main>
     </div>
 
-    <!-- FOOTER WITH CORE ENGINEERS POPOVER -->
     <footer class="codify-footer">
         <div>
             Built with precision for future developers • Developed by
             <span class="team-hover-wrapper" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="team-trigger">Codify Team</span>
-
                 <div class="team-popover" role="tooltip">
                     <div class="popover-header">Core Engineers</div>
                     <ul class="team-list">
@@ -277,7 +265,6 @@
         </div>
     </footer>
 
-    <!-- ENGINEER MODAL -->
     <div class="modal-overlay" id="engineerModal" aria-hidden="true">
         <div class="modal-card">
             <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
@@ -287,9 +274,7 @@
                 <p id="engId" class="eng-id">ID</p>
                 <span id="engRole" class="eng-role">Role</span>
             </div>
-            <div class="eng-bio-box">
-                <p id="engBio">Bio goes here...</p>
-            </div>
+            <div class="eng-bio-box"><p id="engBio">Bio goes here...</p></div>
             <div class="eng-actions">
                 <a href="#" id="engEmail" class="codify-btn-outline">✉️ Email</a>
                 <a href="#" id="engGithub" class="codify-btn-outline" target="_blank">💻 GitHub</a>
@@ -297,74 +282,13 @@
         </div>
     </div>
 
-    <!-- SEARCH HUD MODAL -->
-    <div class="search-overlay-modal" id="searchOverlayModal" aria-hidden="true">
-        <div class="search-modal-card">
-            <div class="search-modal-header">
-                <svg class="search-icon-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.3-4.3"></path>
-                </svg>
-                <input type="text" id="modalSearchInput" placeholder="Type keywords..." autocomplete="off">
-                <button class="search-modal-close" id="modalSearchClose" aria-label="Close Search">✕</button>
-            </div>
-            <div class="search-results-viewport">
-                <div class="search-results-status" id="searchResultsStatus">Start typing to search your course parameters...</div>
-                <ul class="search-results-list" id="searchResultsList"></ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- PROFESSIONAL LIGHTBOX MODAL WITH ZOOM, PAN & HUD TOAST -->
-    <div class="lightbox-modal" id="globalLightbox" role="dialog" aria-hidden="true">
-        <span class="lightbox-close" id="closeLightbox" title="Close Lightbox">&times;</span>
-        <div class="lightbox-viewport" id="lightboxViewport">
-            <img class="lightbox-img" id="lightboxTargetImg" src="" alt="Active course diagram blueprint view">
-        </div>
-        <div class="lightbox-hud-box" id="lightboxHudBox">
-            <button class="hud-dismiss-btn" id="dismissHudBtn" title="Dismiss Hints">✕</button>
-            <div class="hud-item">
-                <span class="hud-icon">🖱️</span>
-                <span><strong>Mouse / Trackpad:</strong> Scroll to Zoom. Click &amp; Drag to Pan.</span>
-            </div>
-            <div class="hud-divider"></div>
-            <div class="hud-item">
-                <span class="hud-icon">⌨️</span>
-                <span><strong>Shortcuts:</strong> Zoom In <kbd>+</kbd> | Zoom Out <kbd>-</kbd> | Reset View <kbd>0</kbd></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- CODE RUNNER SANDBOX MODAL -->
-    <div class="preview-modal-overlay" id="codePreviewModal" aria-hidden="true">
-        <div class="preview-modal-card">
-            <div class="preview-modal-header">
-                <span>⚡ Live Sandbox Output</span>
-                <button class="preview-close-btn" id="closePreviewBtn" title="Close Preview">✕</button>
-            </div>
-            <iframe class="preview-frame" id="codeSandboxFrame" sandbox="allow-scripts allow-modals"></iframe>
-        </div>
-    </div>
+    <script type="module" src="/src/js/auth/nav-auth.js"></script>
+    <script type="module" src="/src/js/config/supabase-client.js"></script>
 
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const courseParam = urlParams.get('course') || 'c';
-        const fileParam = urlParams.get('file');
-
-        // Course Map configuration mapping handles to database IDs, config files, and folder directories
-        const courseConfigMap = {
-            'c': { id: 'c-101', enrollPage: 'course-enroll.html?course=c', indexPage: 'course-index.html?course=c', jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
-            'python': { id: 'python-101', enrollPage: 'course-enroll.html?course=python', indexPage: 'course-index.html?course=python', jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
-            'cpp': { id: 'cpp-101', enrollPage: 'course-enroll.html?course=cpp', indexPage: 'course-index.html?course=cpp', jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
-            'java': { id: 'java-101', enrollPage: 'course-enroll.html?course=java', indexPage: 'course-index.html?course=java', jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
-            'html': { id: 'html-101', enrollPage: 'course-enroll.html?course=html', indexPage: 'course-index.html?course=html', jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
-        };
-
-        const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
-        const COURSE_ID = activeCourse.id;
+        marked.setOptions({ gfm: true, breaks: true });
 
         function revealPage() {
             document.documentElement.classList.remove('auth-checking');
@@ -372,17 +296,65 @@
             if (style) style.remove();
         }
 
-        async function checkAccess() {
-            const safetyTimer = setTimeout(() => { revealPage(); }, 4000);
+        window.addEventListener('DOMContentLoaded', async () => {
+            await new Promise(resolve => setTimeout(resolve, 80));
 
+            // --- DIRECT PATH PARSER FOR CLEAN URLS ---
+            const pathSegments = window.location.pathname.split('/').filter(Boolean);
+            let courseParam = 'c';
+            let lessonNum = null;
+
+            if (pathSegments.length >= 2 && pathSegments[0] === 'courses') {
+                courseParam = pathSegments[1]; // e.g., 'cpp'
+                lessonNum = pathSegments[2];   // e.g., '1.1'
+            } else {
+                const urlParams = new URLSearchParams(window.location.search);
+                courseParam = urlParams.get('course') || 'c';
+                lessonNum = urlParams.get('lesson');
+            }
+
+            const courseConfigMap = {
+                'c': { id: 'c-101', enrollPage: '/src/pages/courses/c/c-enroll.html', indexPage: `/courses/c`, jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
+                'python': { id: 'python-101', enrollPage: '/src/pages/courses/python/python-enroll.html', indexPage: `/courses/python`, jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
+                'cpp': { id: 'cpp-101', enrollPage: '/src/pages/courses/cpp/cpp-enroll.html', indexPage: `/courses/cpp`, jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
+                'java': { id: 'java-101', enrollPage: '/src/pages/courses/java/java-enroll.html', indexPage: `/courses/java`, jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
+                'html': { id: 'html-101', enrollPage: '/src/pages/courses/html/html-enroll.html', indexPage: `/courses/html`, jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
+            };
+
+            const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
+            const COURSE_ID = activeCourse.id;
+
+            // Fetch syllabus first to resolve the markdown file name from the lesson number (e.g. '1.1')
+            let fileParam = null;
+            try {
+                const syllabusRes = await fetch(activeCourse.jsonPath);
+                if (syllabusRes.ok) {
+                    const syllabusData = await syllabusRes.json();
+                    if (lessonNum) {
+                        for (const ch of syllabusData.chapters) {
+                            const match = ch.topics.find(t => t.file.includes(lessonNum) || (t.id && t.id === lessonNum));
+                            if (match) {
+                                fileParam = match.file;
+                                break;
+                            }
+                        }
+                    }
+                    if (!fileParam && syllabusData.chapters[0]?.topics[0]) {
+                        fileParam = syllabusData.chapters[0].topics[0].file;
+                    }
+                }
+            } catch (e) {
+                console.error("Syllabus resolution error:", e);
+            }
+
+            // Auth & Enrollment Check
             try {
                 const { data: { session } } = await supabase.auth.getSession();
                 const user = session?.user;
 
                 if (!user) {
-                    clearTimeout(safetyTimer);
-                    const returnUrl = encodeURIComponent(window.location.href);
-                    window.location.replace(`/src/auth/login.html?redirect=${returnUrl}`);
+                    revealPage();
+                    window.location.replace(`/src/auth/login.html?redirect=${encodeURIComponent(window.location.href)}`);
                     return;
                 }
 
@@ -394,47 +366,16 @@
                     .maybeSingle();
 
                 if (!enrollment) {
-                    clearTimeout(safetyTimer);
+                    revealPage();
                     window.location.replace(activeCourse.enrollPage);
                     return;
                 }
-
-                clearTimeout(safetyTimer);
                 revealPage();
             } catch (err) {
-                clearTimeout(safetyTimer);
                 revealPage();
             }
-        }
 
-        checkAccess();
-    </script>
-
-    <script type="module">
-        import { supabase } from '/src/js/config/supabase-client.js';
-
-        marked.setOptions({ gfm: true, breaks: true });
-
-        // Wait a split second for the silent resolver to finish, then load content
-        window.addEventListener('DOMContentLoaded', async () => {
-            // Small delay to ensure global resolved variables are ready
-            await new Promise(resolve => setTimeout(resolve, 50));
-
-            const courseParam = window.__RESOLVED_COURSE || 'c';
-            const fileParam = window.__RESOLVED_FILE;
-
-            const courseConfigMap = {
-                'c': { id: 'c-101', indexPage: `course-index.html?course=c`, jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
-                'python': { id: 'python-101', indexPage: `course-index.html?course=python`, jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
-                'cpp': { id: 'cpp-101', indexPage: `course-index.html?course=cpp`, jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
-                'java': { id: 'java-101', indexPage: `course-index.html?course=java`, jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
-                'html': { id: 'html-101', indexPage: `course-index.html?course=html`, jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
-            };
-
-            const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
-            const COURSE_ID = activeCourse.id;
-
-            // Rest of your rendering logic remains the same, using fileParam and courseParam...
+            // Load Syllabus and Markdown Content
             try {
                 const res = await fetch(activeCourse.jsonPath);
                 if (!res.ok) throw new Error('Failed to load syllabus config');
@@ -458,9 +399,8 @@
                     `;
                     ch.topics.forEach(top => {
                         flatTopics.push({ title: top.title, file: top.file });
-                        // Build clean links in the sidebar tree as well
-                        const lessonId = top.file.split('/').pop().split('-')[0];
-                        treeHtml += `<li><a href="/courses/${courseParam}/${lessonId}" class="topic-link" data-title="${top.title}">${top.title}</a></li>`;
+                        const shortId = top.id || top.file.split('/').pop().split('-')[0];
+                        treeHtml += `<li><a href="/courses/${courseParam}/${shortId}" class="topic-link" data-title="${top.title}">${top.title}</a></li>`;
                     });
                     treeHtml += `</ul></li>`;
                 });
@@ -500,41 +440,23 @@
                     }
                 });
 
-                const prevHref = activeIdx > 0 ? `/courses/${courseParam}/${flatTopics[activeIdx - 1].file.split('/').pop().split('-')[0]}` : activeCourse.indexPage;
-                const nextHref = activeIdx >= 0 && activeIdx < flatTopics.length - 1 ? `/courses/${courseParam}/${flatTopics[activeIdx + 1].file.split('/').pop().split('-')[0]}` : activeCourse.indexPage;
+                const prevTopic = activeIdx > 0 ? flatTopics[activeIdx - 1] : null;
+                const nextTopic = activeIdx >= 0 && activeIdx < flatTopics.length - 1 ? flatTopics[activeIdx + 1] : null;
 
-                ['prevTopicBtnTop', 'prevTopicBtnBtm'].forEach(id => { const el = document.getElementById(id); if(el) el.href = prevHref; });
-                ['nextTopicBtnTop', 'nextTopicBtnBtm'].forEach(id => { const el = document.getElementById(id); if(el) el.href = nextHref; });
+                const prevHref = prevTopic ? `/courses/${courseParam}/${prevTopic.id || prevTopic.file.split('/').pop().split('-')[0]}` : activeCourse.indexPage;
+                const nextHref = nextTopic ? `/courses/${courseParam}/${nextTopic.id || nextTopic.file.split('/').pop().split('-')[0]}` : activeCourse.indexPage;
+
+                ['prevTopicBtnTop', 'prevTopicBtnBtm'].forEach(id => { const el = document.getElementById(id); if (el) el.href = prevHref; });
+                ['nextTopicBtnTop', 'nextTopicBtnBtm'].forEach(id => { const el = document.getElementById(id); if (el) el.href = nextHref; });
+
+                // Initialize Progress Tracking
+                initProgress(COURSE_ID, fileParam);
 
             } catch (err) {
                 console.error("Lesson load error:", err);
                 document.getElementById('markdownOutputContainer').innerHTML = `<h2 style="color: #ff5252;">Module Load Error</h2><p>${err.message}</p>`;
             }
         });
-    </script>
-
-    <script type="module" src="/src/js/auth/nav-auth.js"></script>
-    <script type="module" src="/src/js/config/supabase-client.js"></script>
-
-    <script type="module">
-        import { supabase } from '/src/js/config/supabase-client.js';
-
-        marked.setOptions({ gfm: true, breaks: true });
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const courseParam = urlParams.get('course') || 'c';
-        const fileParam = urlParams.get('file');
-
-        const courseConfigMap = {
-            'c': { id: 'c-101', indexPage: 'course-index.html?course=c', jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
-            'python': { id: 'python-101', indexPage: 'course-index.html?course=python', jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
-            'cpp': { id: 'cpp-101', indexPage: 'course-index.html?course=cpp', jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
-            'java': { id: 'java-101', indexPage: 'course-index.html?course=java', jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
-            'html': { id: 'html-101', indexPage: 'course-index.html?course=html', jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
-        };
-
-        const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
-        const COURSE_ID = activeCourse.id;
 
         function applyCyberStyles(container) {
             container.querySelectorAll('table').forEach(table => {
@@ -652,7 +574,7 @@
 
             let quizHTML = `<div class="interactive-quiz-container">`;
             questionBlocks.forEach((qBlock, idx) => {
-                const firstOptionIndex = qBlock.search(/\n\s*-\s*\[[ x]\]/i);
+                const firstOptionIndex = qBlock.search(/\n\s*-\s*[[ x]]/i);
                 let rawPrompt = firstOptionIndex !== -1 ? qBlock.substring(0, firstOptionIndex).trim() : qBlock.trim();
                 let rawOptions = firstOptionIndex !== -1 ? qBlock.substring(firstOptionIndex).trim() : '';
 
@@ -694,97 +616,7 @@
             }
         }
 
-        async function loadSyllabusAndLesson() {
-            try {
-                const res = await fetch(activeCourse.jsonPath);
-                if (!res.ok) throw new Error('Failed to load syllabus config');
-                const syllabus = await res.json();
-
-                document.getElementById('sidebarCourseTitle').textContent = `${syllabus.course_title.split(' ')[0]} Curriculum`;
-                document.getElementById('breadcrumbCourseLink').textContent = `${syllabus.course_title.split(' ')[0]} Syllabus`;
-                document.getElementById('breadcrumbCourseLink').href = activeCourse.indexPage;
-
-                let treeHtml = '';
-                let flatTopics = [];
-
-                syllabus.chapters.forEach((ch, cIdx) => {
-                    treeHtml += `
-                        <li class="tree-branch">
-                            <div class="tree-node">
-                                <span class="tree-arrow"><svg width="14" height="14" viewBox="0 0 15 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"></path></svg></span>
-                                <span class="chapter-title">${ch.chapter_title}</span>
-                            </div>
-                            <ul class="tree-leaves">
-                    `;
-                    ch.topics.forEach(top => {
-                        flatTopics.push({ title: top.title, file: top.file });
-                        treeHtml += `<li><a href="course-lesson.html?course=${courseParam}&file=${top.file}" class="topic-link" data-title="${top.title}">${top.title}</a></li>`;
-                    });
-                    treeHtml += `</ul></li>`;
-                });
-
-                document.getElementById('sidebarTreeRoot').innerHTML = treeHtml;
-
-                document.querySelectorAll('.tree-node').forEach(node => {
-                    node.onclick = (e) => {
-                        e.stopPropagation();
-                        toggleBranch(node.closest('.tree-branch'));
-                    };
-                });
-
-                const defaultFile = flatTopics.length > 0 ? flatTopics[0].file : '';
-                const targetFile = fileParam || defaultFile;
-                const targetUrl = `${window.location.origin}${activeCourse.baseDir}${targetFile}`;
-
-                const mdRes = await fetch(targetUrl);
-                if (!mdRes.ok) throw new Error(`Could not fetch markdown file: ${targetFile}`);
-
-                let mdText = await mdRes.text();
-                mdText = compileMarkdownQuiz(mdText);
-
-                const container = document.getElementById('markdownOutputContainer');
-                container.innerHTML = marked.parse(mdText);
-                applyCyberStyles(container);
-
-                let activeIdx = flatTopics.findIndex(t => t.file.includes(targetFile));
-                document.querySelectorAll('.tree-leaves a').forEach((l, idx) => {
-                    if (idx === activeIdx) {
-                        l.classList.add('active');
-                        toggleBranch(l.closest('.tree-branch'), true);
-                        const title = l.getAttribute('data-title');
-                        document.getElementById('breadcrumbCurrent').textContent = title;
-                        document.getElementById('pageMainHeading').textContent = title;
-                        document.title = `${title} | Codify`;
-                    }
-                });
-
-                const prevHref = activeIdx > 0 ? `course-lesson.html?course=${courseParam}&file=${flatTopics[activeIdx - 1].file}` : activeCourse.indexPage;
-                const nextHref = activeIdx >= 0 && activeIdx < flatTopics.length - 1 ? `course-lesson.html?course=${courseParam}&file=${flatTopics[activeIdx + 1].file}` : activeCourse.indexPage;
-
-                ['prevTopicBtnTop', 'prevTopicBtnBtm'].forEach(id => document.getElementById(id).href = prevHref);
-                ['nextTopicBtnTop', 'nextTopicBtnBtm'].forEach(id => document.getElementById(id).href = nextHref);
-
-            } catch (err) {
-                console.error("Lesson load error:", err);
-                document.getElementById('markdownOutputContainer').innerHTML = `<h2 style="color: #ff5252;">Module Load Error</h2><p>${err.message}</p>`;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', loadSyllabusAndLesson);
-
-        // Sidebar mobile toggle
-        const sidebarToggleMobile = document.getElementById('sidebarToggleMobile');
-        const sidebar = document.getElementById('sidebarNav');
-        const backdrop = document.getElementById('navBackdrop');
-        if (sidebarToggleMobile && sidebar) {
-            sidebarToggleMobile.onclick = () => {
-                sidebar.classList.toggle('mobile-active');
-                backdrop.classList.toggle('active');
-            };
-        }
-        if (backdrop) backdrop.onclick = () => { sidebar.classList.remove('mobile-active'); backdrop.classList.remove('active'); };
-
-        // Quiz sequential handlers
+        // Quiz handlers
         window.handleAnswer = (btn, isCorrect, qNum) => {
             const allBtns = btn.parentElement.querySelectorAll('.q-option');
             allBtns.forEach(b => b.classList.add('locked'));
@@ -801,12 +633,13 @@
         };
 
         // Progress Tracking & Completion
-        let isCompleted = false;
-        async function initProgress() {
+        async function initProgress(courseId, fileKey) {
             const { data: { user } } = await supabase.auth.getUser();
-            if (!user || !fileParam) return;
+            if (!user || !fileKey) return;
 
-            const { data } = await supabase.from('user_progress').select('completed').eq('user_id', user.id).eq('course_id', COURSE_ID).eq('lesson_id', fileParam).maybeSingle();
+            let isCompleted = false;
+            const { data } = await supabase.from('user_progress').select('completed').eq('user_id', user.id).eq('course_id', courseId).eq('lesson_id', fileKey).maybeSingle();
+            
             if (data?.completed) {
                 isCompleted = true;
                 const btn = document.getElementById('markCompleteBtn');
@@ -821,15 +654,26 @@
                 if (isCompleted) {
                     btn.classList.add('is-completed');
                     btnText.textContent = '✓ Completed';
-                    await supabase.from('user_progress').upsert({ user_id: user.id, course_id: COURSE_ID, lesson_id: fileParam, completed: true });
+                    await supabase.from('user_progress').upsert({ user_id: user.id, course_id: courseId, lesson_id: fileKey, completed: true });
                 } else {
                     btn.classList.remove('is-completed');
                     btnText.textContent = 'Mark as Completed';
-                    await supabase.from('user_progress').delete().eq('user_id', user.id).eq('course_id', COURSE_ID).eq('lesson_id', fileParam);
+                    await supabase.from('user_progress').delete().eq('user_id', user.id).eq('course_id', courseId).eq('lesson_id', fileKey);
                 }
             };
         }
-        document.addEventListener('DOMContentLoaded', initProgress);
+
+        // Sidebar mobile toggle
+        const sidebarToggleMobile = document.getElementById('sidebarToggleMobile');
+        const sidebar = document.getElementById('sidebarNav');
+        const backdrop = document.getElementById('navBackdrop');
+        if (sidebarToggleMobile && sidebar) {
+            sidebarToggleMobile.onclick = () => {
+                sidebar.classList.toggle('mobile-active');
+                backdrop.classList.toggle('active');
+            };
+        }
+        if (backdrop) backdrop.onclick = () => { sidebar.classList.remove('mobile-active'); backdrop.classList.remove('active'); };
     </script>
 </body>
 
