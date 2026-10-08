@@ -3,30 +3,30 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "src/pages/index.html"
+      "destination": "/src/pages/index.html"
     },
     {
       "source": "/courses",
-      "destination": "src/pages/courses.html"
+      "destination": "/src/pages/courses.html"
     },
     {
       "source": "/contact",
-      "destination": "src/pages/contact.html"
+      "destination": "/src/pages/contact.html"
     },
     {
       "source": "/profile",
-      "destination": "src/pages/account/profile.html"
+      "destination": "/src/pages/account/profile.html"
     },
     {
       "source": "/activity",
-      "destination": "src/pages/account/activity.html"
+      "destination": "/src/pages/account/activity.html"
     },
     {
       "source": "/settings",
-      "destination": "src/pages/account-settings.html"
+      "destination": "/src/pages/account-settings.html"
     },
-{
-      "source": "/courses/:match*",
+    {
+      "source": "/courses/:path*",
       "destination": "/src/pages/courses/view.html"
     }
   ]
