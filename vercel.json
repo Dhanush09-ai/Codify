@@ -30,7 +30,7 @@
       "destination": "/src/pages/courses/course-index.html"
     },
     {
-      "source": "/courses/:track/:lesson",
+      "source": "/courses/:path*",
       "destination": "/src/pages/courses/course-lesson.html"
     }
   ]
