@@ -375,20 +375,6 @@
     <script type="module" src="/src/js/auth/nav-auth.js"></script>
     <script type="module" src="/src/js/config/supabase-client.js"></script>
 
-    <script>
-        // --- SILENT TRACK PATH RESOLVER ---
-        window.__RESOLVED_COURSE = null;
-        (function() {
-            const pathSegments = window.location.pathname.split('/').filter(Boolean);
-            if (pathSegments.length >= 2 && pathSegments[0] === 'courses') {
-                window.__RESOLVED_COURSE = pathSegments[1];
-            } else {
-                const urlParams = new URLSearchParams(window.location.search);
-                window.__RESOLVED_COURSE = urlParams.get('course') || 'c';
-            }
-        })();
-    </script>
-
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
