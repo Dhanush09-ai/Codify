@@ -416,15 +416,18 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        // --- CLEAN URL AUTO-PARSER INTERCEPTOR ---
+        // --- SILENT PATH RESOLVER (KEEPS URL 100% CLEAN) ---
+        window.__RESOLVED_COURSE = null;
+        window.__RESOLVED_FILE = null;
+
         (async function() {
             const pathSegments = window.location.pathname.split('/').filter(Boolean);
             const urlParams = new URLSearchParams(window.location.search);
 
-            // Checks if path is structured like /courses/cpp/1.2 and file query is missing
-            if (pathSegments.length >= 3 && pathSegments[0] === 'courses' && !urlParams.has('file')) {
-                const track = pathSegments[1]; 
-                const lessonNum = pathSegments[2]; 
+            // 1. Check if we are on a clean path like /courses/cpp/1.1
+            if (pathSegments.length >= 3 && pathSegments[0] === 'courses') {
+                window.__RESOLVED_COURSE = pathSegments[1];
+                const lessonNum = pathSegments[2];
 
                 try {
                     const syllabusMap = {
@@ -435,7 +438,7 @@
                         'html': '/src/data/html-syllabus.json'
                     };
 
-                    const res = await fetch(syllabusMap[track] || syllabusMap['c']);
+                    const res = await fetch(syllabusMap[window.__RESOLVED_COURSE] || syllabusMap['c']);
                     if (res.ok) {
                         const syllabus = await res.json();
                         let foundFile = null;
@@ -446,15 +449,15 @@
                                 break;
                             }
                         }
-                        if (foundFile) {
-                            // Inject query params into history state so the rest of the page loads normally
-                            const newQuery = `?course=${track}&file=${encodeURIComponent(foundFile)}`;
-                            window.history.replaceState({}, '', window.location.pathname + newQuery);
-                        }
+                        window.__RESOLVED_FILE = foundFile || `chapter-1/${lessonNum}.md`;
                     }
                 } catch (err) {
-                    console.error("Clean URL resolution error:", err);
+                    console.error("Path resolution error:", err);
                 }
+            } else {
+                // Fallback to traditional query params if accessed via old links
+                window.__RESOLVED_COURSE = urlParams.get('course') || 'c';
+                window.__RESOLVED_FILE = urlParams.get('file');
             }
         })();
     </script>
