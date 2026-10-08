@@ -350,64 +350,50 @@
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const courseParam = urlParams.get('course') || 'c';
-        const fileParam = urlParams.get('file');
+        // --- SILENT PATH RESOLVER (KEEPS URL 100% CLEAN) ---
+        window.__RESOLVED_COURSE = null;
+        window.__RESOLVED_FILE = null;
 
-        // Course Map configuration mapping handles to database IDs, config files, and folder directories
-        const courseConfigMap = {
-            'c': { id: 'c-101', enrollPage: 'course-enroll.html?course=c', indexPage: 'course-index.html?course=c', jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
-            'python': { id: 'python-101', enrollPage: 'course-enroll.html?course=python', indexPage: 'course-index.html?course=python', jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
-            'cpp': { id: 'cpp-101', enrollPage: 'course-enroll.html?course=cpp', indexPage: 'course-index.html?course=cpp', jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
-            'java': { id: 'java-101', enrollPage: 'course-enroll.html?course=java', indexPage: 'course-index.html?course=java', jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
-            'html': { id: 'html-101', enrollPage: 'course-enroll.html?course=html', indexPage: 'course-index.html?course=html', jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
-        };
+        (async function() {
+            const pathSegments = window.location.pathname.split('/').filter(Boolean);
+            const urlParams = new URLSearchParams(window.location.search);
 
-        const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
-        const COURSE_ID = activeCourse.id;
+            // 1. Check if we are on a clean path like /courses/cpp/1.1
+            if (pathSegments.length >= 3 && pathSegments[0] === 'courses') {
+                window.__RESOLVED_COURSE = pathSegments[1];
+                const lessonNum = pathSegments[2];
 
-        function revealPage() {
-            document.documentElement.classList.remove('auth-checking');
-            const style = document.getElementById('authGuardStyle');
-            if (style) style.remove();
-        }
+                try {
+                    const syllabusMap = {
+                        'c': '/src/data/c-syllabus.json',
+                        'python': '/src/data/python-syllabus.json',
+                        'cpp': '/src/data/cpp-syllabus.json',
+                        'java': '/src/data/java-syllabus.json',
+                        'html': '/src/data/html-syllabus.json'
+                    };
 
-        async function checkAccess() {
-            const safetyTimer = setTimeout(() => { revealPage(); }, 4000);
-
-            try {
-                const { data: { session } } = await supabase.auth.getSession();
-                const user = session?.user;
-
-                if (!user) {
-                    clearTimeout(safetyTimer);
-                    const returnUrl = encodeURIComponent(window.location.href);
-                    window.location.replace(`/src/auth/login.html?redirect=${returnUrl}`);
-                    return;
+                    const res = await fetch(syllabusMap[window.__RESOLVED_COURSE] || syllabusMap['c']);
+                    if (res.ok) {
+                        const syllabus = await res.json();
+                        let foundFile = null;
+                        for (const chapter of syllabus.chapters) {
+                            const match = chapter.topics.find(topic => topic.file.includes(lessonNum));
+                            if (match) {
+                                foundFile = match.file;
+                                break;
+                            }
+                        }
+                        window.__RESOLVED_FILE = foundFile || `chapter-1/${lessonNum}.md`;
+                    }
+                } catch (err) {
+                    console.error("Path resolution error:", err);
                 }
-
-                const { data: enrollment } = await supabase
-                    .from('user_enrollments')
-                    .select('id')
-                    .eq('user_id', user.id)
-                    .eq('course_id', COURSE_ID)
-                    .maybeSingle();
-
-                if (!enrollment) {
-                    clearTimeout(safetyTimer);
-                    window.location.replace(activeCourse.enrollPage);
-                    return;
-                }
-
-                clearTimeout(safetyTimer);
-                revealPage();
-            } catch (err) {
-                clearTimeout(safetyTimer);
-                revealPage();
+            } else {
+                // Fallback to traditional query params if accessed via old links
+                window.__RESOLVED_COURSE = urlParams.get('course') || 'c';
+                window.__RESOLVED_FILE = urlParams.get('file');
             }
-        }
-
-        checkAccess();
+        })();
     </script>
 
     <script type="module">
