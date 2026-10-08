@@ -292,10 +292,6 @@
         </div>
     </div>
 
-    <script type="module" src="/src/js/auth/nav-auth.js"></script>
-    <script type="module" src="/src/js/config/supabase-client.js"></script>
-
-    <!-- SILENT IN-MEMORY PATH RESOLVER -->
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
@@ -308,7 +304,7 @@
 
             if (pathSegments.length >= 2 && pathSegments[0] === 'courses') {
                 window.__RESOLVED_COURSE = pathSegments[1]; // e.g., 'cpp'
-                const lessonNum = pathSegments[2]; // e.g., '1.1' (undefined if just /courses/cpp)
+                const lessonNum = pathSegments[2]; // e.g., '1.1'
 
                 if (lessonNum) {
                     try {
@@ -337,8 +333,8 @@
                         console.error("Path resolution error:", err);
                     }
                 } else {
-                    // If user visited /courses/cpp without a lesson, redirect them to the first lesson or handle syllabus index view
-                    // Alternatively, you can let it load default course-lesson view or handle index rendering here.
+                    // If user visits /courses/cpp (hub index), redirect them to your course index page cleanly
+                    window.location.replace(`/src/pages/courses/course-index.html?course=${window.__RESOLVED_COURSE}`);
                 }
             } else {
                 window.__RESOLVED_COURSE = urlParams.get('course') || 'c';
@@ -346,6 +342,10 @@
             }
         })();
     </script>
+
+    <script type="module" src="/src/js/auth/nav-auth.js"></script>
+    <script type="module" src="/src/js/config/supabase-client.js"></script>
+
 
     <!-- ACCESS GUARD & LESSON RENDERER -->
     <script type="module">

@@ -1,32 +1,29 @@
 {
   "cleanUrls": true,
-  "routes": [
+  "rewrites": [
     {
-      "src": "^/courses/([^/]+)/([^/]+)$",
-      "destination": "/src/pages/courses/course-lesson.html"
+      "source": "/",
+      "destination": "/src/pages/index.html"
     },
     {
-      "src": "^/courses/([^/]+)$",
-      "destination": "/src/pages/courses/course-index.html"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/contact",
+      "source": "/contact",
       "destination": "/src/pages/contact.html"
     },
     {
-      "src": "/profile",
+      "source": "/profile",
       "destination": "/src/pages/account/profile.html"
     },
     {
-      "src": "/activity",
+      "source": "/activity",
       "destination": "/src/pages/account/activity.html"
     },
     {
-      "src": "/settings",
+      "source": "/settings",
       "destination": "/src/pages/account-settings.html"
+    },
+    {
+      "source": "/courses/(.*)",
+      "destination": "/src/pages/courses/course-lesson.html"
     }
   ]
 }
