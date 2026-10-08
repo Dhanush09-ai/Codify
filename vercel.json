@@ -26,8 +26,12 @@
       "destination": "/src/pages/account-settings.html"
     },
     {
+      "source": "/courses/:track",
+      "destination": "/src/pages/courses/course-index.html?course=:track"
+    },
+    {
       "source": "/courses/:track/:lesson",
-      "destination": "/src/pages/courses/course-lesson.html"
+      "destination": "/src/pages/courses/course-lesson.html?course=:track&lesson=:lesson"
     }
   ]
 }

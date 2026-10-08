@@ -401,26 +401,22 @@
 
         marked.setOptions({ gfm: true, breaks: true });
 
-        // Wait a split second for the silent resolver to finish, then load content
-        window.addEventListener('DOMContentLoaded', async () => {
-            // Small delay to ensure global resolved variables are ready
-            await new Promise(resolve => setTimeout(resolve, 50));
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseParam = urlParams.get('course') || 'c';
+        const lessonNum = urlParams.get('lesson'); // e.g., '1.1'
 
-            const courseParam = window.__RESOLVED_COURSE || 'c';
-            const fileParam = window.__RESOLVED_FILE;
+        const courseConfigMap = {
+            'c': { id: 'c-101', indexPage: '/courses/c', jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
+            'python': { id: 'python-101', indexPage: '/courses/python', jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
+            'cpp': { id: 'cpp-101', indexPage: '/courses/cpp', jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
+            'java': { id: 'java-101', indexPage: '/courses/java', jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
+            'html': { id: 'html-101', indexPage: '/courses/html', jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
+        };
 
-            const courseConfigMap = {
-                'c': { id: 'c-101', indexPage: `course-index.html?course=c`, jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
-                'python': { id: 'python-101', indexPage: `course-index.html?course=python`, jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
-                'cpp': { id: 'cpp-101', indexPage: `course-index.html?course=cpp`, jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
-                'java': { id: 'java-101', indexPage: `course-index.html?course=java`, jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
-                'html': { id: 'html-101', indexPage: `course-index.html?course=html`, jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
-            };
+        const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
+        const COURSE_ID = activeCourse.id;
 
-            const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
-            const COURSE_ID = activeCourse.id;
-
-            // Rest of your rendering logic remains the same, using fileParam and courseParam...
+        async function loadLessonByParam() {
             try {
                 const res = await fetch(activeCourse.jsonPath);
                 if (!res.ok) throw new Error('Failed to load syllabus config');
@@ -444,9 +440,8 @@
                     `;
                     ch.topics.forEach(top => {
                         flatTopics.push({ title: top.title, file: top.file });
-                        // Build clean links in the sidebar tree as well
-                        const lessonId = top.file.split('/').pop().split('-')[0];
-                        treeHtml += `<li><a href="/courses/${courseParam}/${lessonId}" class="topic-link" data-title="${top.title}">${top.title}</a></li>`;
+                        const shortId = top.id || top.file.split('/').pop().split('-')[0];
+                        treeHtml += `<li><a href="/courses/${courseParam}/${shortId}" class="topic-link" data-title="${top.title}">${top.title}</a></li>`;
                     });
                     treeHtml += `</ul></li>`;
                 });
@@ -460,10 +455,22 @@
                     };
                 });
 
-                const defaultFile = flatTopics.length > 0 ? flatTopics[0].file : '';
-                const targetFile = fileParam || defaultFile;
-                const targetUrl = `${window.location.origin}${activeCourse.baseDir}${targetFile}`;
+                // Resolve file from lesson number (e.g. '1.1')
+                let targetFile = null;
+                if (lessonNum) {
+                    for (const ch of syllabus.chapters) {
+                        const match = ch.topics.find(t => t.file.includes(lessonNum) || (t.id && t.id === lessonNum));
+                        if (match) {
+                            targetFile = match.file;
+                            break;
+                        }
+                    }
+                }
+                if (!targetFile && flatTopics.length > 0) {
+                    targetFile = flatTopics[0].file;
+                }
 
+                const targetUrl = `${window.location.origin}${activeCourse.baseDir}${targetFile}`;
                 const mdRes = await fetch(targetUrl);
                 if (!mdRes.ok) throw new Error(`Could not fetch markdown file: ${targetFile}`);
 
@@ -486,17 +493,22 @@
                     }
                 });
 
-                const prevHref = activeIdx > 0 ? `/courses/${courseParam}/${flatTopics[activeIdx - 1].file.split('/').pop().split('-')[0]}` : activeCourse.indexPage;
-                const nextHref = activeIdx >= 0 && activeIdx < flatTopics.length - 1 ? `/courses/${courseParam}/${flatTopics[activeIdx + 1].file.split('/').pop().split('-')[0]}` : activeCourse.indexPage;
+                const prevTopic = activeIdx > 0 ? flatTopics[activeIdx - 1] : null;
+                const nextTopic = activeIdx >= 0 && activeIdx < flatTopics.length - 1 ? flatTopics[activeIdx + 1] : null;
 
-                ['prevTopicBtnTop', 'prevTopicBtnBtm'].forEach(id => { const el = document.getElementById(id); if(el) el.href = prevHref; });
-                ['nextTopicBtnTop', 'nextTopicBtnBtm'].forEach(id => { const el = document.getElementById(id); if(el) el.href = nextHref; });
+                const prevHref = prevTopic ? `/courses/${courseParam}/${prevTopic.id || prevTopic.file.split('/').pop().split('-')[0]}` : activeCourse.indexPage;
+                const nextHref = nextTopic ? `/courses/${courseParam}/${nextTopic.id || nextTopic.file.split('/').pop().split('-')[0]}` : activeCourse.indexPage;
+
+                ['prevTopicBtnTop', 'prevTopicBtnBtm'].forEach(id => { const el = document.getElementById(id); if (el) el.href = prevHref; });
+                ['nextTopicBtnTop', 'nextTopicBtnBtm'].forEach(id => { const el = document.getElementById(id); if (el) el.href = nextHref; });
 
             } catch (err) {
                 console.error("Lesson load error:", err);
                 document.getElementById('markdownOutputContainer').innerHTML = `<h2 style="color: #ff5252;">Module Load Error</h2><p>${err.message}</p>`;
             }
-        });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadLessonByParam);
     </script>
 
     <script type="module" src="/src/js/auth/nav-auth.js"></script>
