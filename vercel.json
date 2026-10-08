@@ -1,6 +1,5 @@
 {
-  "cleanUrls": false,
-  "trailingSlash": false,
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/",
@@ -15,28 +14,20 @@
       "destination": "/src/pages/contact.html"
     },
     {
-      "source": "/certificate",
-      "destination": "/src/pages/certificate.html"
-    },
-    {
-      "source": "/:prefix/profile",
+      "source": "/profile",
       "destination": "/src/pages/account/profile.html"
     },
     {
-      "source": "/:prefix/activity",
+      "source": "/activity",
       "destination": "/src/pages/account/activity.html"
     },
     {
-      "source": "/:prefix/settings",
+      "source": "/settings",
       "destination": "/src/pages/account-settings.html"
     },
     {
-      "source": "/courses/:track/:chapter",
-      "destination": "/src/pages/courses/:track/:chapter.html"
-    },
-    {
-      "source": "/courses/:track/:chapter/:lesson",
-      "destination": "/src/pages/courses/:track/:chapter/:lesson.html"
+      "source": "/courses/:track/:lesson",
+      "destination": "/src/pages/courses/viewer.html"
     }
   ]
 }
