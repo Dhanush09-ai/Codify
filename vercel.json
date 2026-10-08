@@ -25,9 +25,13 @@
       "source": "/settings",
       "destination": "/src/pages/account-settings.html"
     },
-    {
-      "source": "/courses/:match*",
+{
+      "source": "/courses/:track/:lesson",
       "destination": "/src/pages/courses/course-lesson.html"
+    },
+    {
+      "source": "/courses/:track",
+      "destination": "/src/pages/courses/course-index.html"
     }
   ]
 }
