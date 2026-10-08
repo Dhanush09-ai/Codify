@@ -5,10 +5,6 @@
       "source": "/contact",
       "destination": "/src/pages/contact.html"
     },
-{
-      "source": "/contact",
-      "destination": "/src/pages/contact.html"
-    },
     {
       "source": "/activity",
       "destination": "/src/pages/account/activity.html"
