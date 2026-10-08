@@ -22,8 +22,8 @@
       "destination": "/src/pages/account-settings.html"
     },
     {
-      "source": "/courses/(.*)",
-      "destination": "/src/pages/courses/course-lesson.html"
+      "source": "/courses/:path*",
+      "destination": "/src/pages/courses/view.html"
     }
   ]
 }

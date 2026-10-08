@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codify Lesson Viewer</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/global-lesson.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+</head>
+<body>
+    <div class="page-wrapper">
+        <aside class="sidebar-nav" id="sidebarNav">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title" id="sidebarCourseTitle">Curriculum</h2>
+            </div>
+            <ul class="tree-root" id="sidebarTreeRoot"></ul>
+        </aside>
+
+        <main class="content-workspace">
+            <article class="content-body">
+                <header class="content-header-group">
+                    <h1 class="topic-title" id="pageMainHeading">Loading Module...</h1>
+                </header>
+                <div id="markdownOutputContainer">
+                    <p style="color: #00aaff; text-align: center;">Fetching lesson content...</p>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <script type="module">
+        import { supabase } from '/src/js/config/supabase-client.js';
+
+        marked.setOptions({ gfm: true, breaks: true });
+
+        async function initViewer() {
+            // 1. Parse clean URL segments e.g. /courses/cpp/1.1
+            const segments = window.location.pathname.split('/').filter(Boolean);
+            // segments[0] = 'courses', segments[1] = 'cpp', segments[2] = '1.1' (lesson) or undefined (track hub)
+
+            if (segments.length < 2 || segments[0] !== 'courses') {
+                window.location.replace('/src/pages/courses.html');
+                return;
+            }
+
+            const track = segments[1];
+            const lessonId = segments[2];
+
+            // Course map configuration
+            const courseConfigMap = {
+                'c': { id: 'c-101', jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
+                'python': { id: 'python-101', jsonPath: '/src/data/python-syllabus.json', baseDir: '/src/pages/courses/python/' },
+                'cpp': { id: 'cpp-101', jsonPath: '/src/data/cpp-syllabus.json', baseDir: '/src/pages/courses/cpp/' },
+                'java': { id: 'java-101', jsonPath: '/src/data/java-syllabus.json', baseDir: '/src/pages/courses/java/' },
+                'html': { id: 'html-101', jsonPath: '/src/data/html-syllabus.json', baseDir: '/src/pages/courses/html/' }
+            };
+
+            const activeCourse = courseConfigMap[track] || courseConfigMap['c'];
+
+            try {
+                const res = await fetch(activeCourse.jsonPath);
+                if (!res.ok) throw new Error('Syllabus config load failed.');
+                const syllabus = await res.json();
+
+                document.getElementById('sidebarCourseTitle').textContent = `${syllabus.course_title.split(' ')[0]} Curriculum`;
+
+                // Build sidebar tree dynamically
+                let treeHtml = '';
+                let flatTopics = [];
+
+                syllabus.chapters.forEach(ch => {
+                    treeHtml += `<li class="tree-branch"><div class="tree-node"><span class="chapter-title">${ch.chapter_title}</span></div><ul class="tree-leaves">`;
+                    ch.topics.forEach(top => {
+                        flatTopics.push({ title: top.title, file: top.file });
+                        const shortId = top.id || top.file.split('/').pop().split('-')[0];
+                        treeHtml += `<li><a href="/courses/${track}/${shortId}" class="topic-link">${top.title}</a></li>`;
+                    });
+                    treeHtml += `</ul></li>`;
+                });
+                document.getElementById('sidebarTreeRoot').innerHTML = treeHtml;
+
+                // If user visited just /courses/cpp (Hub Index), display track overview or redirect to first topic
+                if (!lessonId) {
+                    document.getElementById('pageMainHeading').textContent = syllabus.course_title;
+                    document.getElementById('markdownOutputContainer').innerHTML = `<h2>Welcome to ${syllabus.course_title}</h2><p>Select a topic from the sidebar curriculum to begin.</p>`;
+                    return;
+                }
+
+                // Find matching markdown file from syllabus based on lessonId (e.g. '1.1')
+                let foundFile = null;
+                for (const chapter of syllabus.chapters) {
+                    const match = chapter.topics.find(t => t.file.includes(lessonId) || (t.id && t.id === lessonId));
+                    if (match) {
+                        foundFile = match.file;
+                        break;
+                    }
+                }
+
+                if (!foundFile) throw new Error('Lesson topic not found.');
+
+                // Fetch and render markdown file
+                const mdRes = await fetch(`${activeCourse.baseDir}${foundFile}`);
+                if (!mdRes.ok) throw new Error('Could not fetch markdown file.');
+                const mdText = await mdRes.text();
+
+                document.getElementById('markdownOutputContainer').innerHTML = marked.parse(mdText);
+
+                // Highlight active topic
+                flatTopics.forEach(t => {
+                    if (t.file === foundFile) {
+                        document.getElementById('pageMainHeading').textContent = t.title;
+                        document.title = `${t.title} | Codify`;
+                    }
+                });
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('markdownOutputContainer').innerHTML = `<h2 style="color: #ff5252;">Error Loading Module</h2><p>${err.message}</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initViewer);
+    </script>
+</body>
+</html>
