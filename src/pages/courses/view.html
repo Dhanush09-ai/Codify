@@ -9,39 +9,48 @@
     <div id="appContainer" style="color: #fff; padding: 40px; font-family: sans-serif;">Loading lesson content...</div>
 
     <script>
-    (function() {
-        const pathSegments = window.location.pathname.split('/').filter(Boolean);
-        
-        if (pathSegments.length >= 3 && pathSegments[0] === 'courses') {
-            const track = pathSegments[1]; // e.g., 'html'
-            const lessonNum = pathSegments[2]; // e.g., '1.1'
+(function() {
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    
+    if (pathSegments.length >= 3 && pathSegments[0] === 'courses') {
+        const track = pathSegments[1]; // e.g., 'html'
+        const lessonNum = pathSegments[2]; // e.g., '1.1'
 
-            const urlParams = new URLSearchParams(window.location.search);
-            if (!urlParams.has('course') || !urlParams.has('file')) {
-                const fileMapping = {
-                    '1.1': 'chapter-1/1.1-how-the-web-works.md',
-                    '1.2': 'chapter-1/1.2-structure-of-html-page.md',
-                    // Add more lesson mappings here as your curriculum grows
-                };
+        // Automatically fetch the track's syllabus JSON to find the correct file path
+        fetch(`/src/data/${track}-syllabus.json`)
+            .then(res => res.json())
+            .then(syllabus => {
+                let foundFile = null;
 
-                const matchedFile = fileMapping[lessonNum] || `chapter-1/${lessonNum}.md`;
+                // Search through chapters and topics to match the lesson number/id
+                for (const chapter of syllabus.chapters) {
+                    const match = chapter.topics.find(topic => {
+                        // Extracts ID or matches filename prefix (e.g., "1.1")
+                        return topic.file.includes(lessonNum);
+                    });
+                    if (match) {
+                        foundFile = match.file;
+                        break;
+                    }
+                }
+
+                // Fallback if not found in JSON
+                const matchedFile = foundFile || `chapter-1/${lessonNum}.md`;
                 const targetUrl = `/src/pages/courses/course-lesson.html?course=${track}&file=${encodeURIComponent(matchedFile)}`;
                 
-                // Fetch the template and render it directly into the browser
-                fetch(targetUrl)
-                    .then(response => response.text())
-                    .then(html => {
-                        document.open();
-                        document.write(html);
-                        document.close();
-                    })
-                    .catch(err => {
-                        console.error("Error loading lesson:", err);
-                        document.getElementById('appContainer').textContent = "Failed to load lesson content.";
-                    });
-            }
-        }
-    })();
-    </script>
+                return fetch(targetUrl);
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.open();
+                document.write(html);
+                document.close();
+            })
+            .catch(err => {
+                console.error("Error loading lesson route:", err);
+            });
+    }
+})();
+</script>
 </body>
 </html>
