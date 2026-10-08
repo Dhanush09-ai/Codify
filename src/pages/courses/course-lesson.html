@@ -306,34 +306,39 @@
             const pathSegments = window.location.pathname.split('/').filter(Boolean);
             const urlParams = new URLSearchParams(window.location.search);
 
-            if (pathSegments.length >= 3 && pathSegments[0] === 'courses') {
-                window.__RESOLVED_COURSE = pathSegments[1];
-                const lessonNum = pathSegments[2];
+            if (pathSegments.length >= 2 && pathSegments[0] === 'courses') {
+                window.__RESOLVED_COURSE = pathSegments[1]; // e.g., 'cpp'
+                const lessonNum = pathSegments[2]; // e.g., '1.1' (undefined if just /courses/cpp)
 
-                try {
-                    const syllabusMap = {
-                        'c': '/src/data/c-syllabus.json',
-                        'python': '/src/data/python-syllabus.json',
-                        'cpp': '/src/data/cpp-syllabus.json',
-                        'java': '/src/data/java-syllabus.json',
-                        'html': '/src/data/html-syllabus.json'
-                    };
+                if (lessonNum) {
+                    try {
+                        const syllabusMap = {
+                            'c': '/src/data/c-syllabus.json',
+                            'python': '/src/data/python-syllabus.json',
+                            'cpp': '/src/data/cpp-syllabus.json',
+                            'java': '/src/data/java-syllabus.json',
+                            'html': '/src/data/html-syllabus.json'
+                        };
 
-                    const res = await fetch(syllabusMap[window.__RESOLVED_COURSE] || syllabusMap['c']);
-                    if (res.ok) {
-                        const syllabus = await res.json();
-                        let foundFile = null;
-                        for (const chapter of syllabus.chapters) {
-                            const match = chapter.topics.find(topic => topic.file.includes(lessonNum));
-                            if (match) {
-                                foundFile = match.file;
-                                break;
+                        const res = await fetch(syllabusMap[window.__RESOLVED_COURSE] || syllabusMap['c']);
+                        if (res.ok) {
+                            const syllabus = await res.json();
+                            let foundFile = null;
+                            for (const chapter of syllabus.chapters) {
+                                const match = chapter.topics.find(topic => topic.file.includes(lessonNum));
+                                if (match) {
+                                    foundFile = match.file;
+                                    break;
+                                }
                             }
+                            window.__RESOLVED_FILE = foundFile || `chapter-1/${lessonNum}.md`;
                         }
-                        window.__RESOLVED_FILE = foundFile || `chapter-1/${lessonNum}.md`;
+                    } catch (err) {
+                        console.error("Path resolution error:", err);
                     }
-                } catch (err) {
-                    console.error("Path resolution error:", err);
+                } else {
+                    // If user visited /courses/cpp without a lesson, redirect them to the first lesson or handle syllabus index view
+                    // Alternatively, you can let it load default course-lesson view or handle index rendering here.
                 }
             } else {
                 window.__RESOLVED_COURSE = urlParams.get('course') || 'c';
