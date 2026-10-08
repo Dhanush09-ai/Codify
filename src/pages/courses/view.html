@@ -8,47 +8,43 @@
 <body>
     <div id="appContainer" style="color: #fff; padding: 40px; font-family: sans-serif;">Loading lesson content...</div>
 
-    <script>
-(function() {
+<script>
+(async function() {
     const pathSegments = window.location.pathname.split('/').filter(Boolean);
     
+    // Checks if path is structured like /courses/cpp/1.2
     if (pathSegments.length >= 3 && pathSegments[0] === 'courses') {
-        const track = pathSegments[1]; // e.g., 'html'
-        const lessonNum = pathSegments[2]; // e.g., '1.1'
+        const track = pathSegments[1]; 
+        const lessonNum = pathSegments[2]; 
 
-        // Automatically fetch the track's syllabus JSON to find the correct file path
-        fetch(`/src/data/${track}-syllabus.json`)
-            .then(res => res.json())
-            .then(syllabus => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('file')) {
+            try {
+                // Fetch the track's syllabus JSON to find the matching markdown file
+                const res = await fetch(`/src/data/${track}-syllabus.json`);
+                if (!res.ok) throw new Error("Syllabus not found");
+                const syllabus = await res.json();
+
                 let foundFile = null;
-
-                // Search through chapters and topics to match the lesson number/id
                 for (const chapter of syllabus.chapters) {
-                    const match = chapter.topics.find(topic => {
-                        // Extracts ID or matches filename prefix (e.g., "1.1")
-                        return topic.file.includes(lessonNum);
-                    });
+                    const match = chapter.topics.find(topic => topic.file.includes(lessonNum));
                     if (match) {
                         foundFile = match.file;
                         break;
                     }
                 }
 
-                // Fallback if not found in JSON
                 const matchedFile = foundFile || `chapter-1/${lessonNum}.md`;
-                const targetUrl = `/src/pages/courses/course-lesson.html?course=${track}&file=${encodeURIComponent(matchedFile)}`;
                 
-                return fetch(targetUrl);
-            })
-            .then(response => response.text())
-            .then(html => {
-                document.open();
-                document.write(html);
-                document.close();
-            })
-            .catch(err => {
-                console.error("Error loading lesson route:", err);
-            });
+                // Silently inject the query parameters into the history so your existing 
+                // script reads ?course=cpp&file=... without a redirect flicker
+                const newQuery = `?course=${track}&file=${encodeURIComponent(matchedFile)}`;
+                window.history.replaceState({}, '', window.location.pathname + newQuery);
+
+            } catch (err) {
+                console.error("Auto-routing error:", err);
+            }
+        }
     }
 })();
 </script>
