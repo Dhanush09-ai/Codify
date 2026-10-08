@@ -18,7 +18,6 @@
 
     <title>Lesson | Codify</title>
 
-    <!-- Locked, stable Marked.js Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
 
     <style id="authGuardStyle">
@@ -107,7 +106,6 @@
 
     <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-    <!-- TOP HEADER -->
     <header class="codify-main-header">
         <div class="codify-header-container">
             <div class="codify-left-group">
@@ -151,7 +149,6 @@
         </div>
     </header>
 
-    <!-- BREADCRUMB BAR -->
     <header class="codify-breadcrumb-bar">
         <button class="breadcrumb-sidebar-trigger" id="sidebarToggleMobile" aria-label="Toggle Course Index">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -182,7 +179,6 @@
     </header>
 
     <div class="page-wrapper">
-        <!-- SIDEBAR TREE -->
         <aside class="sidebar-nav" id="sidebarNav">
             <div class="sidebar-header">
                 <h2 class="sidebar-title" id="sidebarCourseTitle">Curriculum</h2>
@@ -190,7 +186,6 @@
             <ul class="tree-root" id="sidebarTreeRoot"></ul>
         </aside>
 
-        <!-- MARKDOWN LESSON WORKSPACE -->
         <main class="content-workspace">
             <article class="content-body">
                 <header class="content-header-group">
@@ -213,10 +208,8 @@
                     <p style="color: #00aaff; text-align: center;">Rendering lesson module stream...</p>
                 </div>
 
-                <!-- DYNAMIC QUIZ MOUNT -->
                 <div id="dynamicQuizMount"></div>
 
-                <!-- LESSON COMPLETION CARD -->
                 <div class="lesson-complete-card">
                     <div class="complete-text">
                         <h3>Finished this topic?</h3>
@@ -227,7 +220,6 @@
                     </button>
                 </div>
 
-                <!-- BOTTOM NAVIGATION ROW -->
                 <div class="content-nav-row bottom-nav-row">
                     <a href="#" class="codify-btn-outline nav-btn" id="prevTopicBtnBtm">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -244,7 +236,6 @@
         </main>
     </div>
 
-    <!-- FOOTER -->
     <footer class="codify-footer">
         <div>
             Built with precision for future developers • Developed by
@@ -274,7 +265,6 @@
         </div>
     </footer>
 
-    <!-- MODALS AND LIGHTBOX -->
     <div class="modal-overlay" id="engineerModal" aria-hidden="true">
         <div class="modal-card">
             <button class="modal-close-btn" id="closeEngineerModal" aria-label="Close">✕</button>
@@ -295,8 +285,6 @@
     <script type="module" src="/src/js/auth/nav-auth.js"></script>
     <script type="module" src="/src/js/config/supabase-client.js"></script>
 
-
-    <!-- ACCESS GUARD & LESSON RENDERER -->
     <script type="module">
         import { supabase } from '/src/js/config/supabase-client.js';
 
@@ -311,8 +299,19 @@
         window.addEventListener('DOMContentLoaded', async () => {
             await new Promise(resolve => setTimeout(resolve, 80));
 
-            const courseParam = window.__RESOLVED_COURSE || 'c';
-            const fileParam = window.__RESOLVED_FILE;
+            // --- DIRECT PATH PARSER FOR CLEAN URLS ---
+            const pathSegments = window.location.pathname.split('/').filter(Boolean);
+            let courseParam = 'c';
+            let lessonNum = null;
+
+            if (pathSegments.length >= 2 && pathSegments[0] === 'courses') {
+                courseParam = pathSegments[1]; // e.g., 'cpp'
+                lessonNum = pathSegments[2];   // e.g., '1.1'
+            } else {
+                const urlParams = new URLSearchParams(window.location.search);
+                courseParam = urlParams.get('course') || 'c';
+                lessonNum = urlParams.get('lesson');
+            }
 
             const courseConfigMap = {
                 'c': { id: 'c-101', enrollPage: '/src/pages/courses/c/c-enroll.html', indexPage: `/courses/c`, jsonPath: '/src/data/c-syllabus.json', baseDir: '/src/pages/courses/c/' },
@@ -324,6 +323,29 @@
 
             const activeCourse = courseConfigMap[courseParam] || courseConfigMap['c'];
             const COURSE_ID = activeCourse.id;
+
+            // Fetch syllabus first to resolve the markdown file name from the lesson number (e.g. '1.1')
+            let fileParam = null;
+            try {
+                const syllabusRes = await fetch(activeCourse.jsonPath);
+                if (syllabusRes.ok) {
+                    const syllabusData = await syllabusRes.json();
+                    if (lessonNum) {
+                        for (const ch of syllabusData.chapters) {
+                            const match = ch.topics.find(t => t.file.includes(lessonNum) || (t.id && t.id === lessonNum));
+                            if (match) {
+                                fileParam = match.file;
+                                break;
+                            }
+                        }
+                    }
+                    if (!fileParam && syllabusData.chapters[0]?.topics[0]) {
+                        fileParam = syllabusData.chapters[0].topics[0].file;
+                    }
+                }
+            } catch (e) {
+                console.error("Syllabus resolution error:", e);
+            }
 
             // Auth & Enrollment Check
             try {
@@ -377,8 +399,8 @@
                     `;
                     ch.topics.forEach(top => {
                         flatTopics.push({ title: top.title, file: top.file });
-                        const lessonId = top.id || top.file.split('/').pop().split('-')[0];
-                        treeHtml += `<li><a href="/courses/${courseParam}/${lessonId}" class="topic-link" data-title="${top.title}">${top.title}</a></li>`;
+                        const shortId = top.id || top.file.split('/').pop().split('-')[0];
+                        treeHtml += `<li><a href="/courses/${courseParam}/${shortId}" class="topic-link" data-title="${top.title}">${top.title}</a></li>`;
                     });
                     treeHtml += `</ul></li>`;
                 });
