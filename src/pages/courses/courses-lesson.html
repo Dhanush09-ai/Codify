@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // Automatically translate clean URL path into your backend file parameters on page load
+    (function() {
+        const pathSegments = window.location.pathname.split('/').filter(Boolean);
+        // Expected path: ['courses', 'html', '1.1']
+        
+        if (pathSegments.length >= 3 && pathSegments[0] === 'courses') {
+            const track = pathSegments[1]; // e.g., 'html'
+            const lessonNum = pathSegments[2]; // e.g., '1.1'
+
+            // Check if the URL already has query parameters; if not, inject or handle the mapping
+            const urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.has('course') || !urlParams.has('file')) {
+                // Map your lesson numbers to your actual markdown filenames here or via a lookup map
+                const fileMapping = {
+                    '1.1': 'chapter-1/1.1-how-the-web-works.md',
+                    '1.2': 'chapter-1/1.2-structure-of-html-page.md',
+                    // Add other mappings as needed
+                };
+
+                const matchedFile = fileMapping[lessonNum] || `chapter-1/${lessonNum}.md`;
+                
+                // Silently update the URL's internal query state or fetch the markdown directly
+                const targetUrl = `/src/pages/courses/course-lesson.html?course=${track}&file=${encodeURIComponent(matchedFile)}`;
+                
+                // Fetch and render the content dynamically without forcing a browser redirect
+                fetch(targetUrl)
+                    .then(response => response.text())
+                    .then(html => {
+                        // If your page loads content dynamically, insert it here, 
+                        // or reload with the proper query params behind the clean URL mask
+                    });
+            }
+        }
+    })();
+</script>
+</body>
+</html>
